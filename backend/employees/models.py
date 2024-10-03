@@ -1,11 +1,12 @@
 from django.db import models
+from backend.config import MIN_LENGTH, MAX_LENGTH
 
 
 class Position(models.Model):
     """Модель должности."""
 
     name = models.CharField(
-        max_length=100,
+        max_length=MAX_LENGTH,
         verbose_name="Название должности",
         unique=True,
     )
@@ -13,7 +14,7 @@ class Position(models.Model):
     class Meta:
         verbose_name = "Должность"
         verbose_name_plural = "Должности"
-        ordering = ["name"]
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -23,7 +24,7 @@ class Team(models.Model):
     """Модель команды."""
 
     name = models.CharField(
-        max_length=100,
+        max_length=MAX_LENGTH,
         verbose_name="Название команды",
         unique=True
     )
@@ -31,7 +32,7 @@ class Team(models.Model):
     class Meta:
         verbose_name = "Команда"
         verbose_name_plural = "Команды"
-        ordering = ["name"]
+        ordering = ("name",)
 
     def __str__(self):
         return self.name
@@ -40,14 +41,29 @@ class Team(models.Model):
 class Employee(models.Model):
     """Модель сотрудника."""
 
+    JUNIOR = "Junior"
+    MIDDLE = "Middle"
+    SENIOR = "Senior"
+    INTERN = "Intern"
+    LEAD = "Lead"
+    HEAD = "Head"
+
+    GRADE_CHOICES = (
+        (JUNIOR, "Джуниор"),
+        (MIDDLE, "Мидл"),
+        (SENIOR, "Сеньор"),
+        (INTERN,"Cтажер"),
+        (LEAD, "Ведущий специалист"),
+        (HEAD, "Руководитель"),
+    )
     first_name = models.CharField(
-        max_length=100,
+        max_length=MIN_LENGTH,
         verbose_name="Имя сотрудника",
         blank=False,
         null=False,
     )
     last_name = models.CharField(
-        max_length=100,
+        max_length=MIN_LENGTH,
         verbose_name="Фамилия сотрудника",
         blank=False,
         null=False,
@@ -56,19 +72,23 @@ class Employee(models.Model):
         Position,
         on_delete=models.CASCADE,
         verbose_name="Должность",
-        related_name="employee_position"
     )
     team = models.ForeignKey(
         Team,
         on_delete=models.CASCADE,
         verbose_name="Команда",
-        related_name="employee_team"
+    )
+    grade = models.CharField(
+        max_length=MIN_LENGTH,
+        verbose_name="Грейд сотрудника",
+        choices=GRADE_CHOICES,
     )
 
     class Meta:
         verbose_name = "Сотрудник"
         verbose_name_plural = "Сотрудники"
-        ordering = ["name"]
+        default_related_name = "employees"
+        ordering = ("last_name", "first_name")
 
     def __str__(self):
-        return f"{self.first_name} {self.last_name}"
+        return f"{self.last_name} {self.first_name}"
