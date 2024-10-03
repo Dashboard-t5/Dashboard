@@ -103,4 +103,5 @@ class Rating(models.Model):
         ordering = ("employee__last_name", "employee__first_name", "-rating_date",)
 
     def __str__(self):
-        return self.name
+        return (f"{self.employee__last_name} {self.employee__first_name}"
+                f"{self.skill} {self.rating_value}")
