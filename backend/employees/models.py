@@ -1,5 +1,6 @@
 from django.db import models
-from backend.config import MIN_LENGTH, MAX_LENGTH
+
+from config import MIN_LENGTH, MAX_LENGTH
 
 
 class Position(models.Model):
@@ -44,17 +45,11 @@ class Employee(models.Model):
     JUNIOR = "Junior"
     MIDDLE = "Middle"
     SENIOR = "Senior"
-    INTERN = "Intern"
-    LEAD = "Lead"
-    HEAD = "Head"
 
     GRADE_CHOICES = (
         (JUNIOR, "Джуниор"),
         (MIDDLE, "Мидл"),
         (SENIOR, "Сеньор"),
-        (INTERN,"Cтажер"),
-        (LEAD, "Ведущий специалист"),
-        (HEAD, "Руководитель"),
     )
     first_name = models.CharField(
         max_length=MIN_LENGTH,
@@ -82,6 +77,7 @@ class Employee(models.Model):
         max_length=MIN_LENGTH,
         verbose_name="Грейд сотрудника",
         choices=GRADE_CHOICES,
+        default=JUNIOR,
     )
 
     class Meta:

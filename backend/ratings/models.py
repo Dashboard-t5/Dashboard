@@ -1,7 +1,7 @@
 from django.db import models
 
-from backend.config import MAX_LENGTH, MIN_LENGTH
-from backend.employees.models import Employee
+from config import MAX_LENGTH, MIN_LENGTH
+from employees.models import Employee
 
 
 class Domain(models.Model):
@@ -69,10 +69,11 @@ class Skill(models.Model):
     def __str__(self):
         return self.name
 
+
 class Rating(models.Model):
     """Модель оценки навыков сотрудников."""
 
-    RATING_CHOICES = [i for i in range(1,6)]
+    RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
 
     employee = models.ForeignKey(
         Employee,
@@ -91,10 +92,10 @@ class Rating(models.Model):
         verbose_name="Оценка сотрудника",
         choices=RATING_CHOICES,
     )
-    suitability = models.CharField(
-        max_length=MIN_LENGTH,
-        verbose_name="Соответствие",
-    )
+    # suitability = models.CharField(
+    #     max_length=MIN_LENGTH,
+    #     verbose_name="Соответствие",
+    # )
 
     class Meta:
         verbose_name = "Оценка навыков сотрудника"
