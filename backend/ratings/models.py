@@ -75,6 +75,16 @@ class Rating(models.Model):
 
     RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
 
+    YES = "Yes"
+    NO = "No"
+    NOT_REQUIRED = "Not_required"
+
+    SUITABILITY_CHOICES = (
+        (YES, "да"),
+        (NO, "нет"),
+        (NOT_REQUIRED, "не требуется"),
+    )
+
     employee = models.ForeignKey(
         Employee,
         on_delete=models.CASCADE,
@@ -92,10 +102,12 @@ class Rating(models.Model):
         verbose_name="Оценка сотрудника",
         choices=RATING_CHOICES,
     )
-    # suitability = models.CharField(
-    #     max_length=MIN_LENGTH,
-    #     verbose_name="Соответствие",
-    # )
+    suitability = models.CharField(
+        max_length=max(len(suitability) for suitability, _ in SUITABILITY_CHOICES),
+        verbose_name="Соответствие",
+        choices=SUITABILITY_CHOICES,
+        default=NOT_REQUIRED,
+    )
 
     class Meta:
         verbose_name = "Оценка навыков сотрудника"

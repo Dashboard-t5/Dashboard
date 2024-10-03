@@ -45,11 +45,17 @@ class Employee(models.Model):
     JUNIOR = "Junior"
     MIDDLE = "Middle"
     SENIOR = "Senior"
+    INTERN = "Intern"
+    LEAD = "Lead"
+    HEAD = "Head"
 
     GRADE_CHOICES = (
         (JUNIOR, "Джуниор"),
         (MIDDLE, "Мидл"),
         (SENIOR, "Сеньор"),
+        (INTERN, "Cтажер"),
+        (LEAD, "Ведущий специалист"),
+        (HEAD, "Руководитель"),
     )
     first_name = models.CharField(
         max_length=MIN_LENGTH,
@@ -74,7 +80,7 @@ class Employee(models.Model):
         verbose_name="Команда",
     )
     grade = models.CharField(
-        max_length=MIN_LENGTH,
+        max_length=max(len(grade) for grade, _ in GRADE_CHOICES),
         verbose_name="Грейд сотрудника",
         choices=GRADE_CHOICES,
         default=JUNIOR,

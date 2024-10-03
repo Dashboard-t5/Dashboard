@@ -50,6 +50,7 @@ class Command(BaseCommand):
                 skill=skill,
                 rating_date=row['дата'],
                 rating_value=row['оценка_'],
+                suitability=row['соответствие'],
             )
 
             self.stdout.write(self.style.SUCCESS(f'Employee {employee} processed'))
