@@ -12,6 +12,7 @@ class DomainAdmin(admin.ModelAdmin):
     list_filter = ("name",)
     ordering = ("name",)
 
+
 @admin.register(Competence)
 class CompetenceAdmin(admin.ModelAdmin):
     """Админка для модели Competence."""
@@ -21,14 +22,32 @@ class CompetenceAdmin(admin.ModelAdmin):
     list_filter = ("name",)
     ordering = ("name",)
 
+
 @admin.register(Rating)
 class RatingAdmin(admin.ModelAdmin):
     """Админка для модели Rating."""
 
-    list_display = ("employee", "skill", "rating_date", "rating_value", "suitability")
-    search_fields = ("skill__name",)
-    list_filter = ("skill", "rating_value", "suitability")
-    ordering = ("employee", "rating_date")
+    list_display = (
+        "employee",
+        "skill",
+        "rating_date",
+        "rating_value",
+        "suitability"
+    )
+    search_fields = (
+        "employee__last_name",
+        "employee__first_name",
+    )
+    list_filter = (
+        "skill",
+        "rating_value",
+        "suitability"
+    )
+    ordering = (
+        "employee__last_name",
+        "rating_date"
+    )
+
 
 @admin.register(Skill)
 class SkillAdmin(admin.ModelAdmin):

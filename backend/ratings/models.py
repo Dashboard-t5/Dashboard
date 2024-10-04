@@ -103,7 +103,9 @@ class Rating(models.Model):
         choices=RATING_CHOICES,
     )
     suitability = models.CharField(
-        max_length=max(len(suitability) for suitability, _ in SUITABILITY_CHOICES),
+        max_length=max(
+            len(suitability) for suitability, _ in SUITABILITY_CHOICES
+        ),
         verbose_name="Соответствие",
         choices=SUITABILITY_CHOICES,
         default=NOT_REQUIRED,
@@ -113,8 +115,12 @@ class Rating(models.Model):
         verbose_name = "Оценка навыков сотрудника"
         verbose_name_plural = "Оценки навыков сотрудников"
         default_related_name = "ratings"
-        ordering = ("employee__last_name", "employee__first_name", "-rating_date",)
+        ordering = (
+            "employee__last_name",
+            "employee__first_name",
+            "-rating_date",
+        )
 
     def __str__(self):
-        return (f"{self.employee__last_name} {self.employee__first_name}"
+        return (f"{self.employee.last_name} {self.employee.first_name}"
                 f"{self.skill} {self.rating_value}")
