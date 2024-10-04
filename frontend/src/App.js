@@ -1,19 +1,18 @@
-import { Routes, Route } from 'react-router-dom';
-import logo from './logo.svg';
-import './App.css';
-import './globals.css';
-import Nav from './components/Nav/Nav';
-import Main from './components/Main/Main';
+import { Routes, Route } from 'react-router-dom'
+import logo from './logo.svg'
+import './App.css'
+import './globals.css'
+import Nav from './components/Nav/Nav'
+import Main from './components/Main/Main'
+import NotFound from './components/NotFound/NotFound'
 
 function App() {
   return (
-
     <>
       <Routes>
         <Route exact path='/' index={true}
             element={
                 <>
-                    {/* <Header loggedIn={loggedIn} type='land'/> */}
                     <Nav/>
                     <Main type='charts'/>
                 </>
@@ -28,11 +27,10 @@ function App() {
             }
         />
         
-        {/* <Route path='*' element={<NotFound/>}/> */}
+        <Route path='*' element={<NotFound/>}/>
 
     </Routes>
     </>
-
   );
 }
 
