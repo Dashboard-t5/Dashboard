@@ -163,3 +163,4 @@ cython_debug/
 
 # Test files for DB downloading
 import_test.py
+import_arch.py
