@@ -1,6 +1,33 @@
 .main {
   width: 100%;
+  padding: 54px 40px 50px 20px;
   display: flex;
   flex-direction: column;
   flex: 1 1;
 }
+
+.tabs {
+  display: flex;
+  width: 170px;
+  height: 34px;
+}
+
+.tab {
+  border: none;
+  background-color: transparent;
+  margin-right: 24px;
+  color: var(--text-color-middle);
+  cursor: pointer;
+}
+
+.tab:nth-last-child(1) {
+  margin-right: 0;
+}
+.tab.active {
+  color: var(--text-color-dark);
+  border-bottom: 2px solid var(--color-red);
+  margin-bottom: -2px;
+}
+
+
+
