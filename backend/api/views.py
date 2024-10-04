@@ -3,7 +3,15 @@ from rest_framework.permissions import AllowAny
 
 from employees.models import Position, Team, Employee
 from ratings.models import Rating, Skill, Competence, Domain
-from .serializers import PositionSerializer, TeamSerializer, EmployeeSerializer, RatingSerializer
+from .serializers import (
+    PositionSerializer,
+    TeamSerializer,
+    EmployeeSerializer,
+    RatingSerializer,
+    SkillSerializer,
+    CompetenceSerializer,
+    DomainSerializer
+)
 
 
 class PositionViewSet(viewsets.ReadOnlyModelViewSet):
@@ -31,6 +39,36 @@ class EmployeeViewSet(viewsets.ReadOnlyModelViewSet):
 
     queryset = Employee.objects.all()
     serializer_class = EmployeeSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    ordering_fields = 'name'
+
+
+class DomainViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для работы с доменами."""
+
+    queryset = Domain.objects.all()
+    serializer_class = DomainSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    ordering_fields = 'name'
+
+
+class SkillViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для работы с навыками."""
+
+    queryset = Skill.objects.all()
+    serializer_class = SkillSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    ordering_fields = 'name'
+
+
+class CompetenceViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для работы с компетенциями."""
+
+    queryset = Competence.objects.all()
+    serializer_class = CompetenceSerializer
     permission_classes = (AllowAny,)
     pagination_class = None
     ordering_fields = 'name'
