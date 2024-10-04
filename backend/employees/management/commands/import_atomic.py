@@ -41,7 +41,7 @@ class Command(BaseCommand):
         # Начало транзакции для массовой вставки
         with transaction.atomic():
             for index, row in df.iterrows():
-                first_name, last_name = row['сотрудник'].split()
+                last_name, first_name = row['сотрудник'].split()
 
                 # Массовое создание уникальных объектов для каждой модели
                 if row['должность'] not in positions:
