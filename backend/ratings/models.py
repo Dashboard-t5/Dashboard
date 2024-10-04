@@ -75,14 +75,14 @@ class Rating(models.Model):
 
     RATING_CHOICES = [(i, str(i)) for i in range(1, 6)]
 
-    YES = "Yes"
-    NO = "No"
-    NOT_REQUIRED = "Not_required"
+    YES = "да"
+    NO = "нет"
+    NOT_REQUIRED = "не требуется"
 
     SUITABILITY_CHOICES = (
-        (YES, "да"),
-        (NO, "нет"),
-        (NOT_REQUIRED, "не требуется"),
+        (YES, "Да"),
+        (NO, "Нет"),
+        (NOT_REQUIRED, "Не требуется"),
     )
 
     employee = models.ForeignKey(
@@ -122,5 +122,5 @@ class Rating(models.Model):
         )
 
     def __str__(self):
-        return (f"{self.employee.last_name} {self.employee.first_name}"
-                f"{self.skill} {self.rating_value}")
+        return (f"{self.employee.last_name} {self.employee.first_name} - "
+                f"{self.skill} '{self.rating_value}'")
