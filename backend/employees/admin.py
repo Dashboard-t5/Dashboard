@@ -12,14 +12,16 @@ class PositionAdmin(admin.ModelAdmin):
     list_filter = ("name",)
     ordering = ("name",)
 
+
 @admin.register(Employee)
 class EmployeeAdmin(admin.ModelAdmin):
     """Админка для модели Employee."""
 
     list_display = ("first_name", "last_name", "position", "team", "grade")
-    search_fields = ("grade__name",)
+    search_fields = ("first_name", "last_name")
     list_filter = ("team", "position", "grade")
     ordering = ("first_name", "last_name")
+
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
