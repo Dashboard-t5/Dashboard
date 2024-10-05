@@ -43,10 +43,18 @@ body {
   background-color: var(--background-primary);
   color: rgb(var(--text-color-dark));
   font-size: 15px; /* Базовый размер шрифта */
+  line-height: 20px;
 }
 
 #root {
   display: flex;
+}
+
+h1 {
+  font-size: 22px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--text-color-dark);
 }
 
 a {
