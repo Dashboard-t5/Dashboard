@@ -1,4 +1,5 @@
-import './Sidebar.css';
+import {NavLink} from 'react-router-dom'
+import './Sidebar.css'
 import BtnEmpty from '../../images/btn_empty.png'
 import Circles from '../../images/btn_empty.png'
 import Men from '../../images/btn_men.png'
@@ -13,7 +14,7 @@ function Sidebar() {
                 <div className="inner__half">
                     <img src={BtnEmpty} className="inner__img" alt={"btn empty"}/>
                     <img src={BtnEmpty} className="inner__img" alt={"btn empty"}/>
-                    <img src={Men} className="inner__img" alt={"men"}/>
+                    <NavLink to="/" end><img src={Men} className="inner__img" alt={"men"}/></NavLink>
                 </div>
                 <div className="inner__half"></div>
             </aside>

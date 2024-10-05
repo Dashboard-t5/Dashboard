@@ -1,0 +1,50 @@
+.search_form {
+    width: 440px;
+    height: min-content;
+    display: flex;
+    align-items: center;
+    border-radius: 12px;
+    background-color: #FFF;
+    margin-top: 24px;
+}
+
+.search__wrap {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    width: 100%;
+}
+
+.search__loupe-img {
+    display: flex;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+::placeholder {
+    color: var(--text-color-light);
+}
+
+input[type=text] {
+    border: 1px solid transparent;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+}
+
+.search__input {
+    margin-left: 12px;
+    padding-left: 5px;
+    line-height: 56px;
+    width: 100%;
+    color: var(--text-color-dark);
+    border: none;
+    border-radius: 12px;
+}
+
+.search__input:focus {
+    border: 1px solid var(--text-color-light);
+}

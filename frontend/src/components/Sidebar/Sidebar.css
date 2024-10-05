@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: flex-end;
     /* justify-content: center; */
-    background-color: var(--background-secondary);
+    background-color: var(--background-quaternary);
 }
 
 .sidebar__inner-bar {
