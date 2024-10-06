@@ -1,8 +1,10 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
 from employees.models import Position, Team, Employee
 from ratings.models import Rating, Skill, Competence, Domain
+from .filters import RatingFilter
 from .serializers import (
     PositionSerializer,
     TeamSerializer,
@@ -81,4 +83,5 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RatingSerializer
     permission_classes = (AllowAny,)
     pagination_class = None
-    ordering_fields = 'name'
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
