@@ -1,8 +1,8 @@
 import {NavLink} from 'react-router-dom'
 import './Sidebar.css'
-import BtnEmpty from '../../images/btn_empty.png'
-import Circles from '../../images/btn_empty.png'
-import Men from '../../images/btn_men.png'
+import BtnEmpty from '../../../images/btn_empty.png'
+import Circles from '../../../images/btn_empty.png'
+import Men from '../../../images/btn_men.png'
 
 
 function Sidebar() {

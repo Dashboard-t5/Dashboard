@@ -1,12 +1,14 @@
 import './LayoutCharts.css';
 import Filter from '../../images/filter.png'
-import SearchForm from "../SearchForm/SearchForm"
+import SearchForm from "./SearchForm/SearchForm"
+import ChartStaff from "./ChartStaff/ChartStaff";
 
 function LayoutCharts() {
 
     return (
         <section id='charts' className='charts'>
 
+            {/* 2 buttons */}
             <div className="btns">
                 <button className="btn btn__data">-</button>
                 <button className="btn btn__team">Команда</button>
@@ -27,6 +29,8 @@ function LayoutCharts() {
             </section>
 
             <SearchForm/>
+
+            <ChartStaff/>
 
         </section>
     );

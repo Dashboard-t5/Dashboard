@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react'
 import {useLocation} from 'react-router-dom'
 // import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import './SearchForm.css'
-import { useLocalStorageState as useStorage } from '../../hooks/useLocalStorageState';
+import { useLocalStorageState as useStorage } from '../../../hooks/useLocalStorageState';
 function SearchForm() {
     const location = useLocation()
 

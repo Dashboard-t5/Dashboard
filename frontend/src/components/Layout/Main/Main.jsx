@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Outlet } from 'react-router-dom'
-import LayoutCharts from '../LayoutCharts/LayoutCharts'
-import LayoutDocs from '../LayoutDocs/LayoutDocs'
+import LayoutCharts from '../../LayoutCharts/LayoutCharts'
+import LayoutDocs from '../../LayoutDocs/LayoutDocs'
 import './Main.css'
 
 function Main({ type }) {

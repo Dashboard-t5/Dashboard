@@ -1,0 +1,38 @@
+.chartStaff {
+    width: 670px;
+    /*height: 302px;*/
+    min-height: 302px;
+    margin-top: 32px;
+    padding: 20px 40px 20px 20px;
+    border-radius: 12px;
+    background-color: #FFF;
+    box-shadow: 0 2px 25px rgb(0, 0, 0, .25);
+}
+
+.tabs-chart {
+    width: 403px;
+    height: 20px;
+    display: flex;
+}
+
+.tab-chart {
+    color: var(--text-color-middle);
+    padding-right: 16px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    cursor: pointer;
+}
+
+.tab-chart:nth-child(n+2) {
+    padding-right: 0;
+}
+
+.tab-chart.active {
+    color: var(--text-color-dark);
+}
+
+.tab-content-chart {
+    height: 16px;
+    paddint-top: 4px;
+}
