@@ -4,7 +4,6 @@ import {useLocation} from 'react-router-dom'
 // import FilterCheckbox from './FilterCheckbox/FilterCheckbox'
 import './SearchForm.css'
 import { useLocalStorageState as useStorage } from '../../hooks/useLocalStorageState';
-import Loupe from '../../images/img_loupe.png'
 function SearchForm() {
     const location = useLocation()
 
@@ -28,15 +27,12 @@ function SearchForm() {
     return (
         <form onSubmit={ handleSubmitSearch } className='search search_form' id='search' name='search' >
             <div className='search__wrap'>
-                <button type='submit' className='search__loupe-img'>
-                    <img src={Loupe} className='search__loupe-img' alt={'Loupe'}/>
-                </button>
-
+                <button type='submit' className='search__loupe-btn search__loupe-img'></button>
                 <input type='text' value={
                     isSearchWord
                         ? isSearchWord
                         : ''
-                } className='search__input' id='search-input' name='search' placeholder={isPlaceholder}
+                    } className='search__input' id='search-input' name='search' placeholder={isPlaceholder}
                        onChange={handleInput}
                 />
 
