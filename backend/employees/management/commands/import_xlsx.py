@@ -31,7 +31,7 @@ class Command(BaseCommand):
 
         temp_data = []
         for index, row in df.iterrows():
-            first_name, last_name = row['сотрудник'].split()
+            last_name, first_name = row['сотрудник'].split()
 
             try:
                 position, created = Position.objects.get_or_create(
