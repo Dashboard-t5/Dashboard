@@ -1,15 +1,9 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from .views import (
-    PositionViewSet,
-    TeamViewSet,
-    EmployeeViewSet,
-    RatingViewSet,
-    SkillViewSet,
-    CompetenceViewSet,
-    DomainViewSet,
-)
+from .views import (CompetenceViewSet, DomainViewSet, EmployeeViewSet,
+                    PositionViewSet, RatingViewSet, SkillViewSet,
+                    SuitabilityPositionViewSet, TeamViewSet)
 
 app_name = "api"
 
@@ -21,5 +15,10 @@ router.register("domains", DomainViewSet, basename="domains")
 router.register("skills", SkillViewSet, basename="skills")
 router.register("competences", CompetenceViewSet, basename="competences")
 router.register("raitings", RatingViewSet, basename="raitings")
+router.register(
+    "dashboard/suitability_position",
+    SuitabilityPositionViewSet,
+    basename="suitability_position"
+)
 
 urlpatterns = [path("", include(router.urls))]

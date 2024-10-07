@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from employees.models import Team, Position, Employee
-from ratings.models import Domain, Skill, Competence, Rating
+from employees.models import Employee, Position, Team
+from ratings.models import Competence, Domain, Rating, Skill
 
 
 class TeamSerializer(serializers.ModelSerializer):
@@ -93,4 +93,24 @@ class RatingSerializer(serializers.ModelSerializer):
             "rating_date",
             "rating_value",
             "suitability"
+        )
+
+class SuitabilityPositionSerializer(serializers.ModelSerializer):
+    """Сериализатор для отчета соотвествие должности."""
+
+    employee = serializers.CharField(
+        source="full_name",
+        read_only=True
+    )
+    total_yes = serializers.IntegerField()
+    total = serializers.IntegerField()
+    percentage = serializers.FloatField()
+
+    class Meta:
+        model = Rating
+        fields = (
+            "employee",
+            "total_yes",
+            "total",
+            "percentage"
         )
