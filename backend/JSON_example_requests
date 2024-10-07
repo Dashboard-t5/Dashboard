@@ -1,0 +1,21 @@
+{
+    "number_of_employees_with_the_skill": [
+        {
+            "Asana": 3          # "навык": число сотрудников
+            "C++": 4
+            "Clickhouse": 5
+            "CorelDraw": 3
+            "Java": 1
+        },
+
+    ],
+    "suitability_for_the_position": [
+        {
+            "Ефремов Вячеслав": 79%,   # "сотрудник": доля навыков с удовлетворительной оценкой
+
+        },
+
+    ],
+    "hard_skill": 4.05,
+    "soft_skill": 4.02
+}
