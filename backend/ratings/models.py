@@ -118,7 +118,7 @@ class Rating(models.Model):
         ordering = (
             "employee__last_name",
             "employee__first_name",
-            "-rating_date",
+            # "-rating_date",
         )
 
     def __str__(self):

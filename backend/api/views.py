@@ -1,17 +1,17 @@
+from django.db.models import Count, F, IntegerField, Q, Value
+from django.db.models.functions import Cast, Concat
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
-from employees.models import Position, Team, Employee
-from ratings.models import Rating, Skill, Competence, Domain
-from .serializers import (
-    PositionSerializer,
-    TeamSerializer,
-    EmployeeSerializer,
-    RatingSerializer,
-    SkillSerializer,
-    CompetenceSerializer,
-    DomainSerializer
-)
+from employees.models import Employee, Position, Team
+from ratings.models import Competence, Domain, Rating, Skill
+
+from .filters import RatingFilter
+from .serializers import (CompetenceSerializer, DomainSerializer,
+                          EmployeeSerializer, PositionSerializer,
+                          RatingSerializer, SkillSerializer,
+                          SuitabilityPositionSerializer, TeamSerializer)
 
 
 class PositionViewSet(viewsets.ReadOnlyModelViewSet):
@@ -81,4 +81,27 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = RatingSerializer
     permission_classes = (AllowAny,)
     pagination_class = None
-    ordering_fields = 'name'
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+
+class SuitabilityPositionViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для работы с отчетом "Соответствие должности"."""
+
+    queryset = Rating.objects.all()
+    serializer_class = SuitabilityPositionSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        return Rating.objects.all().select_related('employee').values(full_name=Concat(
+                "employee__last_name",
+                Value(' '),
+                "employee__first_name"
+            )).annotate(
+            total=Count('skill', distinct=True, filter=~Q(suitability="не требуется")),
+            total_yes=Count('skill', distinct=True, filter=Q(suitability="да")),
+            percentage=Cast(F('total_yes') * 100.0 / F('total'), output_field=IntegerField())
+        ).order_by('percentage')
