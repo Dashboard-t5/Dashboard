@@ -10,3 +10,9 @@
     width: 213px;
     text-align: left;
 }
+
+.TEST-BTN {
+    padding: 10px;
+    background-color: #FFCE1B;
+    cursor: pointer;
+}

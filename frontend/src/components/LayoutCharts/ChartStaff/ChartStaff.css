@@ -7,6 +7,7 @@
     border-radius: 12px;
     background-color: #FFF;
     box-shadow: 0 2px 25px rgb(0, 0, 0, .25);
+    position: relative;
 }
 
 .tabs-chart {
