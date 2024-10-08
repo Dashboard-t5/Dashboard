@@ -97,7 +97,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
 
 class SuitabilityPositionSerializer(serializers.ModelSerializer):
-    """Сериализатор для отчета соотвествие должности."""
+    """Сериализатор для чарта "Соответствие должности"."""
 
     employee = serializers.CharField(
         source="full_name",
@@ -118,6 +118,8 @@ class SuitabilityPositionSerializer(serializers.ModelSerializer):
 
 
 class EmployeeSkillAverageRatingSerializer(serializers.ModelSerializer):
+    """Сериализатор для чарта "Уровень владения навыками"."""
+
     skill_name = serializers.CharField(source="skill__name", read_only=True)
     average_rating = serializers.FloatField(read_only=True)
 

@@ -5,19 +5,15 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
 
-from employees.models import Employee, Position, Team
-from ratings.models import Competence, Domain, Rating, Skill
-
 from api.v1.filters import RatingFilter
-from api.v1.serializers import (CompetenceSerializer,
-                                DomainSerializer,
+from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
                                 EmployeeSerializer,
                                 EmployeeSkillAverageRatingSerializer,
-                                PositionSerializer,
-                                RatingSerializer,
-                                SkillSerializer,
-                                SuitabilityPositionSerializer,
+                                PositionSerializer, RatingSerializer,
+                                SkillSerializer, SuitabilityPositionSerializer,
                                 TeamSerializer)
+from employees.models import Employee, Position, Team
+from ratings.models import Competence, Domain, Rating, Skill
 
 
 class PositionViewSet(viewsets.ReadOnlyModelViewSet):
@@ -92,7 +88,7 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class SuitabilityPositionViewSet(viewsets.ReadOnlyModelViewSet):
-    """Вьюсет для работы с отчетом "Соответствие должности"."""
+    """Вьюсет для работы с чартом "Соответствие должности"."""
 
     queryset = Rating.objects.all()
     serializer_class = SuitabilityPositionSerializer
@@ -102,18 +98,33 @@ class SuitabilityPositionViewSet(viewsets.ReadOnlyModelViewSet):
     filterset_class = RatingFilter
 
     def get_queryset(self):
-        return Rating.objects.all().select_related("employee").values(full_name=Concat(
+        return Rating.objects.all().select_related("employee").values(
+            full_name=Concat(
                 "employee__last_name",
                 Value(" "),
                 "employee__first_name"
-            )).annotate(
-            total=Count("skill", distinct=True, filter=~Q(suitability="не требуется")),
-            total_yes=Count("skill", distinct=True, filter=Q(suitability="да")),
-            percentage=Cast(F("total_yes") * 100.0 / F("total"), output_field=IntegerField())
+            )
+        ).annotate(
+            total=Count(
+                "skill",
+                distinct=True,
+                filter=~Q(suitability="не требуется")
+            ),
+            total_yes=Count(
+                "skill",
+                distinct=True,
+                filter=Q(suitability="да")
+            ),
+            percentage=Cast(
+                F("total_yes") * 100.0 / F("total"),
+                output_field=IntegerField()
+            )
         ).order_by("percentage")
 
 
 class EmployeeSkillsViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для работы с чартом "Уровень владения навыками"."""
+
     serializer_class = EmployeeSkillAverageRatingSerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_class = RatingFilter
@@ -125,7 +136,8 @@ class EmployeeSkillsViewSet(viewsets.ReadOnlyModelViewSet):
         # Проверяем, существует ли сотрудник с этим employee_id
         employeee = get_object_or_404(Employee, id=employee_id)
 
-        # Группируем данные по навыкам и считаем среднюю оценку для каждого навыка
+        # Группируем данные по навыкам и
+        # считаем среднюю оценку для каждого навыка
         return Rating.objects.filter(
             employee_id=employee_id
         ).values(

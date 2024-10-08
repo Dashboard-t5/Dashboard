@@ -95,6 +95,7 @@ class RatingSerializer(serializers.ModelSerializer):
             "suitability"
         )
 
+
 class SuitabilityPositionSerializer(serializers.ModelSerializer):
     """Сериализатор для отчета соотвествие должности."""
 
