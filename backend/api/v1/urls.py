@@ -2,9 +2,10 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from api.v1.views import (CompetenceViewSet, DomainViewSet,
-                          EmployeeSkillsViewSet, EmployeeViewSet,
-                          PositionViewSet, RatingViewSet, SkillViewSet,
-                          SuitabilityPositionViewSet, TeamViewSet)
+                          EmployeePositionsViewSet, EmployeeSkillsViewSet,
+                          EmployeeViewSet, PositionViewSet, RatingViewSet,
+                          SkillViewSet, SuitabilityPositionViewSet,
+                          TeamViewSet)
 
 router_v1 = DefaultRouter()
 router_v1.register("positions", PositionViewSet, basename="positions")
@@ -24,7 +25,11 @@ router_v1.register(
     EmployeeSkillsViewSet,
     basename="employee_skills",
 )
-
+router_v1.register(
+    r"dashboard/employee_positions",
+    EmployeePositionsViewSet,
+    basename="employee_positions",
+)
 
 urlpatterns = [
     path("", include(router_v1.urls)),

@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from rest_framework import serializers
 
 from employees.models import Employee, Position, Team
@@ -126,3 +127,26 @@ class EmployeeSkillAverageRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
         fields = ("skill_name", "average_rating")
+
+
+class EmployeePositionsSerializer(serializers.ModelSerializer):
+    """Сериализатор для чарта "Должности сотрудников"."""
+
+    position = serializers.CharField(
+        source="employee__position__name",
+        read_only=True
+    )
+    count_positions = serializers.IntegerField(read_only=True)
+
+    class Meta:
+        model = Rating
+        fields = ("position", "count_positions",)
+
+    def to_representation(self, instance):
+
+        representation = super().to_representation(instance)
+        representation['count_employees'] = self.instance.aggregate(
+            sum=Sum("count_positions")
+        ).get('sum')
+        representation['percentage'] = round(representation['count_positions'] * 100 / representation['count_employees'], 1)
+        return representation

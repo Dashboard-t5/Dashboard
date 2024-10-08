@@ -7,6 +7,7 @@ from rest_framework.permissions import AllowAny
 
 from api.v1.filters import RatingFilter
 from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
+                                EmployeePositionsSerializer,
                                 EmployeeSerializer,
                                 EmployeeSkillAverageRatingSerializer,
                                 PositionSerializer, RatingSerializer,
@@ -147,3 +148,24 @@ class EmployeeSkillsViewSet(viewsets.ReadOnlyModelViewSet):
         ).order_by(
             "average_rating"
         )
+
+
+class EmployeePositionsViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для работы с чартом "Должности сотрудников"."""
+
+    serializer_class = EmployeePositionsSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+
+        return Rating.objects.all().values(
+            "employee__position__name"
+        ).annotate(
+            count_positions=Count(
+                "employee",
+                distinct=True,
+            )
+        ).order_by('count_positions')
