@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from rest_framework import serializers
 
 from employees.models import Employee, Position, Team
@@ -126,3 +127,27 @@ class EmployeeSkillAverageRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
         fields = ("skill_name", "average_rating")
+
+
+class EmployeePositionsSerializer(serializers.ModelSerializer):
+    """Сериализатор для чарта "Должности сотрудников"."""
+
+    position = serializers.CharField(
+        source="employee__position__name",
+        read_only=True
+    )
+    position_employee_count = serializers.IntegerField(read_only=True)
+    total_employee_count = serializers.IntegerField(read_only=True)
+    percentage = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Rating
+        fields = (
+            "position",
+            "position_employee_count",
+            "total_employee_count",
+            "percentage",
+        )
+
+    def get_percentage(self, obj):
+        return round(obj["position_employee_count"] * 100 / obj["total_employee_count"], 1)

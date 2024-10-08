@@ -1,12 +1,14 @@
-from django.db.models import Avg, Count, F, IntegerField, Q, Value
+from django.db.models import Avg, Count, F, IntegerField, Sum, Q, Value
 from django.db.models.functions import Cast, Concat
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import viewsets
+from rest_framework import status, viewsets
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from api.v1.filters import RatingFilter
 from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
+                                EmployeePositionsSerializer,
                                 EmployeeSerializer,
                                 EmployeeSkillAverageRatingSerializer,
                                 PositionSerializer, RatingSerializer,
@@ -122,7 +124,7 @@ class SuitabilityPositionViewSet(viewsets.ReadOnlyModelViewSet):
         ).order_by("percentage")
 
 
-class EmployeeSkillsViewSet(viewsets.ReadOnlyModelViewSet):
+class EmployeeSkillsAverageRatingViewSet(viewsets.ReadOnlyModelViewSet):
     """Вьюсет для работы с чартом "Уровень владения навыками"."""
 
     serializer_class = EmployeeSkillAverageRatingSerializer
@@ -146,4 +148,35 @@ class EmployeeSkillsViewSet(viewsets.ReadOnlyModelViewSet):
             average_rating=Avg("rating_value")
         ).order_by(
             "average_rating"
+        )
+
+
+class EmployeePositionsViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для работы с чартом "Должности сотрудников"."""
+
+    serializer_class = EmployeePositionsSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        queryset = Rating.objects.all().values(
+            "employee__position__name",
+        ).annotate(
+            position_employee_count=Count(
+                "employee",
+                distinct=True,
+            )
+        ).order_by(
+            "position_employee_count",
+        )
+        filtered_queryset = self.filter_queryset(queryset)
+        total_employee_count = sum(item["position_employee_count"] for item in filtered_queryset)
+
+        return filtered_queryset.annotate(
+            total_employee_count=Value(
+                total_employee_count,
+                output_field=IntegerField()
+            )
         )
