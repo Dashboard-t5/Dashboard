@@ -1,10 +1,9 @@
-from django.db.models import Avg, Count, F, IntegerField, Sum, Q, Value
+from django.db.models import Avg, Count, F, IntegerField, Q, Value
 from django.db.models.functions import Cast, Concat
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework import status, viewsets
+from rest_framework import viewsets
 from rest_framework.permissions import AllowAny
-from rest_framework.response import Response
 
 from api.v1.filters import RatingFilter
 from api.v1.serializers import (CompetenceSerializer, DomainSerializer,

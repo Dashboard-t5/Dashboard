@@ -24,11 +24,11 @@ router_v1.register(
     SuitabilityPositionViewSet,
     basename="suitability_position"
 )
-# router_v1.register(
-#     r"dashboard/suitability_position/(?P<employee_id>\d+)/skills",
-#     EmployeeSkillsAverageRatingViewSet,
-#     basename="employee_skills",
-# )
+router_v1.register(
+    r"dashboard/suitability_position/(?P<employee_id>\d+)/skills",
+    EmployeeSkillsAverageRatingViewSet,
+    basename="employee_skills",
+)
 
 router_v1.register(
     r"dashboard/employee_positions",
