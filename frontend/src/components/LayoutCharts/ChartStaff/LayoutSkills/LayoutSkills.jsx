@@ -8,8 +8,8 @@ function LayoutSkills() {
 
     const fetchAllStaff = async () => {
         setFetchingData(true)
-        const db_url = 'https://jsonplaceholder.typicode.com/';
-        // const db_url = 'http://127.0.0.1:8000/api/v1/dashboard/suitability_position/?team=5';
+        // const db_url = 'https://jsonplaceholder.typicode.com/';
+        const db_url = 'http://127.0.0.1:8000/api/v1/dashboard/suitability_position/?team=5';
         try {
             let { data } = await axios.get(`${db_url}albums`, {
                 headers: {
