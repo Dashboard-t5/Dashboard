@@ -1,15 +1,10 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.v1.views import (CompetenceViewSet,
-                          DomainViewSet,
-                          EmployeeViewSet,
-                          EmployeeSkillsViewSet,
-                          PositionViewSet,
-                          RatingViewSet,
-                          SkillViewSet,
-                          SuitabilityPositionViewSet,
-                          TeamViewSet)
+from api.v1.views import (CompetenceViewSet, DomainViewSet,
+                          EmployeeSkillsViewSet, EmployeeViewSet,
+                          PositionViewSet, RatingViewSet, SkillViewSet,
+                          SuitabilityPositionViewSet, TeamViewSet)
 
 router_v1 = DefaultRouter()
 router_v1.register("positions", PositionViewSet, basename="positions")
