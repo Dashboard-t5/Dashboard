@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import LayoutCharts from '../../LayoutCharts/LayoutCharts'
 import LayoutDocs from '../../LayoutDocs/LayoutDocs'
 import './Main.css'
+import ChartStaff from "./ChartStaff/ChartStaff";
 
 function Main({ type }) {
     const [activeTab, setActiveTab] = useState('charts')
@@ -10,8 +11,9 @@ function Main({ type }) {
     return (
         <main className="main">
 
-            {/*<div className="tabs">*/}
+            <ChartStaff/>
 
+            {/*<div className="tabs">*/}
             {/*    <button className={`tab ${activeTab==='charts' ? 'active' : ''}`}*/}
             {/*            onClick={() => setActiveTab('charts')}>*/}
             {/*        Чарты*/}

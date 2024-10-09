@@ -9,7 +9,7 @@ function TopBar() {
             {/* 2 buttons */}
             <div className="btns">
                 <button className="btn btn__data">-</button>
-                <button className="btn btn__team">Команда</button>
+                <button className="btn btn__team">Команда: $</button>
                 <img src={Filter} className="charts_filter" alt={'filter'}/>
             </div>
 
