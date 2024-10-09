@@ -92,29 +92,21 @@ class RatingSerializer(serializers.ModelSerializer):
             # "domain",
             "rating_date",
             "rating_value",
-            "suitability"
+            "suitability",
         )
 
 
 class SuitabilityPositionSerializer(serializers.ModelSerializer):
     """Сериализатор для чарта "Соответствие должности"."""
 
-    employee = serializers.CharField(
-        source="full_name",
-        read_only=True
-    )
+    employee = serializers.CharField(source="full_name", read_only=True)
     total_yes = serializers.IntegerField()
     total = serializers.IntegerField()
     percentage = serializers.FloatField()
 
     class Meta:
         model = Rating
-        fields = (
-            "employee",
-            "total_yes",
-            "total",
-            "percentage"
-        )
+        fields = ("employee", "total_yes", "total", "percentage")
 
 
 class EmployeeSkillAverageRatingSerializer(serializers.ModelSerializer):
@@ -132,8 +124,7 @@ class EmployeePositionsSerializer(serializers.ModelSerializer):
     """Сериализатор для чарта "Должности сотрудников"."""
 
     position = serializers.CharField(
-        source="employee__position__name",
-        read_only=True
+        source="employee__position__name", read_only=True
     )
     position_employee_count = serializers.IntegerField(read_only=True)
     total_employee_count = serializers.IntegerField(read_only=True)
@@ -149,4 +140,29 @@ class EmployeePositionsSerializer(serializers.ModelSerializer):
         )
 
     def get_percentage(self, obj):
-        return round(obj["position_employee_count"] * 100 / obj["total_employee_count"], 1)
+        return round(
+            obj["position_employee_count"] * 100 / obj["total_employee_count"],
+            1,
+        )
+
+
+class SkillsDevelopmentSerializer(serializers.ModelSerializer):
+    """Сериализатор для чарта "Развитие навыков"."""
+
+    rating_date = serializers.DateField()
+    average_rating = serializers.DecimalField(max_digits=3, decimal_places=2)
+    average_rating_hard = serializers.DecimalField(
+        max_digits=3, decimal_places=2
+    )
+    average_rating_soft = serializers.DecimalField(
+        max_digits=3, decimal_places=2
+    )
+
+    class Meta:
+        model = Rating
+        fields = (
+            "rating_date",
+            "average_rating",
+            "average_rating_hard",
+            "average_rating_soft",
+        )

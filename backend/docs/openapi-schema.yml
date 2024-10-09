@@ -50,10 +50,130 @@ paths:
         description: A unique integer value identifying this Компетенция.
         required: true
         type: integer
+  /dashboard/employee_positions/:
+    get:
+      operationId: dashboard_employee_positions_list
+      description: Вьюсет для работы с чартом "Должности сотрудников".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeePositions'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/skills_development/:
+    get:
+      operationId: dashboard_skills_development_list
+      description: Вьюсет для работы с чартом "Развитие навыков".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SkillsDevelopment'
+      tags:
+        - dashboard
+    parameters: []
   /dashboard/suitability_position/:
     get:
       operationId: dashboard_suitability_position_list
-      description: Вьюсет для работы с отчетом "Соответствие должности".
+      description: Вьюсет для работы с чартом "Соответствие должности".
       parameters:
         - name: team
           in: query
@@ -113,7 +233,7 @@ paths:
   /dashboard/suitability_position/{employee_id}/skills/:
     get:
       operationId: dashboard_suitability_position_skills_list
-      description: ''
+      description: Вьюсет для работы с чартом "Уровень владения навыками".
       parameters:
         - name: team
           in: query
@@ -174,45 +294,6 @@ paths:
         in: path
         required: true
         type: string
-  /dashboard/suitability_position/{employee_id}/skills/{id}/:
-    get:
-      operationId: dashboard_suitability_position_skills_read
-      description: ''
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          schema:
-            $ref: '#/definitions/EmployeeSkillAverageRating'
-      tags:
-        - dashboard
-    parameters:
-      - name: employee_id
-        in: path
-        required: true
-        type: string
-      - name: id
-        in: path
-        required: true
-        type: string
-  /dashboard/suitability_position/{id}/:
-    get:
-      operationId: dashboard_suitability_position_read
-      description: Вьюсет для работы с отчетом "Соответствие должности".
-      parameters: []
-      responses:
-        '200':
-          description: ''
-          schema:
-            $ref: '#/definitions/SuitabilityPosition'
-      tags:
-        - dashboard
-    parameters:
-      - name: id
-        in: path
-        description: A unique integer value identifying this Оценка навыков сотрудника.
-        required: true
-        type: integer
   /domains/:
     get:
       operationId: domains_list
@@ -471,6 +552,50 @@ definitions:
         type: string
         maxLength: 150
         minLength: 1
+  EmployeePositions:
+    type: object
+    properties:
+      position:
+        title: Position
+        type: string
+        readOnly: true
+        minLength: 1
+      position_employee_count:
+        title: Position employee count
+        type: integer
+        readOnly: true
+      total_employee_count:
+        title: Total employee count
+        type: integer
+        readOnly: true
+      percentage:
+        title: Percentage
+        type: string
+        readOnly: true
+  SkillsDevelopment:
+    required:
+      - rating_date
+      - average_rating
+      - average_rating_hard
+      - average_rating_soft
+    type: object
+    properties:
+      rating_date:
+        title: Rating date
+        type: string
+        format: date
+      average_rating:
+        title: Average rating
+        type: string
+        format: decimal
+      average_rating_hard:
+        title: Average rating hard
+        type: string
+        format: decimal
+      average_rating_soft:
+        title: Average rating soft
+        type: string
+        format: decimal
   SuitabilityPosition:
     required:
       - total_yes

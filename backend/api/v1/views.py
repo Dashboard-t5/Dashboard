@@ -11,8 +11,8 @@ from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
                                 EmployeeSerializer,
                                 EmployeeSkillAverageRatingSerializer,
                                 PositionSerializer, RatingSerializer,
-                                SkillSerializer, SuitabilityPositionSerializer,
-                                TeamSerializer)
+                                SkillsDevelopmentSerializer, SkillSerializer,
+                                SuitabilityPositionSerializer, TeamSerializer)
 from employees.models import Employee, Position, Team
 from ratings.models import Competence, Domain, Rating, Skill
 
@@ -91,7 +91,6 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
 class SuitabilityPositionViewSet(viewsets.ReadOnlyModelViewSet):
     """Вьюсет для работы с чартом "Соответствие должности"."""
 
-    queryset = Rating.objects.all()
     serializer_class = SuitabilityPositionSerializer
     permission_classes = (AllowAny,)
     pagination_class = None
@@ -171,7 +170,9 @@ class EmployeePositionsViewSet(viewsets.ReadOnlyModelViewSet):
             "position_employee_count",
         )
         filtered_queryset = self.filter_queryset(queryset)
-        total_employee_count = sum(item["position_employee_count"] for item in filtered_queryset)
+        total_employee_count = sum(
+            item["position_employee_count"] for item in filtered_queryset
+        )
 
         return filtered_queryset.annotate(
             total_employee_count=Value(
@@ -179,3 +180,28 @@ class EmployeePositionsViewSet(viewsets.ReadOnlyModelViewSet):
                 output_field=IntegerField()
             )
         )
+
+
+class SkillsDevelopmentViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для работы с чартом "Развитие навыков"."""
+
+    serializer_class = SkillsDevelopmentSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        return Rating.objects.all().select_related('skill').values(
+            "rating_date"
+        ).annotate(
+            average_rating=Avg("rating_value"),
+            average_rating_hard=Avg(
+                "rating_value",
+                filter=Q(skill__competence__domain__name="Hard skills")
+            ),
+            average_rating_soft=Avg(
+                "rating_value",
+                filter=Q(skill__competence__domain__name="Soft skills")
+            ),
+        ).order_by("rating_date")
