@@ -4,6 +4,9 @@
     display: flex;
     justify-content: center;
     background-color: var(--background-quaternary);
+    position: absolute;
+    top: 0;
+    left:0;
 }
 
 .sidebar__inner-bar {

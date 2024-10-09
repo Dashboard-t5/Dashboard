@@ -1,13 +1,12 @@
 import './LayoutCharts.css';
 import Filter from '../../images/filter.png'
-import SearchForm from "./SearchForm/SearchForm"
+import SearchForm from "../Layout/SearchForm/SearchForm"
 import ChartStaff from "./ChartStaff/ChartStaff";
 
 function LayoutCharts() {
 
     return (
         <section id='charts' className='charts'>
-
 
 
             <SearchForm/>
