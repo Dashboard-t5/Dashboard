@@ -146,6 +146,32 @@ class EmployeePositionsSerializer(serializers.ModelSerializer):
         )
 
 
+class EmployeeGradesSerializer(serializers.ModelSerializer):
+    """Сериализатор для чарта "Количество сотрудников по грейдам"."""
+
+    grade = serializers.CharField(
+        source="employee__grade", read_only=True
+    )
+    grade_employee_count = serializers.IntegerField(read_only=True)
+    total_employee_count = serializers.IntegerField(read_only=True)
+    percentage = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Rating
+        fields = (
+            "grade",
+            "grade_employee_count",
+            "total_employee_count",
+            "percentage",
+        )
+
+    def get_percentage(self, obj):
+        return round(
+            obj["grade_employee_count"] * 100 / obj["total_employee_count"],
+            1,
+        )
+
+
 class SkillsDevelopmentSerializer(serializers.ModelSerializer):
     """Сериализатор для чарта "Развитие навыков"."""
 

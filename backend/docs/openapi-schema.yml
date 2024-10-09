@@ -50,6 +50,66 @@ paths:
         description: A unique integer value identifying this Компетенция.
         required: true
         type: integer
+  /dashboard/employee_grades/:
+    get:
+      operationId: dashboard_employee_grades_list
+      description: Вьюсет для работы с чартом "Количество сотрудников по грейдам".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeGrades'
+      tags:
+        - dashboard
+    parameters: []
   /dashboard/employee_positions/:
     get:
       operationId: dashboard_employee_positions_list
@@ -552,6 +612,26 @@ definitions:
         type: string
         maxLength: 150
         minLength: 1
+  EmployeeGrades:
+    type: object
+    properties:
+      grade:
+        title: Grade
+        type: string
+        readOnly: true
+        minLength: 1
+      grade_employee_count:
+        title: Grade employee count
+        type: integer
+        readOnly: true
+      total_employee_count:
+        title: Total employee count
+        type: integer
+        readOnly: true
+      percentage:
+        title: Percentage
+        type: string
+        readOnly: true
   EmployeePositions:
     type: object
     properties:

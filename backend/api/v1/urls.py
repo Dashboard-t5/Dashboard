@@ -2,7 +2,7 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from api.v1.views import (CompetenceViewSet, DomainViewSet,
-                          EmployeePositionsViewSet,
+                          EmployeeGradesViewSet, EmployeePositionsViewSet,
                           EmployeeSkillsAverageRatingViewSet, EmployeeViewSet,
                           PositionViewSet, RatingViewSet,
                           SkillsDevelopmentViewSet, SkillViewSet,
@@ -36,6 +36,12 @@ router_v1.register(
     r"dashboard/employee_positions",
     EmployeePositionsViewSet,
     basename="employee_positions",
+)
+
+router_v1.register(
+    r"dashboard/employee_grades",
+    EmployeeGradesViewSet,
+    basename="employee_grades",
 )
 
 router_v1.register(
