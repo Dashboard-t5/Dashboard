@@ -1,8 +1,8 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.v1.views import (CompetenceViewSet, DomainViewSet,
-                          EmployeeSkillsViewSet, EmployeeViewSet,
+from api.v1.views import (CompetenceViewSet, DomainViewSet, EmployeePositionsViewSet,
+                          EmployeeSkillsAverageRatingViewSet, EmployeeViewSet,
                           PositionViewSet, RatingViewSet, SkillViewSet,
                           SuitabilityPositionViewSet, TeamViewSet)
 
@@ -14,6 +14,11 @@ router_v1.register("domains", DomainViewSet, basename="domains")
 router_v1.register("skills", SkillViewSet, basename="skills")
 router_v1.register("competences", CompetenceViewSet, basename="competences")
 router_v1.register("raitings", RatingViewSet, basename="raitings")
+# router_v1.register(
+#     r"domains/(?P<domain_id>\d+)/skills/(?P<skill_id>\d+)/employees",
+#     SkillEmployeeViewSet,
+#     basename="skill_employee",
+# )
 router_v1.register(
     "dashboard/suitability_position",
     SuitabilityPositionViewSet,
@@ -21,8 +26,14 @@ router_v1.register(
 )
 router_v1.register(
     r"dashboard/suitability_position/(?P<employee_id>\d+)/skills",
-    EmployeeSkillsViewSet,
+    EmployeeSkillsAverageRatingViewSet,
     basename="employee_skills",
+)
+
+router_v1.register(
+    r"dashboard/employee_positions",
+    EmployeePositionsViewSet,
+    basename="employee_positions",
 )
 
 
