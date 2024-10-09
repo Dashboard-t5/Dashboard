@@ -8,8 +8,8 @@ function LayoutSkills() {
 
     const fetchAllStaff = async () => {
         setFetchingData(true)
-        // const db_url = 'https://jsonplaceholder.typicode.com/';
-        const db_url = 'http://127.0.0.1:8000/api/v1/dashboard/suitability_position/?team=5';
+        const db_url = 'https://jsonplaceholder.typicode.com/';
+        // const db_url = 'http://127.0.0.1:8000/api/v1/dashboard/suitability_position/?team=5';
         try {
             let { data } = await axios.get(`${db_url}albums`, {
                 headers: {
@@ -35,6 +35,9 @@ function LayoutSkills() {
         <div>
             <p className='chart__subtitle'>Сотрудник: ${}_ • Уровень владения навыками</p>
 
+            {/*TEST FETCH BTN*/}
+            <button onClick={() => handleFetchClick()} className='TEST-BTN'>Get Data to Console</button>
+
             <table className='chart__table'>
                 <thead>
                     <tr>
@@ -48,37 +51,35 @@ function LayoutSkills() {
                     <td>Ефремов Вячеслав</td>
                     <td>79%</td>
                 </tr>
-                {/*{isAllStaff.length === 0 ? (*/}
-                {/*        <tr>*/}
-                {/*            <td colSpan="2">Загрузить...</td>*/}
-                {/*        </tr>*/}
-                {/*    ) : (*/}
-                {/*        isAllStaff.map((staff, i) => (*/}
-                {/*            <tr key={i}>*/}
-                {/*                <td>{staff.id}</td>*/}
-                {/*                <td>{staff.title}</td>*/}
-                {/*            </tr>*/}
-                {/*        ))*/}
-                {/*    )}*/}
+                {isAllStaff.length === 0 ? (
+                        <tr>
+                            <td colSpan="2">Загрузить...</td>
+                        </tr>
+                    ) : (
+                        isAllStaff.map((staff, i) => (
+                            <tr key={i}>
+                                <td>{staff.id}</td>
+                                <td>{staff.title}</td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
             </table>
 
-
             {/*TEST FETCH BTN*/}
-            <button onClick={() => handleFetchClick()} className='TEST-BTN'>Get Data to Console</button>
+            {/*<button onClick={() => handleFetchClick()} className='TEST-BTN'>Get Data to Console</button>*/}
 
-            <ul>
-                {isAllStaff.length === 0 ? (
-                    <li>
-                        <p>Загрузить...</p>
-                    </li>
-                ) : (
+            {/*<ul>*/}
+            {/*    {isAllStaff.length === 0 ? (*/}
+            {/*        <li>*/}
+            {/*            <p>Загрузить...</p>*/}
+            {/*        </li>*/}
+            {/*    ) : (*/}
 
-                    console.log(isAllStaff)
+            {/*        console.log(isAllStaff)*/}
 
-                )}
-            </ul>
-
+            {/*    )}*/}
+            {/*</ul>*/}
 
         </div>
     )
