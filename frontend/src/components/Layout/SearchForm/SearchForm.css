@@ -1,19 +1,18 @@
 .search_form {
-    width: 440px;
+    width: 100%;
     height: min-content;
     display: flex;
     align-items: center;
     border-radius: 12px;
-    background-color: #FFF;
-    margin-top: 24px;
+    padding: 0 40px 0 62px;
 }
 
 .search__wrap {
+    width: 100%;
     position: relative;
     display: flex;
     align-items: center;
-    /*margin-left: 20px;*/
-    width: 100%;
+    background-color: #FFF;
 }
 
 .search__loupe-btn {

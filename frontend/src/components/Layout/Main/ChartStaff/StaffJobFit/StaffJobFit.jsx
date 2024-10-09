@@ -1,8 +1,8 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
-import './LayoutSkills.css'
+import './StaffJobFit.css'
 
-function LayoutSkills() {
+function StaffJobFit() {
     const [isFetchingData, setFetchingData] = useState('false')
     const [isAllStaff, setAllStaff] = useState([])
 
@@ -11,7 +11,7 @@ function LayoutSkills() {
         // const db_url = 'https://jsonplaceholder.typicode.com/';
         const db_url = 'http://127.0.0.1:8000/api/v1/dashboard/suitability_position/?team=5';
         try {
-            let { data } = await axios.get(`${db_url}albums`, {
+            let { data } = await axios.get(`${db_url}`, {
                 headers: {
                     'Accept': 'application/json',
                 },
@@ -35,7 +35,10 @@ function LayoutSkills() {
         <div>
             <p className='chart__subtitle'>Сотрудник: ${}_ • Уровень владения навыками</p>
 
-            <table className='chart__table'>
+            {/*TEST FETCH BTN*/}
+            {/* <button onClick={() => handleFetchClick()} className='TEST-BTN'>Get Data to Console</button> */}
+
+            {/* <table className='chart__table'>
                 <thead>
                     <tr>
                         <th className='table__header'>Сотрудник</th>
@@ -48,40 +51,38 @@ function LayoutSkills() {
                     <td>Ефремов Вячеслав</td>
                     <td>79%</td>
                 </tr>
-                {/*{isAllStaff.length === 0 ? (*/}
-                {/*        <tr>*/}
-                {/*            <td colSpan="2">Загрузить...</td>*/}
-                {/*        </tr>*/}
-                {/*    ) : (*/}
-                {/*        isAllStaff.map((staff, i) => (*/}
-                {/*            <tr key={i}>*/}
-                {/*                <td>{staff.id}</td>*/}
-                {/*                <td>{staff.title}</td>*/}
-                {/*            </tr>*/}
-                {/*        ))*/}
-                {/*    )}*/}
+                {isAllStaff.length === 0 ? (
+                        <tr>
+                            <td colSpan="2">Загрузить...</td>
+                        </tr>
+                    ) : (
+                        isAllStaff.map((staff, i) => (
+                            <tr key={i}>
+                                <td>{staff.id}</td>
+                                <td>{staff.title}</td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
-            </table>
+            </table> */}
 
-
-            {/*TEST FETCH BTN*/}
+            {/* TEST FETCH BTN */}
             <button onClick={() => handleFetchClick()} className='TEST-BTN'>Get Data to Console</button>
 
             <ul>
-                {isAllStaff.length === 0 ? (
-                    <li>
-                        <p>Загрузить...</p>
-                    </li>
-                ) : (
+            {isAllStaff.length === 0 ? (
+            <li>
+            <p>Загрузить...</p>
+            </li>
+            ) : (
 
-                    console.log(isAllStaff)
+            console.log(isAllStaff)
 
-                )}
+            )}
             </ul>
-
 
         </div>
     )
 }
 
-export default LayoutSkills
+export default StaffJobFit

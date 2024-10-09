@@ -1,6 +1,6 @@
-import './LayoutStaffNums.css'
+import './StaffSkilledNum.css'
 import {useState} from "react";
-function LayoutStaffNums() {
+function StaffSkilledNum() {
     const [isActiveBtn, setActiveBtn] = useState('hardSkill')
 
     return (
@@ -16,4 +16,4 @@ function LayoutStaffNums() {
     )
 }
 
-export default LayoutStaffNums
+export default StaffSkilledNum

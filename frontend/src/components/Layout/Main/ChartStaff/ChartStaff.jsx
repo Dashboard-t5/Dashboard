@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './ChartStaff.css'
-import LayoutSkills from './LayoutSkills/LayoutSkills'
-import LayoutStaffNums from './LayoutStaffNums/LayoutStaffNums'
+import StaffJobFit from './StaffJobFit/StaffJobFit'
+import StaffSkilledNum from './StaffSkilledNum/StaffSkilledNum'
 
 function ChartStaff() {
     const [activeTab, setActiveTab] = useState('skillsLevel')
@@ -23,7 +23,7 @@ function ChartStaff() {
             </div>
 
             <div className="tab-content-chart">
-                {activeTab === 'skillsLevel' ? <LayoutSkills/> : <LayoutStaffNums/>}
+                {activeTab === 'skillsLevel' ? <StaffJobFit/> : <StaffSkilledNum/>}
             </div>
 
 
