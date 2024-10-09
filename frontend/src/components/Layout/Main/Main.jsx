@@ -9,21 +9,22 @@ function Main({ type }) {
 
     return (
         <main className="main">
-            <div className="tabs">
 
-                <button className={`tab ${activeTab==='charts' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('charts')}>
-                    Чарты
-                </button>
-                <button className={`tab ${activeTab==='docs' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('docs')}>
-                    Документация
-                </button>
-            </div>
+            {/*<div className="tabs">*/}
 
-            <div className="tab-content">
-                {activeTab === 'charts' ? <LayoutCharts/> : <LayoutDocs/>}
-            </div>
+            {/*    <button className={`tab ${activeTab==='charts' ? 'active' : ''}`}*/}
+            {/*            onClick={() => setActiveTab('charts')}>*/}
+            {/*        Чарты*/}
+            {/*    </button>*/}
+            {/*    <button className={`tab ${activeTab==='docs' ? 'active' : ''}`}*/}
+            {/*            onClick={() => setActiveTab('docs')}>*/}
+            {/*        Документация*/}
+            {/*    </button>*/}
+            {/*</div>*/}
+
+            {/*<div className="tab-content">*/}
+            {/*    {activeTab === 'charts' ? <LayoutCharts/> : <LayoutDocs/>}*/}
+            {/*</div>*/}
 
             <Outlet/>
 
