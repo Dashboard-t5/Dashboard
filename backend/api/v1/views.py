@@ -7,12 +7,13 @@ from rest_framework.permissions import AllowAny
 
 from api.v1.filters import RatingFilter
 from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
-                                EmployeesCountWithSkillsSerializer,
-                                EmployeesWithSkillSerializer,
                                 EmployeeGradesSerializer,
+                                EmployeePositionRatingSerializer,
                                 EmployeePositionsSerializer,
+                                EmployeesCountWithSkillsSerializer,
                                 EmployeeSerializer,
                                 EmployeeSkillAverageRatingSerializer,
+                                EmployeesWithSkillSerializer,
                                 PositionSerializer, RatingSerializer,
                                 SkillsDevelopmentSerializer, SkillSerializer,
                                 SuitabilityPositionSerializer, TeamSerializer)
@@ -169,7 +170,7 @@ class EmployeesCountWithSkillsViewSet(
     viewsets.GenericViewSet
 ):
     """
-    Вьюсет для чарта "Колличество сотрудников, владеющих навыком"
+    Вьюсет для чарта "Количество сотрудников, владеющих навыком"
      для ВСЕХ НАВЫКОВ.
     """
 
@@ -200,7 +201,7 @@ class EmployeesCountWithSkillsViewSet(
 
 class EmployeesWithSkillViewSet(viewsets.ReadOnlyModelViewSet):
     """
-    Вьюсет для чарта "Колличество сотрудников, владеющих навыком"
+    Вьюсет для чарта "Количество сотрудников, владеющих навыком"
      для ВЫБРАННОГО НАВЫКА.
     """
 
@@ -327,7 +328,7 @@ class EmployeeGradesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 
 
 class SkillsDevelopmentViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """Вьюсет для работы с чартом "Развитие навыков"."""
+    """Вьюсет для работы с чартом "Динамика развития навыков"."""
 
     serializer_class = SkillsDevelopmentSerializer
     permission_classes = (AllowAny,)
@@ -352,4 +353,30 @@ class SkillsDevelopmentViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                 ),
             )
             .order_by("rating_date")
+        )
+
+# --------------------------------------------
+#    Чарт 4 Вкладка 2
+# --------------------------------------------
+
+
+class EmployeePositionRatingViewSet(
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet
+):
+    """Вьюсет для работы с чартом "Оценки сотрудников по должностям"."""
+
+    serializer_class = EmployeePositionRatingSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        return (
+            Rating.objects.all()
+            .select_related("employee")
+            .values("employee__position__name")
+            .annotate(average_rating=Avg("rating_value"))
+            .order_by("average_rating")
         )
