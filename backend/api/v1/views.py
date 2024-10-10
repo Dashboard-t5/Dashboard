@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny
 from api.v1.filters import RatingFilter
 from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
                                 EmployeeGradesSerializer,
+                                EmployeeGradesWithPositionsSerializer,
                                 EmployeePositionsSerializer,
                                 EmployeeRatingSerializer,
                                 EmployeesCountWithSkillsSerializer,
@@ -316,6 +317,50 @@ class EmployeeGradesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
         filtered_queryset = self.filter_queryset(queryset)
         total_employee_count = sum(
             item["grade_employee_count"] for item in filtered_queryset
+        )
+
+        return filtered_queryset.annotate(
+            total_employee_count=Value(
+                total_employee_count, output_field=IntegerField()
+            )
+        )
+
+
+class EmployeeGradesWithPositionsViewSet(
+    mixins.ListModelMixin, viewsets.GenericViewSet
+):
+    """Вьюсет для работы с чартом "Количество сотрудников по грейдам".
+    для ВЫБРАННОГО ГРЕЙДА.
+    """
+
+    serializer_class = EmployeeGradesWithPositionsSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        grade = self.kwargs.get("grade")
+        queryset = (
+            Rating.objects.all()
+            .select_related("employee", "position")
+            .filter(employee__grade=grade)
+            .values(
+                "employee__position__name",
+            )
+            .annotate(
+                position_employee_count=Count(
+                    "employee",
+                    distinct=True,
+                )
+            )
+            .order_by(
+                "position_employee_count",
+            )
+        )
+        filtered_queryset = self.filter_queryset(queryset)
+        total_employee_count = sum(
+            item["position_employee_count"] for item in filtered_queryset
         )
 
         return filtered_queryset.annotate(
