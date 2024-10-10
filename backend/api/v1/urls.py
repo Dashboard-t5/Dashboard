@@ -2,11 +2,12 @@ from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
 from api.v1.views import (CompetenceViewSet, DomainViewSet,
-                          EmployeeGradesViewSet, EmployeePositionRatingViewSet,
-                          EmployeePositionsViewSet,
+                          EmployeeGradesViewSet, EmployeePositionsViewSet,
+                          EmployeeRatingViewSet,
                           EmployeesCountWithSkillsViewSet,
                           EmployeeSkillsAverageRatingViewSet,
                           EmployeesWithSkillViewSet, EmployeeViewSet,
+                          GradeRatingViewSet, PositionRatingViewSet,
                           PositionViewSet, RatingViewSet,
                           SkillsDevelopmentViewSet, SkillViewSet,
                           SuitabilityPositionViewSet, TeamViewSet)
@@ -79,9 +80,19 @@ router_v1.register(
 #    Чарт 4 Вкладка 2
 # --------------------------------------------
 router_v1.register(
-    r"dashboard/employee_position_rating",
-    EmployeePositionRatingViewSet,
-    basename="employee_position_rating",
+    r"dashboard/position_rating",
+    PositionRatingViewSet,
+    basename="position_rating",
+)
+router_v1.register(
+    r"dashboard/position_rating/(?P<position_id>\d+)/grades",
+    GradeRatingViewSet,
+    basename="grade_rating",
+)
+router_v1.register(
+    r"dashboard/position_rating/(?P<position_id>\d+)/grades/(?P<grade>\w+)",
+    EmployeeRatingViewSet,
+    basename="employee_rating",
 )
 
 urlpatterns = [

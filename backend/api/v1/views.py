@@ -8,15 +8,17 @@ from rest_framework.permissions import AllowAny
 from api.v1.filters import RatingFilter
 from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
                                 EmployeeGradesSerializer,
-                                EmployeePositionRatingSerializer,
                                 EmployeePositionsSerializer,
+                                EmployeeRatingSerializer,
                                 EmployeesCountWithSkillsSerializer,
                                 EmployeeSerializer,
                                 EmployeeSkillAverageRatingSerializer,
                                 EmployeesWithSkillSerializer,
-                                PositionSerializer, RatingSerializer,
-                                SkillsDevelopmentSerializer, SkillSerializer,
-                                SuitabilityPositionSerializer, TeamSerializer)
+                                GradeRatingSerializer,
+                                PositionRatingSerializer, PositionSerializer,
+                                RatingSerializer, SkillsDevelopmentSerializer,
+                                SkillSerializer, SuitabilityPositionSerializer,
+                                TeamSerializer)
 from employees.models import Employee, Position, Team
 from ratings.models import Competence, Domain, Rating, Skill
 
@@ -255,7 +257,7 @@ class EmployeePositionsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         queryset = (
             Rating.objects.all()
-            .select_related("employee")
+            .select_related("employee", "position")
             .values(
                 "employee__position__name",
             )
@@ -339,7 +341,7 @@ class SkillsDevelopmentViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     def get_queryset(self):
         return (
             Rating.objects.all()
-            .select_related("skill")
+            .select_related("skill", "competence", "domain")
             .values("rating_date")
             .annotate(
                 average_rating=Avg("rating_value"),
@@ -360,13 +362,10 @@ class SkillsDevelopmentViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 # --------------------------------------------
 
 
-class EmployeePositionRatingViewSet(
-    mixins.ListModelMixin,
-    viewsets.GenericViewSet
-):
+class PositionRatingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """Вьюсет для работы с чартом "Оценки сотрудников по должностям"."""
 
-    serializer_class = EmployeePositionRatingSerializer
+    serializer_class = PositionRatingSerializer
     permission_classes = (AllowAny,)
     pagination_class = None
     filter_backends = [DjangoFilterBackend]
@@ -375,8 +374,66 @@ class EmployeePositionRatingViewSet(
     def get_queryset(self):
         return (
             Rating.objects.all()
-            .select_related("employee")
-            .values("employee__position__name")
+            .select_related("employee", "position")
+            .values("employee__position__name", "employee__position__id")
+            .annotate(average_rating=Avg("rating_value"))
+            .order_by("average_rating")
+        )
+
+
+class GradeRatingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    Вьюсет для работы с чартом "Оценки сотрудников по должностям".
+     для ВЫБРАННОЙ ДОЛЖНОСТИ.
+    """
+
+    serializer_class = GradeRatingSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        position = get_object_or_404(
+            Position, id=self.kwargs.get("position_id")
+        )
+        return (
+            Rating.objects.all()
+            .select_related("employee", "position")
+            .filter(employee__position=position)
+            .values("employee__grade", )
+            .annotate(average_rating=Avg("rating_value"))
+            .order_by("average_rating")
+        )
+
+
+class EmployeeRatingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """
+    Вьюсет для работы с чартом "Оценки сотрудников по должностям".
+     для ВЫБРАННОЙ ДОЛЖНОСТИ И ГРЕЙДА.
+    """
+
+    serializer_class = EmployeeRatingSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        position = get_object_or_404(
+            Position, id=self.kwargs.get("position_id")
+        )
+        grade = self.kwargs.get("grade")
+        return (
+            Rating.objects.all()
+            .select_related("employee", "position")
+            .filter(employee__position=position, employee__grade=grade)
+            .values(
+                "employee__id",
+                full_name=Concat(
+                    "employee__last_name", Value(" "), "employee__first_name"
+                )
+            )
             .annotate(average_rating=Avg("rating_value"))
             .order_by("average_rating")
         )
