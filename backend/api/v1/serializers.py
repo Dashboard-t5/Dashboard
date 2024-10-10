@@ -95,10 +95,15 @@ class RatingSerializer(serializers.ModelSerializer):
             "suitability",
         )
 
+# --------------------------------------------
+#    Чарт 1 Вкладка 1
+# --------------------------------------------
+
 
 class SuitabilityPositionSerializer(serializers.ModelSerializer):
     """Сериализатор для чарта "Соответствие должности"."""
 
+    employee_id = serializers.CharField(source="employee__id", read_only=True)
     employee = serializers.CharField(source="full_name", read_only=True)
     total_yes = serializers.IntegerField()
     total = serializers.IntegerField()
@@ -106,7 +111,7 @@ class SuitabilityPositionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ("employee", "total_yes", "total", "percentage")
+        fields = ("employee_id", "employee", "total_yes", "total", "percentage")
 
 
 class EmployeeSkillAverageRatingSerializer(serializers.ModelSerializer):
@@ -118,6 +123,75 @@ class EmployeeSkillAverageRatingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Rating
         fields = ("skill_name", "average_rating")
+
+# --------------------------------------------
+#    Чарт 1 Вкладка 2
+# --------------------------------------------
+
+
+class EmployeesCountWithSkillsSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для чарта "Колличество сотрудников,
+    владеющих навыком" для ВСЕХ НАВЫКОВ.
+    """
+
+    domain = serializers.CharField(
+        source="skill__competence__domain__name",
+        read_only=True,
+    )
+    skill_id = serializers.CharField(
+        source="skill__id",
+        read_only=True,
+    )
+    skill_name = serializers.CharField(
+        source="skill__name",
+        read_only=True,
+    )
+    count_employees = serializers.IntegerField(
+        source="skill_employee_count",
+        read_only=True,
+    )
+
+    class Meta:
+        model = Rating
+        fields = (
+            "domain",
+            "skill_id",
+            "skill_name",
+            "count_employees",
+        )
+
+
+class EmployeesWithSkillSerializer(serializers.ModelSerializer):
+    """
+    Сериализатор для чарта "Колличество сотрудников,
+    владеющих навыком" для для ВЫБРАННОГО НАВЫКА.
+    """
+
+    domain = serializers.CharField(
+        source="skill__competence__domain__name",
+        read_only=True,
+    )
+    employee = serializers.CharField(
+        source="full_name",
+        read_only=True,
+    )
+    count_employees = serializers.IntegerField(
+        source="skill_employee_count",
+        read_only=True,
+    )
+
+    class Meta:
+        model = Rating
+        fields = (
+            "domain",
+            "employee",
+            "count_employees",
+        )
+
+# --------------------------------------------
+#    Чарт 2 Вкладка 1
+# --------------------------------------------
 
 
 class EmployeePositionsSerializer(serializers.ModelSerializer):
@@ -145,6 +219,10 @@ class EmployeePositionsSerializer(serializers.ModelSerializer):
             1,
         )
 
+# --------------------------------------------
+#    Чарт 2 Вкладка 2
+# --------------------------------------------
+
 
 class EmployeeGradesSerializer(serializers.ModelSerializer):
     """Сериализатор для чарта "Количество сотрудников по грейдам"."""
@@ -170,6 +248,10 @@ class EmployeeGradesSerializer(serializers.ModelSerializer):
             obj["grade_employee_count"] * 100 / obj["total_employee_count"],
             1,
         )
+
+# --------------------------------------------
+#    Чарт 4 Вкладка 1
+# --------------------------------------------
 
 
 class SkillsDevelopmentSerializer(serializers.ModelSerializer):

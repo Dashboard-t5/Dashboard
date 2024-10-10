@@ -1,4 +1,4 @@
-from django.db.models import Avg, Count, F, IntegerField, Q, Value
+from django.db.models import Avg, CharField, Count, F, IntegerField, Q, Value
 from django.db.models.functions import Cast, Concat
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
@@ -7,6 +7,8 @@ from rest_framework.permissions import AllowAny
 
 from api.v1.filters import RatingFilter
 from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
+                                EmployeesCountWithSkillsSerializer,
+                                EmployeesWithSkillSerializer,
                                 EmployeeGradesSerializer,
                                 EmployeePositionsSerializer,
                                 EmployeeSerializer,
@@ -88,6 +90,10 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_class = RatingFilter
 
+# --------------------------------------------
+#    Чарт 1 Вкладка 1
+# --------------------------------------------
+
 
 class SuitabilityPositionViewSet(
     mixins.ListModelMixin, viewsets.GenericViewSet
@@ -105,6 +111,7 @@ class SuitabilityPositionViewSet(
             Rating.objects.all()
             .select_related("employee")
             .values(
+                "employee__id",
                 full_name=Concat(
                     "employee__last_name", Value(" "), "employee__first_name"
                 )
@@ -152,6 +159,88 @@ class EmployeeSkillsAverageRatingViewSet(
             .order_by("average_rating")
         )
 
+# --------------------------------------------
+#    Чарт 1 Вкладка 2
+# --------------------------------------------
+
+
+class EmployeesCountWithSkillsViewSet(
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet
+):
+    """
+    Вьюсет для чарта "Колличество сотрудников, владеющих навыком"
+     для ВСЕХ НАВЫКОВ.
+    """
+
+    serializer_class = EmployeesCountWithSkillsSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        return Rating.objects.select_related(
+            "skill"
+        ).filter(
+            suitability="да"
+        ).values(
+            "skill__id",
+            "skill__name",
+            "skill__competence__domain__name",
+        ).annotate(
+            skill_employee_count=Count(
+                "employee",
+                distinct=True,
+            )
+        ).order_by(
+            "skill_employee_count"
+        )
+
+
+class EmployeesWithSkillViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    Вьюсет для чарта "Колличество сотрудников, владеющих навыком"
+     для ВЫБРАННОГО НАВЫКА.
+    """
+
+    serializer_class = EmployeesWithSkillSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        skill = get_object_or_404(Skill, id=self.kwargs.get("skill_id"))
+        return Rating.objects.select_related(
+            "employee",
+            "skill",
+            "skill__competence",
+            "skill__competence__domain"
+        ).filter(
+            suitability="да",
+            skill=skill
+        ).values(
+            "skill__competence__domain__name"
+        ).annotate(
+            full_name=Concat(
+                "employee__last_name",
+                Value(" "),
+                "employee__first_name",
+                output_field=CharField()
+            ),
+            skill_employee_count=Count(
+                "employee",
+                distinct=True
+            )
+        ).order_by(
+            "full_name"
+        )
+
+# --------------------------------------------
+#    Чарт 2 Вкладка 1
+# --------------------------------------------
+
 
 class EmployeePositionsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """Вьюсет для работы с чартом "Должности сотрудников"."""
@@ -190,34 +279,9 @@ class EmployeePositionsViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             )
         )
 
-
-class SkillsDevelopmentViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
-    """Вьюсет для работы с чартом "Развитие навыков"."""
-
-    serializer_class = SkillsDevelopmentSerializer
-    permission_classes = (AllowAny,)
-    pagination_class = None
-    filter_backends = [DjangoFilterBackend]
-    filterset_class = RatingFilter
-
-    def get_queryset(self):
-        return (
-            Rating.objects.all()
-            .select_related("skill")
-            .values("rating_date")
-            .annotate(
-                average_rating=Avg("rating_value"),
-                average_rating_hard=Avg(
-                    "rating_value",
-                    filter=Q(skill__competence__domain__name="Hard skills"),
-                ),
-                average_rating_soft=Avg(
-                    "rating_value",
-                    filter=Q(skill__competence__domain__name="Soft skills"),
-                ),
-            )
-            .order_by("rating_date")
-        )
+# --------------------------------------------
+#    Чарт 2 Вкладка 2
+# --------------------------------------------
 
 
 class EmployeeGradesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
@@ -255,4 +319,37 @@ class EmployeeGradesViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             total_employee_count=Value(
                 total_employee_count, output_field=IntegerField()
             )
+        )
+
+# --------------------------------------------
+#    Чарт 4 Вкладка 1
+# --------------------------------------------
+
+
+class SkillsDevelopmentViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """Вьюсет для работы с чартом "Развитие навыков"."""
+
+    serializer_class = SkillsDevelopmentSerializer
+    permission_classes = (AllowAny,)
+    pagination_class = None
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        return (
+            Rating.objects.all()
+            .select_related("skill")
+            .values("rating_date")
+            .annotate(
+                average_rating=Avg("rating_value"),
+                average_rating_hard=Avg(
+                    "rating_value",
+                    filter=Q(skill__competence__domain__name="Hard skills"),
+                ),
+                average_rating_soft=Avg(
+                    "rating_value",
+                    filter=Q(skill__competence__domain__name="Soft skills"),
+                ),
+            )
+            .order_by("rating_date")
         )
