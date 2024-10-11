@@ -22,6 +22,10 @@
     align-items: center;
 }
 
+.inner__half:nth-child(2) {
+    justify-content: flex-end;
+}
+
 .btn__wrap {
     position: relative;
     width: 40px;
@@ -39,6 +43,12 @@
 .inner__icon-bg {
     width: 24px;
     height: 24px;
+}
+
+.inner__user-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
 }
 
 .btn__wrap:hover {
