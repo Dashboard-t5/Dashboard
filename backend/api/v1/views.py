@@ -18,6 +18,7 @@ from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
                                 GradeRatingSerializer,
                                 PositionRatingSerializer, PositionSerializer,
                                 RatingSerializer, SkillsDevelopmentSerializer,
+                                SkillsLevelSerializer,
                                 SkillSerializer, SuitabilityPositionSerializer,
                                 TeamSerializer)
 from employees.models import Employee, Position, Team
@@ -367,6 +368,31 @@ class EmployeeGradesWithPositionsViewSet(
             total_employee_count=Value(
                 total_employee_count, output_field=IntegerField()
             )
+        )
+
+# --------------------------------------------
+#    Чарт 3 Вкладка 1
+# --------------------------------------------
+
+
+class SkillsLevelViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """Вьюсет для работы с чартом "Уровень владения навыками"."""
+
+    serializer_class = SkillsLevelSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        return Rating.objects.select_related(
+            "skill",
+            "skill__competence__domain"
+        ).values(
+            "skill__competence__domain__name",
+            "skill__name"
+        ).annotate(
+            skill_level=Avg("rating_value")
+        ).order_by(
+            "-skill_level"
         )
 
 # --------------------------------------------

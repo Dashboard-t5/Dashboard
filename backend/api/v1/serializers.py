@@ -283,6 +283,36 @@ class EmployeeGradesWithPositionsSerializer(serializers.ModelSerializer):
         )
 
 # --------------------------------------------
+#    Чарт 3 Вкладка 1
+# --------------------------------------------
+
+
+class SkillsLevelSerializer(serializers.ModelSerializer):
+    """Сериализатор для чарта "Уровень владения навыками"."""
+
+    domain = serializers.CharField(
+        source="skill__competence__domain__name",
+        read_only=True,
+    )
+    skill_name = serializers.CharField(
+        source="skill__name",
+        read_only=True,
+    )
+    skill_level = serializers.DecimalField(
+        max_digits=3,
+        decimal_places=2,
+        read_only=True,
+    )
+
+    class Meta:
+        model = Rating
+        fields = (
+            "domain",
+            "skill_name",
+            "skill_level",
+        )
+
+# --------------------------------------------
 #    Чарт 4 Вкладка 1
 # --------------------------------------------
 

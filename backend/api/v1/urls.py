@@ -10,7 +10,8 @@ from api.v1.views import (CompetenceViewSet, DomainViewSet,
                           EmployeesWithSkillViewSet, EmployeeViewSet,
                           GradeRatingViewSet, PositionRatingViewSet,
                           PositionViewSet, RatingViewSet,
-                          SkillsDevelopmentViewSet, SkillViewSet,
+                          SkillsDevelopmentViewSet, SkillsLevelViewSet,
+                          SkillViewSet,
                           SuitabilityPositionViewSet, TeamViewSet)
 
 router_v1 = DefaultRouter()
@@ -72,7 +73,14 @@ router_v1.register(
     EmployeeGradesWithPositionsViewSet,
     basename="employee_grades_positions",
 )
-
+# --------------------------------------------
+#    Чарт 3 Вкладка 1
+# --------------------------------------------
+router_v1.register(
+    r"dashboard/skill_level",
+    SkillsLevelViewSet,
+    basename="skill_level",
+)
 # --------------------------------------------
 #    Чарт 4 Вкладка 1
 # --------------------------------------------
