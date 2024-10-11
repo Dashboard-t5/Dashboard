@@ -12,7 +12,7 @@ from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
                                 EmployeePositionsSerializer,
                                 EmployeeRatingSerializer,
                                 EmployeesCountWithSkillsSerializer,
-                                EmployeeSerializer,
+                                EmployeeScoresSerializer, EmployeeSerializer,
                                 EmployeeSkillAverageRatingSerializer,
                                 EmployeesWithSkillSerializer,
                                 GradeRatingSerializer,
@@ -393,6 +393,36 @@ class SkillsLevelViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             skill_level=Avg("rating_value")
         ).order_by(
             "-skill_level"
+        )
+
+# --------------------------------------------
+#    Чарт 3 Вкладка 2
+# --------------------------------------------
+
+
+class EmployeeScoresViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+    """Вьюсет для работы с чартом "Балы сотрудников по навыкам и датам"."""
+
+    serializer_class = EmployeeScoresSerializer
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        return Rating.objects.select_related(
+            "employee",
+            "skill",
+            "skill__competence",
+            "skill__competence__domain"
+        ).values(
+            "skill__competence__domain__name",
+            "skill__competence__name",
+            "skill__name",
+            "rating_date",
+            full_name=Concat(
+                "employee__last_name", Value(" "), "employee__first_name"
+            )
+        ).order_by(
+            "full_name"
         )
 
 # --------------------------------------------
