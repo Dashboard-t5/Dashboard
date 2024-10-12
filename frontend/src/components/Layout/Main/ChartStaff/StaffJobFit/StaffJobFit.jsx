@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import './StaffJobFit.css'
+import BarChart from "../../../../Charts/BarChart";
 
 function StaffJobFit() {
     const [isFetchingData, setFetchingData] = useState('false')
@@ -8,7 +9,7 @@ function StaffJobFit() {
 
     const fetchAllStaff = async () => {
         setFetchingData(true)
-        // const db_url = 'https://jsonplaceholder.typicode.com/';
+        // const db_url = 'https://jsonplaceholder.typicode.com';
         const db_url = 'http://127.0.0.1:8000/api/v1/dashboard/suitability_position/?team=5';
         try {
             let { data } = await axios.get(`${db_url}`, {
@@ -32,56 +33,57 @@ function StaffJobFit() {
     }
 
     return (
-        <div>
-            <p className='chart__subtitle'>Сотрудник: ${}_ • Уровень владения навыками</p>
+        <>
+            <p className='table__subtitle'>Сотрудник: ${}_ • Уровень владения навыками</p>
 
-            {/*TEST FETCH BTN*/}
-            {/* <button onClick={() => handleFetchClick()} className='TEST-BTN'>Get Data to Console</button> */}
-
-            {/* <table className='chart__table'>
-                <thead>
-                    <tr>
-                        <th className='table__header'>Сотрудник</th>
-                        <th>Доля навыков с удовлетворительной оценкой</th>
+            <table className='table'>
+                <thead className='table__headers'>
+                    <tr className='table__row'>
+                        <th className='table__header table__header_left'>Сотрудник</th>
+                        <th className='table__header table__header_right'>Доля навыков с удовлетворительной оценкой</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>Ефремов Вячеслав</td>
-                    <td>79%</td>
-                </tr>
+                {/*<tr className='table__row'>*/}
+                {/*    <td className='table__col_left'>Ефремов Вячеслав</td>*/}
+                {/*    <td className='table__col_right'>79%</td>*/}
+                {/*</tr>*/}
+
                 {isAllStaff.length === 0 ? (
-                        <tr>
-                            <td colSpan="2">Загрузить...</td>
-                        </tr>
-                    ) : (
-                        isAllStaff.map((staff, i) => (
-                            <tr key={i}>
-                                <td>{staff.id}</td>
-                                <td>{staff.title}</td>
+                    <tr className='table__row'>
+                        <td colSpan="2" className='table__col_left'>Выберите в меню Команду</td>
+                        {/*<td className='table__col_right'></td>*/}
+                    </tr>
+                ) : (
+                    isAllStaff.map((employee, i) => (
+                            <tr key={i} className='table__row'>
+                                <td className='table__col_left'>{employee.employee}</td>
+                                <td className='table__col_right'>{`${employee.percentage}%`}</td>
                             </tr>
                         ))
                     )}
                 </tbody>
-            </table> */}
+            </table>
+
+
+
+            {/*<BarChart/>*/}
 
             {/* TEST FETCH BTN */}
             <button onClick={() => handleFetchClick()} className='TEST-BTN'>Get Data to Console</button>
 
             <ul>
-            {isAllStaff.length === 0 ? (
-            <li>
-            <p>Загрузить...</p>
-            </li>
-            ) : (
-
-            console.log(isAllStaff)
-
-            )}
+                {isAllStaff.length === 0 ? (
+                <li>
+                    <p>Выберите команду в меню</p>
+                </li>
+                ) : (
+                    console.log(isAllStaff)
+                )}
             </ul>
 
-        </div>
+        </>
     )
 }
 

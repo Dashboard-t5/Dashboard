@@ -1,13 +1,42 @@
 .chartStaff {
     position: relative;
     width: 670px;
-    /*height: 302px;*/
     min-height: 302px;
-    margin-top: 32px;
-    padding: 20px 150px 20px 60px;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 40px 20px 40px;
     border-radius: 12px;
     background-color: #FFF;
     border: 1px solid var(--text-color-light);
+}
+
+.tab-content-chart {
+    height: 16px;
+    padding-top: 4px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.scrollable-content {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.scrollable-content::-webkit-scrollbar {
+    width: 7px;
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+    background: var(--background-secondary);
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+    background: var(--background-tertiary);
+    border-radius: 4px;
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+    background: var(--background-quaternary-hover);
 }
 
 .tabs-chart {
@@ -33,7 +62,3 @@
     color: var(--text-color-dark);
 }
 
-.tab-content-chart {
-    height: 16px;
-    paddint-top: 4px;
-}

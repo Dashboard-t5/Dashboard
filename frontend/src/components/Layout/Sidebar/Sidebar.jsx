@@ -2,6 +2,7 @@ import {NavLink} from 'react-router-dom'
 import './Sidebar.css'
 import BtnEmpty from '../../../images/btn_empty.png'
 import Men from '../../../images/btn_users.png'
+import UserImg from '../../../images/user_img.png'
 import {useState} from "react";
 
 function Sidebar() {
@@ -24,7 +25,9 @@ function Sidebar() {
                         </NavLink>
                     </li>
                 </ul>
-                <ul className="inner__half"></ul>
+                <ul className="inner__half">
+                    <img src={UserImg} className="inner__icon-bg inner__user-img" alt={"user"}/>
+                </ul>
             </aside>
 
         </nav>
