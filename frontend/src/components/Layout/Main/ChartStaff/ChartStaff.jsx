@@ -23,7 +23,9 @@ function ChartStaff() {
             </div>
 
             <div className="tab-content-chart">
-                {activeTab === 'skillsLevel' ? <StaffJobFit/> : <StaffSkilledNum/>}
+                <div className="scrollable-content">
+                    {activeTab === 'skillsLevel' ? <StaffJobFit/> : <StaffSkilledNum/>}
+                </div>
             </div>
 
 
