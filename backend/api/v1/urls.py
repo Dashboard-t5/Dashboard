@@ -1,18 +1,19 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 
-from api.v1.views import (CompetenceViewSet, DomainViewSet,
+from api.v1.views import (BusFactorViewSet, CompetenceViewSet, DomainViewSet,
                           EmployeeGradesViewSet,
                           EmployeeGradesWithPositionsViewSet,
                           EmployeePositionsViewSet, EmployeeRatingViewSet,
+                          EmployeeScoresViewSet,
                           EmployeesCountWithSkillsViewSet,
-                          EmployeeSkillsAverageRatingViewSet, EmployeeScoresViewSet,
+                          EmployeeSkillsAverageRatingViewSet,
                           EmployeesWithSkillViewSet, EmployeeViewSet,
                           GradeRatingViewSet, PositionRatingViewSet,
                           PositionViewSet, RatingViewSet,
                           SkillsDevelopmentViewSet, SkillsLevelViewSet,
-                          SkillViewSet,
-                          SuitabilityPositionViewSet, TeamViewSet)
+                          SkillViewSet, SuitabilityPositionViewSet,
+                          TeamViewSet)
 
 router_v1 = DefaultRouter()
 router_v1.register("positions", PositionViewSet, basename="positions")
@@ -115,6 +116,15 @@ router_v1.register(
     r"dashboard/position_rating/(?P<position_id>\d+)/grades/(?P<grade>\w+)",
     EmployeeRatingViewSet,
     basename="employee_rating",
+)
+
+# --------------------------------------------
+#    Bus-фактор
+# --------------------------------------------
+router_v1.register(
+    r"dashboard/bus_factor",
+    BusFactorViewSet,
+    basename="bus_factor",
 )
 
 urlpatterns = [

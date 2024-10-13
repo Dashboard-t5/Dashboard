@@ -4,23 +4,24 @@ from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
+from rest_framework.response import Response
 
 from api.v1.filters import RatingFilter
-from api.v1.serializers import (CompetenceSerializer, DomainSerializer,
-                                EmployeeGradesSerializer,
+from api.v1.serializers import (BusFactorSerializer, CompetenceSerializer,
+                                DomainSerializer, EmployeeGradesSerializer,
                                 EmployeeGradesWithPositionsSerializer,
                                 EmployeePositionsSerializer,
                                 EmployeeRatingSerializer,
+                                EmployeeScoresSerializer,
                                 EmployeesCountWithSkillsSerializer,
-                                EmployeeScoresSerializer, EmployeeSerializer,
+                                EmployeeSerializer,
                                 EmployeeSkillAverageRatingSerializer,
                                 EmployeesWithSkillSerializer,
                                 GradeRatingSerializer,
                                 PositionRatingSerializer, PositionSerializer,
                                 RatingSerializer, SkillsDevelopmentSerializer,
-                                SkillsLevelSerializer,
-                                SkillSerializer, SuitabilityPositionSerializer,
-                                TeamSerializer)
+                                SkillSerializer, SkillsLevelSerializer,
+                                SuitabilityPositionSerializer, TeamSerializer)
 from employees.models import Employee, Position, Team
 from ratings.models import Competence, Domain, Rating, Skill
 
@@ -538,3 +539,36 @@ class EmployeeRatingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
             .annotate(average_rating=Avg("rating_value"))
             .order_by("average_rating")
         )
+
+
+# --------------------------------------------
+#    Bus-фактор
+# --------------------------------------------
+class BusFactorViewSet(viewsets.ReadOnlyModelViewSet):
+    """Вьюсет для Bus-фактора."""
+
+    serializer_class = BusFactorSerializer
+    permission_classes = (AllowAny,)
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = RatingFilter
+
+    def get_queryset(self):
+        return Rating.objects.select_related(
+            "skill"
+        ).filter(
+            suitability="да"
+        ).values(
+            "skill__name",
+        ).annotate(
+            skill_employee_count=Count(
+                "employee",
+                distinct=True,
+            )
+        ).order_by('skill_employee_count')
+
+    def list(self, request):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(
+            queryset[0], context={'request': request}
+        )
+        return Response(serializer.data)
