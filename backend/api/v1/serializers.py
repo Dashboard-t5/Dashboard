@@ -414,7 +414,7 @@ class EmployeeRatingSerializer(serializers.ModelSerializer):
     для ВЫБРАННОЙ ДОЛЖНОСТИ И ГРЕЙДА
     """
 
-    employee = employee = serializers.CharField(
+    employee = serializers.CharField(
         source="full_name",
         read_only=True,
     )
@@ -426,3 +426,24 @@ class EmployeeRatingSerializer(serializers.ModelSerializer):
             "employee",
             "average_rating",
         )
+
+# --------------------------------------------
+#    Bus-фактор
+# --------------------------------------------
+
+
+class BusFactorSerializer(serializers.ModelSerializer):
+    """Сериализатор для Bus-фактора."""
+
+    skill = serializers.CharField(
+        source="skill__name",
+        read_only=True,
+    )
+    bus_factor = serializers.IntegerField(
+        source='skill_employee_count',
+        read_only=True
+    )
+
+    class Meta:
+        model = Rating
+        fields = ("skill", "bus_factor",)
