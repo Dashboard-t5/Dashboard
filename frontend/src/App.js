@@ -8,10 +8,11 @@ import { TeamContext } from './context/context';
 
 function App() {
   const [isTeamId, setTeamId] = useState(5)
-  const [isEmployeeId, setEmployeeId] = useState(null);
+  const [isEmployeeId, setEmployeeId] = useState(null)
+  const [isTeamTotal, setTeamTotal] = useState(0)
 
   return (
-    <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, isTeamId, setTeamId }}>
+    <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, isTeamId, setTeamId, isTeamTotal, setTeamTotal }}>
       <Routes>
         <Route exact path='/' index={true}
                element={<Layout/>}>

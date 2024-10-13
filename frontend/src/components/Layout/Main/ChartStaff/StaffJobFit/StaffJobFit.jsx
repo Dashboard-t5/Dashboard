@@ -6,7 +6,7 @@ import {TeamContext} from "../../../../../context/context";
 function StaffJobFit() {
     const [isFetchingData, setFetchingData] = useState('false')
     const [isAllStaff, setAllStaff] = useState([])
-    const {isEmployeeId, setEmployeeId, isTeamId} = useContext(TeamContext)
+    const {isEmployeeId, setEmployeeId, isTeamId, isTeamTotal, setTeamTotal} = useContext(TeamContext)
 
     useEffect(() => {
         fetchAllStaff()
@@ -21,8 +21,9 @@ function StaffJobFit() {
                     'Accept': 'application/json',
                 },
             });
-            console.log(data)
+            console.log(data, data.length)
             setAllStaff(data)
+            setTeamTotal(data.length)
             return data;
 
         } catch (err) {
