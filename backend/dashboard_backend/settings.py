@@ -1,14 +1,20 @@
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.getenv('SECRET_KEY')
 
-SECRET_KEY = 'django-insecure-=$l44#g5c1nd$pd+m=p3x&%y*d20ikb&-*lhuksb8ii4)upx*o'
+DEBUG = os.getenv("DEBUG", "False") == "True"
 
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = (
+    ["127.0.0.1", "localhost", "51.250.40.10"]
+    if DEBUG
+    else os.getenv("ALLOWED_HOSTS", "localhost").split(" ")
+)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -17,13 +23,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    'drf_yasg',
     'rest_framework',
+    'corsheaders',
+    'django_filters',
+    'employees.apps.EmployeesConfig',
+    'ratings.apps.RatingsConfig',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -52,12 +63,24 @@ TEMPLATES = [
 WSGI_APPLICATION = 'dashboard_backend.wsgi.application'
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": os.getenv("DB_ENGINE", default="django.db.backends.postgresql"),
+            "NAME": os.getenv("POSTGRES_DB", default="dashboard"),
+            "USER": os.getenv("POSTGRES_USER", default="postgres"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", default="mysecretpassword"),
+            "HOST": os.getenv("DB_HOST", default="db"),
+            "PORT": os.getenv("DB_PORT", default="5432"),
+        }
+    }
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -88,3 +111,14 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_URLS_REGEX = r'^/api/.*$'
+
+# CORS_ALLOWED_ORIGINS = [
+#     'http://localhost:3000',
+# ]
+STATIC_URL = '/static/'
+
+STATIC_ROOT = BASE_DIR / 'collected_static'
