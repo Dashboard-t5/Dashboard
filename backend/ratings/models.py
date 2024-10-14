@@ -112,13 +112,26 @@ class Rating(models.Model):
     )
 
     class Meta:
+        constraints = [
+            models.UniqueConstraint(
+                fields=[
+                    "rating_date",
+                    "skill",
+                    "employee"
+                ],
+                name="unique_employee_skill_rating_on_date",
+                violation_error_message=(
+                    f"Оценка навыка на выбранную дату "
+                    f"по данному сотруднику уже есть!"
+                )
+            )
+        ]
         verbose_name = "Оценка навыков сотрудника"
         verbose_name_plural = "Оценки навыков сотрудников"
         default_related_name = "ratings"
         ordering = (
             "employee__last_name",
             "employee__first_name",
-            # "-rating_date",
         )
 
     def __str__(self):

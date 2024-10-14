@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.validators import MinLengthValidator, RegexValidator
 
 from config import MIN_LENGTH, MAX_LENGTH
 
@@ -62,12 +63,28 @@ class Employee(models.Model):
         verbose_name="Имя сотрудника",
         blank=False,
         null=False,
+        validators=[
+            RegexValidator(
+                regex=r"^[а-яА-ЯёЁa-zA-Z]+(\s?\-?[а-яА-ЯёЁa-zA-Z]+){0,5}$",
+                message="Введены недопустимые символы.",
+                code="invalid_employee_first_name",
+            ),
+            MinLengthValidator(limit_value=2),
+        ],
     )
     last_name = models.CharField(
         max_length=MIN_LENGTH,
         verbose_name="Фамилия сотрудника",
         blank=False,
         null=False,
+        validators=[
+            RegexValidator(
+                regex=r"^[а-яА-ЯёЁa-zA-Z]+(\s?\-?[а-яА-ЯёЁa-zA-Z]+){0,5}$",
+                message="Введены недопустимые символы.",
+                code="invalid_employee_last_name",
+            ),
+            MinLengthValidator(limit_value=2),
+        ],
     )
     position = models.ForeignKey(
         Position,

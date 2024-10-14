@@ -544,7 +544,7 @@ class EmployeeRatingViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
 # --------------------------------------------
 #    Bus-фактор
 # --------------------------------------------
-class BusFactorViewSet(viewsets.ReadOnlyModelViewSet):
+class BusFactorViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
     """Вьюсет для Bus-фактора."""
 
     serializer_class = BusFactorSerializer
