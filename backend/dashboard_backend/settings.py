@@ -12,22 +12,27 @@ SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = (
-    os.getenv("DEBUG_TRUE_ALLOWED_HOSTS", "localhost").split(",")
-    if DEBUG
-    else os.getenv("DEBUG_FALSE_ALLOWED_HOSTS", "localhost").split(",")
-)
+if DEBUG:
+    ALLOWED_HOSTS = os.getenv(
+        "DEBUG_TRUE_ALLOWED_HOSTS",
+        "localhost"
+    ).split(",")
+else:
+    ALLOWED_HOSTS = os.getenv(
+        "DEBUG_FALSE_ALLOWED_HOSTS",
+        "localhost"
+    ).split(",")
 
-CSRF_TRUSTED_ORIGINS = [
-    "http://*.localhost",
-    "https://*.localhost",
-    "http://*.127.0.0.1",
-    "https://*.127.0.0.1",
-    "http://*.51.250.40.10",
-    "https://*.51.250.40.10",
-    "http://*.dashboard-t5.hopto.org",
-    "https://*.dashboard-t5.hopto.org",
-]
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS = os.getenv(
+        "DEBUG_TRUE_CSRF_TRUSTED_ORIGINS",
+        "http://localhost,http://127.0.0.1"
+    ).split(",")
+else:
+    CSRF_TRUSTED_ORIGINS = os.getenv(
+        "DEBUG_FALSE_CSRF_TRUSTED_ORIGINS",
+        "http://localhost,http://127.0.0.1"
+    ).split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
