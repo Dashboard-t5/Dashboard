@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import axios from 'axios'
+import { DB_URL } from '../../../../../utils/constants'
 
 function SkillsPoints() {
     const [isFetchingData, setFetchingData] = useState('false')
@@ -8,7 +9,7 @@ function SkillsPoints() {
     const fetchSkills = async () => {
         setFetchingData(true)
         // const db_url = 'https://jsonplaceholder.typicode.com/';
-        const db_url = 'http://127.0.0.1:8000/api/v1/dashboard/suitability_position/?team=5';
+        const db_url = `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/?team=5`;
         try {
             let { data } = await axios.get(`${db_url}`, {
                 headers: {
@@ -24,10 +25,6 @@ function SkillsPoints() {
         } finally {
             setFetchingData(false)
         }
-    }
-
-    const handleFetchClick = () => {
-        fetchSkills()
     }
 
     return (
