@@ -1,12 +1,12 @@
 import FilterIcon from "../../../../images/filter.png";
 import { TeamContext } from "../../../../context/context";
-import {useContext, useEffect, useState} from "react";
+import {useContext, useEffect} from "react";
 import axios from "axios";
 import styles from './Filter.module.css'
 
 function Filter() {
     const { isTeamId } = useContext(TeamContext);
-    const [isTeamName, setTeamName] = useState("");
+    // const [isTeamName, setTeamName] = useState("");
 
     useEffect(() => {
         getTeamNames();
@@ -21,7 +21,7 @@ function Filter() {
                 },
             });
             console.log(data)
-            setTeamName(data)
+            // setTeamName(data)
         } catch (err) {
             console.error(err);
         }
