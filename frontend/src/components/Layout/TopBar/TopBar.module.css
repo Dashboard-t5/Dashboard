@@ -1,4 +1,4 @@
-.topbar {
+.topBar {
     padding: 38px 40px 38px 62px;
     display: flex;
     justify-content: space-between;
@@ -23,21 +23,21 @@
     margin-right: 12px;
 }
 
-.btn__team {
+.btnTeam {
     /*cursor: pointer;*/
 }
 
-.charts_filter {
+.chartsFilter {
     width: 32px;
     height: 32px;
 }
 
-.wrap-data {
+.wrapData {
     display: flex;
     width: min-content;
 }
 
-.inner-data {
+.innerData {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -48,7 +48,7 @@
     margin-right: 9px;
 }
 
-.inner-data:nth-child(n+2) {
+.innerData:nth-child(n+2) {
     margin-right: 0;
 }
 
@@ -57,12 +57,12 @@
     margin-left: 22px;
 }
 
-.inner_num {
+.innerNum {
     font-weight: 600;
     height: 22px;
 }
 
-.inner_text {
+.innerText {
     font-size: 10px;
     height: 16px;
 }

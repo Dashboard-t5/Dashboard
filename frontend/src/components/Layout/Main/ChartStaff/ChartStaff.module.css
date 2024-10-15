@@ -10,42 +10,42 @@
     border: 1px solid var(--text-color-light);
 }
 
-.tab-content-chart {
+.tabContentChart {
     height: 16px;
     padding-top: 4px;
     flex-grow: 1;
     overflow: hidden;
 }
 
-.scrollable-content {
+.scrollableContent {
     height: 100%;
     overflow-y: auto;
 }
 
-.scrollable-content::-webkit-scrollbar {
+.scrollableContent::-webkit-scrollbar {
     width: 7px;
 }
 
-.scrollable-content::-webkit-scrollbar-track {
+.scrollableContent::-webkit-scrollbar-track {
     background: var(--background-secondary);
 }
 
-.scrollable-content::-webkit-scrollbar-thumb {
+.scrollableContent::-webkit-scrollbar-thumb {
     background: var(--background-tertiary);
     border-radius: 4px;
 }
 
-.scrollable-content::-webkit-scrollbar-thumb:hover {
+.scrollableContent::-webkit-scrollbar-thumb:hover {
     background: var(--background-quaternary-hover);
 }
 
-.tabs-chart {
+.tabsChart {
     width: 403px;
     height: 20px;
     display: flex;
 }
 
-.tab-chart {
+.tabChart {
     color: var(--text-color-middle);
     padding-right: 16px;
     overflow: hidden;
@@ -54,11 +54,10 @@
     cursor: pointer;
 }
 
-.tab-chart:nth-child(n+2) {
+.tabChart:nth-child(n+2) {
     padding-right: 0;
 }
 
-.tab-chart.active {
+.tabChart.active {
     color: var(--text-color-dark);
 }
-

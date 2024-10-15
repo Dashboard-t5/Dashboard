@@ -1,4 +1,4 @@
-.chart-btns-wrap{
+.chartBtnsWrap {
     position: absolute;
     top: 0;
     right: 0;
@@ -8,10 +8,10 @@
     margin: 20px 40px 0 0;
 }
 
-.chart-btn {
+.chartBtn {
     display: flex;
     justify-content: center;
-    align-content: center;
+    align-items: center;
     font-size: 10px;
     color: var(--text-color-light);
     line-height: 36px;
@@ -23,10 +23,10 @@
     cursor: pointer;
 }
 
-.chart-btn.active {
+.chartBtnActive {
     background-color: var(--color-red);
 }
 
-.chart-btn-hSkill {
+.chartBtnHSkill {
     margin-right: 4px;
 }
