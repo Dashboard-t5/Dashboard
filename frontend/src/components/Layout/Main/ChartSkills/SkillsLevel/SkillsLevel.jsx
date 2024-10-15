@@ -3,6 +3,7 @@ import axios from 'axios'
 import styles from './SkillsLevel.module.css'
 import ChartLeftBars from '../../../../Charts/ChartLeftBars'
 import { TeamContext } from '../../../../../context/context'
+import { DB_URL } from "../../../../../utils/constants";
 
 function SkillsLevel() {
     const { isEmployeeId, isTeamId } = useContext(TeamContext);
@@ -22,8 +23,8 @@ function SkillsLevel() {
         setFetchingData(true)
         // const db_url = 'https://jsonplaceholder.typicode.com/';
         let url = isEmployeeId
-            ? `http://127.0.0.1:8000/api/v1/dashboard/suitability_position/${isEmployeeId}/skills`
-            : `http://127.0.0.1:8000/api/v1/dashboard/skill_level/?team=${isTeamId}`;
+            ? `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/${isEmployeeId}/skills`
+            : `${DB_URL.serverUrl}/api/v1/dashboard/skill_level/?team=${isTeamId}`;
 
         try {
             let { data } = await axios.get(`${url}`, {
