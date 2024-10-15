@@ -8,6 +8,7 @@ function StaffJobFit() {
     const [isFetchingData, setFetchingData] = useState(false);
     const [isAllStaff, setAllStaff] = useState([]);
     const { isEmployeeId, setEmployeeId, isTeamId, isTeamTotal, setTeamTotal } = useContext(TeamContext);
+    const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
 
     useEffect(() => {
         fetchAllStaff();
@@ -32,14 +33,20 @@ function StaffJobFit() {
         }
     };
 
-    const handleRowClick = (clickedEmployeeId) => {
-        setEmployeeId(clickedEmployeeId === isEmployeeId ? null : clickedEmployeeId);
+    const handleRowClick = (clickedEmployeeId, clickedEmployeeName) => {
+        if (clickedEmployeeId === isEmployeeId) {
+            setEmployeeId(null);
+            setSelectedEmployeeName('');
+        } else {
+            setEmployeeId(clickedEmployeeId);
+            setSelectedEmployeeName(clickedEmployeeName);
+        }
     };
 
     return (
         <>
             <p className={styles.tableSubtitle}>
-                Сотрудник: {isEmployeeId || '_'} • Уровень владения навыками
+                Сотрудник: {selectedEmployeeName || ''} • Уровень владения навыками
             </p>
 
             <table className={styles.table}>
@@ -61,7 +68,7 @@ function StaffJobFit() {
                     isAllStaff.map((employee, i) => (
                         <tr
                             key={i}
-                            onClick={() => handleRowClick(employee.employee_id)}
+                            onClick={() => handleRowClick(employee.employee_id, employee.employee)}
                             className={`${styles.tableRow} ${isEmployeeId === employee.employee_id ? styles.tableRowSelected : ''}`}
                             style={{ cursor: 'pointer' }}
                         >

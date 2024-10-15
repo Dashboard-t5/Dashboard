@@ -10,8 +10,6 @@ function SkillsLevel() {
     const [isFetchingData, setFetchingData] = useState(false)
     const [isAllSkills, setAllSkills] = useState([])
 
-    console.log('isEmployeeId, isTeamId:', isEmployeeId, isTeamId)
-
     useEffect(() => {
         if (isTeamId) {
             fetchSkills();
