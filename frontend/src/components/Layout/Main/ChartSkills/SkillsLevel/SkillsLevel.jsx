@@ -1,4 +1,4 @@
-import {useState, useEffect, useContext} from 'react'
+import { useState, useEffect, useContext, useCallback } from 'react'
 import axios from 'axios'
 import styles from './SkillsLevel.module.css'
 import ChartLeftBars from '../../../../Charts/ChartLeftBars'
@@ -10,18 +10,10 @@ function SkillsLevel() {
     const [isFetchingData, setFetchingData] = useState(false)
     const [isAllSkills, setAllSkills] = useState([])
 
-    console.log('isEmployeeId, isTeamId:', isEmployeeId, isTeamId)
-
-    useEffect(() => {
-        if (isTeamId) {
-            fetchSkills();
-        }
-    }, [isEmployeeId, isTeamId]);
-    const fetchSkills = async () => {
+    const fetchSkills = useCallback(async () => {
         if (!isTeamId) return;
 
         setFetchingData(true)
-        // const db_url = 'https://jsonplaceholder.typicode.com/';
         let url = isEmployeeId
             ? `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/${isEmployeeId}/skills`
             : `${DB_URL.serverUrl}/api/v1/dashboard/skill_level/?team=${isTeamId}`;
@@ -35,13 +27,18 @@ function SkillsLevel() {
             console.log("setAllSkills:", data)
             setAllSkills(data)
             return data;
-
         } catch (err) {
             console.error(err)
         } finally {
             setFetchingData(false)
         }
-    }
+    }, [isEmployeeId, isTeamId]);
+
+    useEffect(() => {
+        if (isTeamId) {
+            fetchSkills();
+        }
+    }, [isTeamId, fetchSkills]);
 
     return (
         <div>

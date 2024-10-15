@@ -1,20 +1,15 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import styles from './StaffJobFit.module.css';
 import { TeamContext } from "../../../../../context/context";
 import { DB_URL } from '../../../../../utils/constants'
 
 function StaffJobFit() {
-    const [isFetchingData, setFetchingData] = useState(false);
     const [isAllStaff, setAllStaff] = useState([]);
-    const { isEmployeeId, setEmployeeId, isTeamId, isTeamTotal, setTeamTotal } = useContext(TeamContext);
+    const { isEmployeeId, setEmployeeId, isTeamId, setTeamTotal } = useContext(TeamContext);
+    const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
 
-    useEffect(() => {
-        fetchAllStaff();
-    }, [isTeamId]);
-
-    const fetchAllStaff = async () => {
-        setFetchingData(true);
+    const fetchAllStaff = useCallback(async () => {
         const db_url = `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/?team=${isTeamId}`;
         try {
             let { data } = await axios.get(`${db_url}`, {
@@ -27,19 +22,27 @@ function StaffJobFit() {
             setTeamTotal(data.length);
         } catch (err) {
             console.error(err);
-        } finally {
-            setFetchingData(false);
         }
-    };
+    }, [isTeamId, setTeamTotal]);
 
-    const handleRowClick = (clickedEmployeeId) => {
-        setEmployeeId(clickedEmployeeId === isEmployeeId ? null : clickedEmployeeId);
-    };
+    useEffect(() => {
+        fetchAllStaff();
+    }, [fetchAllStaff]);
+
+    const handleRowClick = useCallback((clickedEmployeeId, clickedEmployeeName) => {
+        if (clickedEmployeeId === isEmployeeId) {
+            setEmployeeId(null);
+            setSelectedEmployeeName('');
+        } else {
+            setEmployeeId(clickedEmployeeId);
+            setSelectedEmployeeName(clickedEmployeeName);
+        }
+    }, [isEmployeeId, setEmployeeId]);
 
     return (
         <>
             <p className={styles.tableSubtitle}>
-                Сотрудник: {isEmployeeId || '_'} • Уровень владения навыками
+                Сотрудник: {selectedEmployeeName || ''} • Уровень владения навыками
             </p>
 
             <table className={styles.table}>
@@ -61,7 +64,7 @@ function StaffJobFit() {
                     isAllStaff.map((employee, i) => (
                         <tr
                             key={i}
-                            onClick={() => handleRowClick(employee.employee_id)}
+                            onClick={() => handleRowClick(employee.employee_id, employee.employee)}
                             className={`${styles.tableRow} ${isEmployeeId === employee.employee_id ? styles.tableRowSelected : ''}`}
                             style={{ cursor: 'pointer' }}
                         >
