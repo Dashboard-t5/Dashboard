@@ -1,17 +1,17 @@
-.chart__subtitle {
+.chartSubtitle {
     font-size: 10px;
 }
 
-.chart__table {
+.chartTable {
     padding-top: 24px;
 }
 
-.table__header {
+.tableHeader {
     width: 213px;
     text-align: left;
 }
 
-.TEST-BTN {
+.testBtn {
     padding: 10px;
     background-color: #FFCE1B;
     cursor: pointer;

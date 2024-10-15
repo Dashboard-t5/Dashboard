@@ -5,47 +5,50 @@
     border: 1px solid var(--text-color-middle);
 }
 
-.table__subtitle {
+.tableSubtitle {
     font-size: 10px;
 }
 
-.table__headers {
+.tableHeaders {
     background-color: var(--background-secondary);
 }
 
-.table__header {
+.tableHeader {
     font-weight: 600;
 }
-.table__header_left {
+
+.tableHeaderLeft {
     width: 213px;
     border-right: 1px solid var(--text-color-middle);
 }
-.table__header_right {
+
+.tableHeaderRight {
     min-width: 395px;
 }
 
-.table__col_left {
+.tableColLeft {
     width: 213px;
     border-right: 1px solid var(--text-color-middle);
     border-bottom: 1px solid var(--text-color-middle);
 }
 
-.table__header,
-.table__col_left,
-.table__col_right {
+.tableHeader,
+.tableColLeft,
+.tableColRight {
     padding: 6px 0 10px 12px;
     text-align: left;
 }
 
-.table__row {
+.tableRow {
     border: 1px solid var(--text-color-middle);
 }
-.table__row.selected {
+
+.tableRowSelected {
     border: 2px solid var(--text-color-middle);
     background-color: var(--background-primary);
 }
 
-.TEST-BTN {
+.testBtn {
     padding: 10px;
     background-color: #FFCE1B;
     cursor: pointer;

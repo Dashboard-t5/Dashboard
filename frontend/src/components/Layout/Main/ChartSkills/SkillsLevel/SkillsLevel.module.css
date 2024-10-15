@@ -4,3 +4,7 @@
     border-collapse: collapse;
     border: 1px solid var(--text-color-middle);
 }
+
+.chartSubtitle {
+    font-size: 10px;
+}
