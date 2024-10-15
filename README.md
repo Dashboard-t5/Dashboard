@@ -93,6 +93,8 @@ http://localhost:8000/
 
 http://localhost:8000/admin/
 
+http://localhost:8000/swagger/ - документация к API
+
 ### _Запуск проекта из образов с Docker hub_
 1. Для запуска необходимо создать папку проекта, например _dashboard_ и перейти в нее:
 ```
@@ -106,9 +108,8 @@ sudo docker compose -f docker-compose.production.yml up
 Произойдет скачивание образов, создание и включение контейнеров, создание томов и сети.
 3. Проверяем доступность проекта по адресу:
 
-https://51.250.40.10
+https://dashboard-t5.hopto.org
 
 ### _Документация к API доступна по адресам:_
-https://51.250.40.10/swagger
+https://dashboard-t5.hopto.org/swagger
 
-https://51.250.40.10/api/docs
