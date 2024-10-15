@@ -24,10 +24,14 @@ class Command(BaseCommand):
         try:
             df = pd.read_excel(file_path, engine="openpyxl")
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f"Ошибка при чтении файла: {e}"))
+            self.stdout.write(self.style.ERROR(
+                f"Ошибка при чтении файла: {e}")
+            )
             return
 
-        self.stdout.write(self.style.SUCCESS(f"Файл успешно прочитан: {file_path}"))
+        self.stdout.write(self.style.SUCCESS(
+            f"Файл успешно прочитан: {file_path}")
+        )
 
         # Списки для массовой вставки
         positions = {}
@@ -77,7 +81,13 @@ class Command(BaseCommand):
                     )
                     skills[row['навык']] = skill
 
-                employee_key = (first_name, last_name, row['грейд'], row['должность'], row['команда'])
+                employee_key = (
+                    first_name,
+                    last_name,
+                    row['грейд'],
+                    row['должность'],
+                    row['команда']
+                )
                 if employee_key not in employees:
                     employee, created = Employee.objects.get_or_create(
                         first_name=first_name,
@@ -99,8 +109,9 @@ class Command(BaseCommand):
                     )
                 )
 
-                self.stdout.write(self.style.SUCCESS(f'Employee {employees[employee_key]} processed'))
+                self.stdout.write(self.style.SUCCESS(
+                    f'Employee {employees[employee_key]} processed')
+                )
 
             # Массовая вставка для рейтингов
             Rating.objects.bulk_create(ratings, batch_size=999)
-
