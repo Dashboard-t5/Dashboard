@@ -46,6 +46,7 @@
     background-color: var(--background-secondary);
     border-radius: 12px;
     margin-right: 9px;
+    padding-left: 14px;
 }
 
 .innerDataBusFactor {
