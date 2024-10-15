@@ -31,7 +31,7 @@ function SkillsLevel() {
                     'Accept': 'application/json',
                 },
             });
-            console.log(data)
+            console.log("setAllSkills:", data)
             setAllSkills(data)
             return data;
 
