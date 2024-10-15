@@ -164,3 +164,10 @@ cython_debug/
 # Test files for DB downloading
 import_test.py
 import_arch.py
+
+# docker-compose files for development
+docker-compose.yml
+docker-compose.dev.yml
+
+# Nginx settings for development
+nginx.dev.conf
