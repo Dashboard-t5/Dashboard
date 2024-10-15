@@ -12,13 +12,16 @@
 
 BASE_URL: https://dashboard-t5.hopto.org
 
+Teams:
+/api/v1/teams/ - Массив с названиями команд
+
 Bus-factor:
 /api/v1/dashboard/bus_factor
 /api/v1/dashboard/bus_factor/?team=5
 всплывашка с названием бас-фактора, привязанного к конкретной команде
 
 
-/api/v1/teams/ - Массив с названиями команд
+
 
 ---
 #### Для локальной разработки нужно:

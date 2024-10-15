@@ -1,8 +1,9 @@
-import styles from './TopBar.module.css';
-import Filter from "../../../images/filter.png";
-import { TeamContext } from "../../../context/context";
 import {useContext, useEffect, useState} from "react";
 import axios from "axios";
+import styles from './TopBar.module.css';
+// import Filter from "../../../images/filter.png";
+import { TeamContext } from "../../../context/context";
+import Filter from './Filter/Filter'
 
 function TopBar() {
     const { isTeamTotal, isTeamId, isBusFactor, setBusFactor } = useContext(TeamContext);
@@ -48,10 +49,8 @@ function TopBar() {
                 </div>
             </section>
 
-            {/* 2 buttons */}
-            <div className={styles.btns}>
-                <img src={Filter} className={styles.chartsFilter} alt={'filter'}/>
-            </div>
+            {/* 2 buttons & Filter */}
+            <Filter/>
 
         </section>
     );
