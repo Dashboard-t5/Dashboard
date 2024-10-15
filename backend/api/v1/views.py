@@ -150,16 +150,17 @@ class EmployeeSkillsAverageRatingViewSet(
     filterset_class = RatingFilter
 
     def get_queryset(self):
-        # Получаем employee_id из URL
-        employee_id = self.kwargs.get("employee_id")
 
         # Проверяем, существует ли сотрудник с этим employee_id
-        employeee = get_object_or_404(Employee, id=employee_id)
+        employee = get_object_or_404(
+            Employee,
+            id=self.kwargs.get("employee_id")
+        )
 
         # Группируем данные по навыкам и
         # считаем среднюю оценку для каждого навыка
         return (
-            Rating.objects.filter(employee_id=employee_id)
+            Rating.objects.filter(employee=employee)
             .values("skill__name")
             .annotate(average_rating=Avg("rating_value"))
             .order_by("average_rating")
