@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import styles from './StaffJobFit.module.css';
 import { TeamContext } from "../../../../../context/context";
+import { DB_URL } from '../../../../../utils/constants'
 
 function StaffJobFit() {
     const [isFetchingData, setFetchingData] = useState(false);
@@ -14,7 +15,7 @@ function StaffJobFit() {
 
     const fetchAllStaff = async () => {
         setFetchingData(true);
-        const db_url = `http://127.0.0.1:8000/api/v1/dashboard/suitability_position/?team=${isTeamId}`;
+        const db_url = `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/?team=${isTeamId}`;
         try {
             let { data } = await axios.get(`${db_url}`, {
                 headers: {
