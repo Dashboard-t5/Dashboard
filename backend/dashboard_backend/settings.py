@@ -1,20 +1,38 @@
-import os
-from pathlib import Path
 from dotenv import load_dotenv
+from pathlib import Path
+import os
+
+from django.core.management.utils import get_random_secret_key
 
 load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv("SECRET_KEY", get_random_secret_key())
 
 DEBUG = os.getenv("DEBUG", "False") == "True"
 
-ALLOWED_HOSTS = (
-    ["127.0.0.1", "localhost", "51.250.40.10"]
-    if DEBUG
-    else os.getenv("ALLOWED_HOSTS", "localhost").split(" ")
-)
+if DEBUG:
+    ALLOWED_HOSTS = os.getenv(
+        "DEBUG_TRUE_ALLOWED_HOSTS",
+        "localhost"
+    ).split(",")
+else:
+    ALLOWED_HOSTS = os.getenv(
+        "DEBUG_FALSE_ALLOWED_HOSTS",
+        "localhost"
+    ).split(",")
+
+if DEBUG:
+    CSRF_TRUSTED_ORIGINS = os.getenv(
+        "DEBUG_TRUE_CSRF_TRUSTED_ORIGINS",
+        "http://localhost,http://127.0.0.1"
+    ).split(",")
+else:
+    CSRF_TRUSTED_ORIGINS = os.getenv(
+        "DEBUG_FALSE_CSRF_TRUSTED_ORIGINS",
+        "http://localhost,http://127.0.0.1"
+    ).split(",")
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -62,7 +80,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dashboard_backend.wsgi.application'
 
-
 if DEBUG:
     DATABASES = {
         "default": {
@@ -78,7 +95,7 @@ else:
             "USER": os.getenv("POSTGRES_USER", default="postgres"),
             "PASSWORD": os.getenv("POSTGRES_PASSWORD", default="mysecretpassword"),
             "HOST": os.getenv("DB_HOST", default="db"),
-            "PORT": os.getenv("DB_PORT", default="5432"),
+            "PORT": os.getenv("DB_PORT", default=5432),
         }
     }
 
@@ -99,16 +116,19 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 
 USE_TZ = True
 
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'collected_static')
 
-STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
@@ -119,6 +139,3 @@ CORS_URLS_REGEX = r'^/api/.*$'
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:3000',
 # ]
-STATIC_URL = '/static/'
-
-STATIC_ROOT = BASE_DIR / 'collected_static'

@@ -1,0 +1,33 @@
+# Файл .dockerignore
+
+# Исключить файл БД
+db.sqlite3
+
+# Исключить файл с переменными окружения
+.env
+
+# Игнорировать директории виртуальных окружений
+venv/
+# Исключить системные файлы
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+
+# Игнорировать файлы конфигураций IDE
+.vscode/
+.idea/
+
+# Исключить файлы git
+.git
+.gitignore
+
+# Исключить файлы Docker
+.dockerignore
+Dockerfile
+docker-compose.yml
+
+# Игнорировать временные файлы
+*.log
+*.tmp
+*.swp

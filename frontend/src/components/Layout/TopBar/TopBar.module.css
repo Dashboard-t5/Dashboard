@@ -5,12 +5,6 @@
     align-items: flex-start;
 }
 
-.btns {
-    display: flex;
-    align-items: center;
-    margin-right: 63px;
-}
-
 .btn {
     width: 114px;
     height: 48px;
@@ -46,6 +40,11 @@
     background-color: var(--background-secondary);
     border-radius: 12px;
     margin-right: 9px;
+    padding-left: 14px;
+}
+
+.innerDataBusFactor {
+
 }
 
 .innerData:nth-child(n+2) {
