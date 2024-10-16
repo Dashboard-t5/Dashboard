@@ -9,7 +9,7 @@ function StaffJobFit() {
     const { isEmployeeId, setEmployeeId, isTeamId, setTeamTotal } = useContext(TeamContext);
     const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
 
-    const fetchAllStaff = useCallback(async () => {
+    const getAllStaff = useCallback(async () => {
         const db_url = `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/?team=${isTeamId}`;
         try {
             let { data } = await axios.get(`${db_url}`, {
@@ -17,7 +17,6 @@ function StaffJobFit() {
                     'Accept': 'application/json',
                 },
             });
-            console.log(data, data.length);
             setAllStaff(data);
             setTeamTotal(data.length);
         } catch (err) {
@@ -26,8 +25,8 @@ function StaffJobFit() {
     }, [isTeamId, setTeamTotal]);
 
     useEffect(() => {
-        fetchAllStaff();
-    }, [fetchAllStaff]);
+        getAllStaff();
+    }, [getAllStaff]);
 
     const handleRowClick = useCallback((clickedEmployeeId, clickedEmployeeName) => {
         if (clickedEmployeeId === isEmployeeId) {
