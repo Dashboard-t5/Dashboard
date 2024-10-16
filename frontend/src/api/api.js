@@ -6,7 +6,7 @@ class Api {
     async getBusFactor(teamId) {
         try {
             const response = await axios.get(`${DB_URL}/api/v1/dashboard/bus_factor/`, {
-                params: { team: teamId }, // Используйте params для добавления query параметров
+                params: {team: teamId}, // Используйте params для добавления query параметров
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ class Api {
     async getAllStaff(teamId) {
         try {
             const response = await axios.get(`${DB_URL}/api/v1/dashboard/suitability_position/`, {
-                params: { team: teamId },
+                params: {team: teamId},
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
