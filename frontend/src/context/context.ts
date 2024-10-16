@@ -1,12 +1,12 @@
 import React, { Dispatch, SetStateAction } from 'react';
 
-// Тип для контекста
+
 interface TeamContextType {
     isEmployeeId: number | null;
     isTeamId: number | null;
     isTeamTotal: number;
     isBusFactor: number;
-    setBusFactor: Dispatch<SetStateAction<number>>; // add function for changes of busFactor
+    setBusFactor: Dispatch<SetStateAction<number>>;
 }
 
 // Создаем контекст с дефолтным значением
