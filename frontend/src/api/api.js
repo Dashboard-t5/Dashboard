@@ -1,33 +1,52 @@
-import { DB_URL } from '../utils/constants'
+import axios from 'axios';
+import { DB_URL } from '../utils/constants';
 
-class MainApi {
+class Api {
 
-    _onResponse(res) {
-        return res.ok ? res.json() : Promise.reject(`Ошибка ${res.status} ${res.statusText}`)
+    async getBusFactor(teamId) {
+        try {
+            const response = await axios.get(`${DB_URL}/api/v1/dashboard/bus_factor/`, {
+                params: { team: teamId }, // Используйте params для добавления query параметров
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Ошибка: ${error.response?.status} ${error.response?.statusText}`);
+        }
     }
 
-    getTeamNames() {
-        return fetch(`${DB_URL}/api/v1/teams`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-        }).then(res => this._onResponse(res))
+    async getTeamNames() {
+        try {
+            const response = await axios.get(`${DB_URL}/api/v1/teams`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Ошибка: ${error.response?.status} ${error.response?.statusText}`);
+        }
     }
 
-    getAllStaff() {
-        return fetch(`${DB_URL}/posts`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-        }).then(res => this._onResponse(res))
+    async getAllStaff(teamId) {
+        try {
+            const response = await axios.get(`${DB_URL}/api/v1/dashboard/suitability_position/`, {
+                params: { team: teamId },
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Ошибка: ${error.response?.status} ${error.response?.statusText}`);
+        }
     }
-
 }
 
-const mainApi = new MainApi(DB_URL);
-
-export default mainApi;
+const api = new Api();
+export default api;
