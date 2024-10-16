@@ -8,7 +8,7 @@
 ---
 
 #### Основной стек:
-- ReactJS, CSS modules
+- ReactJS, TypeScript, CSS modules
 
 #### Используемые библиотеки:
 - react-router-dom (версия 6.26.2) библиотека для маршрутизации в React приложениях
