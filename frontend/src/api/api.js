@@ -17,7 +17,7 @@ class MainApi {
     }
 
     getAllStaff() {
-        return fetch(`${DB_URL}/posts`, {
+        return fetch(`${DB_URL}`, {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',

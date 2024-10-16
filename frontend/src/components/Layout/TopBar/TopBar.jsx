@@ -1,19 +1,14 @@
-import styles from './TopBar.module.css';
-import Filter from "../../../images/filter.png";
-import { TeamContext } from "../../../context/context";
-import {useContext, useEffect, useState} from "react";
+import { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import styles from './TopBar.module.css';
+import { TeamContext } from "../../../context/context";
+import Filter from './Filter/Filter'
 
 function TopBar() {
     const { isTeamTotal, isTeamId, isBusFactor, setBusFactor } = useContext(TeamContext);
-    // const [isTeamId, setTeamId] = useState(5);
     const [isSkillName, setSkillName] = useState("");
 
-    useEffect(() => {
-        fetchBusFactor();
-    }, [isTeamId]);
-
-    const fetchBusFactor = async () => {
+    const fetchBusFactor = useCallback(async () => {
         const db_url = `https://dashboard-t5.hopto.org/api/v1/dashboard/bus_factor/?team=${isTeamId}`;
         try {
             let { data } = await axios.get(`${db_url}`, {
@@ -21,20 +16,19 @@ function TopBar() {
                     'Accept': 'application/json',
                 },
             });
-            // console.log(data, data.length);
             setBusFactor(data.bus_factor);
             setSkillName(data.skill);
-            console.log(data)
         } catch (err) {
             console.error(err);
-        } finally {
-
         }
-    };
+    }, [isTeamId, setBusFactor]);
+
+    useEffect(() => {
+        fetchBusFactor();
+    }, [fetchBusFactor]);
 
     return (
         <section id='topbar' className={styles.topBar}>
-
             {/* 2 small data windows */}
             <section className={styles.wrapData}>
                 <div className={styles.innerData}>
@@ -48,11 +42,7 @@ function TopBar() {
                 </div>
             </section>
 
-            {/* 2 buttons */}
-            <div className={styles.btns}>
-                <img src={Filter} className={styles.chartsFilter} alt={'filter'}/>
-            </div>
-
+            <Filter/>
         </section>
     );
 }

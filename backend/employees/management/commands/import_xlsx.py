@@ -16,18 +16,24 @@ class Command(BaseCommand):
         file_path = os.path.join(BASE_DIR, FILE_DIRECTORY, FILE_NAME)
         # Проверка существования файла
         if not os.path.exists(file_path):
-            self.stdout.write(self.style.ERROR(f"Файл не найден: {file_path}"))
+            self.stdout.write(self.style.ERROR(
+                f"Файл не найден: {file_path}")
+            )
             return
 
         # Проверка, что файл читается как Excel
         try:
             df = pd.read_excel(file_path, engine="openpyxl")
         except Exception as e:
-            self.stdout.write(self.style.ERROR(f"Ошибка при чтении файла: {e}"))
+            self.stdout.write(self.style.ERROR(
+                f"Ошибка при чтении файла: {e}")
+            )
             return
 
         # Если все прошло успешно, выводим сообщение
-        self.stdout.write(self.style.SUCCESS(f"Файл успешно прочитан: {file_path}"))
+        self.stdout.write(self.style.SUCCESS(
+            f"Файл успешно прочитан: {file_path}")
+        )
 
         temp_data = []
         for index, row in df.iterrows():
@@ -75,7 +81,9 @@ class Command(BaseCommand):
                     suitability=row['соответствие'],
                 )
             )
-            self.stdout.write(self.style.SUCCESS(f'Employee {employee} processed'))
+            self.stdout.write(self.style.SUCCESS(
+                f'Employee {employee} processed')
+            )
         Rating.objects.bulk_create(
             temp_data,
             batch_size=999

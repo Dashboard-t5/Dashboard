@@ -12,7 +12,9 @@ function App() {
 
   return (
       <>
+
         <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, isTeamId, setTeamId, isTeamTotal, setTeamTotal, isBusFactor, setBusFactor }}>
+
           <Routes>
             <Route exact path='/' index={true}
                    element={<Layout/>}>

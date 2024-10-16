@@ -121,8 +121,8 @@ class Rating(models.Model):
                 ],
                 name="unique_employee_skill_rating_on_date",
                 violation_error_message=(
-                    f"Оценка навыка на выбранную дату "
-                    f"по данному сотруднику уже есть!"
+                    "Оценка навыка на выбранную дату "
+                    "по данному сотруднику уже есть!"
                 )
             )
         ]
