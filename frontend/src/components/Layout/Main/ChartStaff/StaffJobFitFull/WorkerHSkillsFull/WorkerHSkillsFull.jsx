@@ -17,6 +17,10 @@ function WorkerSkillsFull() {
                     'Accept': 'application/json',
                 },
             });
+<<<<<<< HEAD
+=======
+            console.log(data)
+>>>>>>> front-dev
             setAllStaff(data)
             return data;
 
@@ -27,12 +31,39 @@ function WorkerSkillsFull() {
         }
     }
 
+<<<<<<< HEAD
+=======
+    const handleFetchClick = () => {
+        fetchAllStaff()
+    }
+
+>>>>>>> front-dev
     return (
         <div>
             <p className='chart__subtitle'>НА ВСЮ СТРАНИЦУ ТАБЛИЦА: 1. Сотрудник, 2. Доля навыков...</p>
 
+<<<<<<< HEAD
             <ChartRightBars/>
 
+=======
+
+            <ChartRightBars/>
+
+
+            {/* TEST FETCH BTN */}
+            <button onClick={() => handleFetchClick()} className='TEST-BTN'>Get Data to Console</button>
+
+            <ul>
+                {isAllStaff.length === 0 ? (
+                    <li>
+                        <p>Загрузить...</p>
+                    </li>
+                ) : (
+                    console.log(isAllStaff)
+                )}
+            </ul>
+
+>>>>>>> front-dev
         </div>
     )
 }

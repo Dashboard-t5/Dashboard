@@ -5,6 +5,15 @@
     align-items: flex-start;
 }
 
+<<<<<<< HEAD
+=======
+.btns {
+    display: flex;
+    align-items: center;
+    margin-right: 63px;
+}
+
+>>>>>>> front-dev
 .btn {
     width: 114px;
     height: 48px;
@@ -40,11 +49,14 @@
     background-color: var(--background-secondary);
     border-radius: 12px;
     margin-right: 9px;
+<<<<<<< HEAD
     padding-left: 14px;
 }
 
 .innerDataBusFactor {
 
+=======
+>>>>>>> front-dev
 }
 
 .innerData:nth-child(n+2) {

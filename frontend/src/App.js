@@ -8,6 +8,7 @@ function App() {
   const [isTeamId, setTeamId] = useState(5)
   const [isEmployeeId, setEmployeeId] = useState(null)
   const [isTeamTotal, setTeamTotal] = useState(0)
+<<<<<<< HEAD
   const [isBusFactor, setBusFactor] = useState(0)
 
   return (
@@ -15,6 +16,12 @@ function App() {
 
         <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, isTeamId, setTeamId, isTeamTotal, setTeamTotal, isBusFactor, setBusFactor }}>
 
+=======
+
+  return (
+      <>
+        <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, isTeamId, setTeamId, isTeamTotal, setTeamTotal }}>
+>>>>>>> front-dev
           <Routes>
             <Route exact path='/' index={true}
                    element={<Layout/>}>
