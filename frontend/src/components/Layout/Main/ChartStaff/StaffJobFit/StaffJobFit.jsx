@@ -17,7 +17,6 @@ function StaffJobFit() {
                     'Accept': 'application/json',
                 },
             });
-            console.log(data, data.length);
             setAllStaff(data);
             setTeamTotal(data.length);
         } catch (err) {
