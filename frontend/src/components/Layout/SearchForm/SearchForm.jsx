@@ -20,6 +20,7 @@ function SearchForm() {
         evt.preventDefault();
         if (location.pathname === '/') {
             const searchWord = JSON.parse(localStorage.getItem('searchWord'));
+            console.log(searchWord)
             // можно добавить логику для поиска
         } else {
             setPlaceholder('Введите запрос');
