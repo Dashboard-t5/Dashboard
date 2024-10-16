@@ -18,7 +18,6 @@ function TopBar() {
             });
             setBusFactor(data.bus_factor);
             setSkillName(data.skill);
-            console.log(data)
         } catch (err) {
             console.error(err);
         }
