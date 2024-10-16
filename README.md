@@ -101,12 +101,35 @@ http://localhost:8000/swagger/ - документация к API
 mkdir dashboard
 cd dashboard
 ```
-2. В папку проекта скачиваем файл _docker-compose.production.yml_ и запускаем его:
+2. В дериктории dashboard/ необходимо создать файл _.env_ c переменными окружения. Требуемы переменные приведены в файле _.env_example_
+
+3. В папку проекта скачиваем файлы _docker-compose.prod.yml_ и _nginx.prod.conf_ и запускаем:
 ```
-sudo docker compose -f docker-compose.production.yml up
+sudo docker compose -f docker-compose.prod.yml up-d
 ```
-Произойдет скачивание образов, создание и включение контейнеров, создание томов и сети.
-3. Проверяем доступность проекта по адресу:
+Произойдет скачивание образов, создание и включение контейнеров, создание томов и сети.\
+4. Заходим в контейнер backend-a командой:
+```
+sudo docker compose -f docker-compose.prod.yml exec backend bash
+```
+Откроется терминал контейнера backend-a в рабочей дериктории.\
+5. Собираем файлы статики backend-а в папку:
+```
+python manage.py collectstatic
+```
+6. Копируем файлы статики в папку связанную с volume:
+```
+cp -r /app/collected_static/. /backend_static/static/
+```
+7. Выполняем миграции командой:
+```
+python manage.py migrate
+```
+8. Наполнить базу данных тестовыми данными можно командой:
+```
+python3 manage.py import_atomic
+```
+8. Проверяем доступность проекта по адресу:
 
 https://dashboard-t5.hopto.org
 
