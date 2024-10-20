@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, useCallback } from "react";
 import axios from "axios";
-import styles from './TopBar.module.css';
+import globalStyles from '../../../globals.module.css'
+import styles from './MenuBar.module.css';
 import { TeamContext } from "../../../context/context";
 import Filter from './Filter/Filter';
 
@@ -9,7 +10,7 @@ interface BusFactorResponse {
     skill: string;
 }
 
-function TopBar() {
+function MenuBar() {
     const { isTeamTotal, isTeamId, isBusFactor, setBusFactor } = useContext(TeamContext);
     const [isSkillName, setSkillName] = useState<string>("");
 
@@ -33,7 +34,7 @@ function TopBar() {
     }, [getBusFactor]);
 
     return (
-        <section id="topbar" className={styles.topBar}>
+        <section id="menubar" className={`${styles.menuBar} ${globalStyles.section}`}>
             {/* 2 small data windows */}
             <section className={styles.wrapData}>
                 <div className={styles.innerData}>
@@ -52,4 +53,4 @@ function TopBar() {
     );
 }
 
-export default TopBar;
+export default MenuBar;

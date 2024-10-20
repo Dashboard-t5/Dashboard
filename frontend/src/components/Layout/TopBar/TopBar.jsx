@@ -1,17 +1,18 @@
 import { NavLink } from 'react-router-dom';
-import styles from './Sidebar.module.css';
+import globalStyles from '../../../globals.module.css';
+import styles from './TopBar.module.css';
 import BtnEmpty from '../../../images/btn_empty.png';
 import Men from '../../../images/btn_users.png';
 import UserImg from '../../../images/user_img.png';
 import { useState } from "react";
 
-function Sidebar() {
+function TopBar() {
     const [activeBtn, setActiveBtn] = useState('men');
 
     return (
-        <nav id='sidebar' className={styles.sidebar}>
+        <section id='topbar' className={`${styles.topBar} ${globalStyles.section}`}>
 
-            <aside className={styles.sidebarInnerBar}>
+            <aside className={styles.topBarInnerBar}>
                 <ul className={styles.innerHalf}>
                     <li className={styles.btnWrap}>
                         <img src={BtnEmpty} className={styles.innerIconBg} alt="btn empty" />
@@ -30,8 +31,8 @@ function Sidebar() {
                 </ul>
             </aside>
 
-        </nav>
+        </section>
     );
 }
 
-export default Sidebar;
+export default TopBar;

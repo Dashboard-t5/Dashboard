@@ -51,6 +51,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.section {
+  padding: 0 40px;
+}
+
 html,
 body {
   /* display: flex; */
