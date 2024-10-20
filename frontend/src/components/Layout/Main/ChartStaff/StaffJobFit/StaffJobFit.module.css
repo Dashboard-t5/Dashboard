@@ -5,10 +5,6 @@
     border: 1px solid var(--text-color-middle);
 }
 
-.tableSubtitle {
-    font-size: 10px;
-}
-
 .tableHeaders {
     background-color: var(--background-secondary);
 }

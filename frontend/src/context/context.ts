@@ -3,6 +3,7 @@ import React, { Dispatch, SetStateAction } from 'react';
 
 interface TeamContextType {
     isEmployeeId: number | null;
+    selectedEmployeeName: string | '',
     isTeamId: number | null;
     isTeamTotal: number;
     isBusFactor: number;
@@ -12,6 +13,7 @@ interface TeamContextType {
 // Создаем контекст с дефолтным значением
 export const TeamContext = React.createContext<TeamContextType>({
     isEmployeeId: null,
+    selectedEmployeeName: '',
     isTeamId: null,
     isTeamTotal: 0,
     isBusFactor: 0,

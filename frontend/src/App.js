@@ -7,13 +7,14 @@ import { TeamContext } from './context/context';
 function App() {
   const [isTeamId, setTeamId] = useState(5)
   const [isEmployeeId, setEmployeeId] = useState(null)
+  const [selectedEmployeeName, setSelectedEmployeeName] = useState('')
   const [isTeamTotal, setTeamTotal] = useState(0)
   const [isBusFactor, setBusFactor] = useState(0)
 
   return (
       <>
 
-        <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, isTeamId, setTeamId, isTeamTotal, setTeamTotal, isBusFactor, setBusFactor }}>
+        <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, selectedEmployeeName, setSelectedEmployeeName, isTeamId, setTeamId, isTeamTotal, setTeamTotal, isBusFactor, setBusFactor }}>
 
           <Routes>
             <Route exact path='/' index={true}

@@ -55,6 +55,20 @@
   padding: 0 40px;
 }
 
+.chart {
+  width: 670px;
+  height: 435px;
+  padding: 24px;
+  border-radius: 12px;
+  background-color: #FFF;
+  border: 1px solid var(--text-color-light);
+}
+
+.chart:hover {
+  border: 1px solid var(--background-tertiary);
+  box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
+}
+
 html,
 body {
   /* display: flex; */

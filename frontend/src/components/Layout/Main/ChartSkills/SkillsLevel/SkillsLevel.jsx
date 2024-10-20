@@ -41,10 +41,6 @@ function SkillsLevel() {
 
     return (
         <div>
-            <p className={styles.chartSubtitle}>
-                {isEmployeeId ? 'ШКАЛЫ УРОВНЕЙ НАВЫКОВ СОТРУДНИКА' : 'СРЕДНИЕ УРОВНИ НАВЫКОВ КОМАНДЫ'}
-            </p>
-
             {isFetchingData ? (
                 <p>Loading...</p>
             ) : (

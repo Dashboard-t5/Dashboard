@@ -6,8 +6,7 @@ import { DB_URL } from '../../../../../utils/constants'
 
 function StaffJobFit() {
     const [isAllStaff, setAllStaff] = useState([]);
-    const { isEmployeeId, setEmployeeId, isTeamId, setTeamTotal } = useContext(TeamContext);
-    const [selectedEmployeeName, setSelectedEmployeeName] = useState('');
+    const { isEmployeeId, setEmployeeId, setSelectedEmployeeName, isTeamId, setTeamTotal } = useContext(TeamContext);
 
     const getAllStaff = useCallback(async () => {
         const db_url = `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/?team=${isTeamId}`;
@@ -40,10 +39,6 @@ function StaffJobFit() {
 
     return (
         <>
-            <p className={styles.tableSubtitle}>
-                Сотрудник: {selectedEmployeeName || ''} • Уровень владения навыками
-            </p>
-
             <table className={styles.table}>
                 <thead className={styles.tableHeaders}>
                 <tr className={styles.tableRow}>
