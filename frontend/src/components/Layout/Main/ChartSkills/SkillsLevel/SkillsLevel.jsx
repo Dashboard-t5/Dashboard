@@ -15,8 +15,8 @@ function SkillsLevel() {
 
         setFetchingData(true)
         let url = isEmployeeId
-            ? `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/${isEmployeeId}/skills`
-            : `${DB_URL.serverUrl}/api/v1/dashboard/skill_level/?team=${isTeamId}`;
+            ? `${DB_URL}/api/v1/dashboard/suitability_position/${isEmployeeId}/skills`
+            : `${DB_URL}/api/v1/dashboard/skill_level/?team=${isTeamId}`;
 
         try {
             let { data } = await axios.get(`${url}`, {

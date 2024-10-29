@@ -1,9 +1,7 @@
 import { useState, useEffect, useContext, useCallback } from 'react'
-import axios from 'axios'
 import api from '../../../../../api/api'
 import styles from './StaffJobFit.module.css'
 import { TeamContext } from "../../../../../context/context"
-import { DB_URL } from '../../../../../utils/constants'
 
 function StaffJobFit() {
     const [isAllStaff, setAllStaff] = useState([]);
@@ -12,7 +10,7 @@ function StaffJobFit() {
     const getTeam = useCallback(async () => {
         try {
             let data = await api.getTeam(isTeamId)
-console.log(data)
+// console.log(data)
             setAllStaff(data);
             setTeamTotal(data?.length);
         } catch (err) {

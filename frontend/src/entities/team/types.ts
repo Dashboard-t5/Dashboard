@@ -4,7 +4,6 @@ export type TTeam = {
     total_yes: number,
     total: number,
     percentage: number,
-    bus_factor: number | boolean,
 }
 
 export type TTeamName = {

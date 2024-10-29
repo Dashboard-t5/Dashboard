@@ -1,27 +1,19 @@
 import { useContext, useEffect, useState, useCallback } from "react";
-import axios from "axios";
+import api from '../../../api/api'
 import globalStyles from '../../../globals.module.css'
 import styles from './MenuBar.module.css';
 import { TeamContext } from "../../../context/context";
 import Filter from './Filter/Filter';
-
-interface BusFactorResponse {
-    bus_factor: number;
-    skill: string;
-}
+import { type TBusFactor } from '../../../entities/bus-factor/types'
 
 function MenuBar() {
     const { isTeamTotal, isTeamId, isBusFactor, setBusFactor } = useContext(TeamContext);
     const [isSkillName, setSkillName] = useState<string>("");
 
     const getBusFactor = useCallback(async () => {
-        const db_url = `https://dashboard-t5.hopto.org/api/v1/dashboard/bus_factor/?team=${isTeamId}`;
         try {
-            const { data } = await axios.get<BusFactorResponse>(`${db_url}`, {
-                headers: {
-                    'Accept': 'application/json',
-                },
-            });
+            const data: TBusFactor = await api.getBusFactor(isTeamId);
+console.log(data)
             setBusFactor(data.bus_factor);
             setSkillName(data.skill);
         } catch (err) {
