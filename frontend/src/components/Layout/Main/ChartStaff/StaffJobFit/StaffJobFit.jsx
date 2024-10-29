@@ -1,31 +1,28 @@
-import { useState, useEffect, useContext, useCallback } from 'react';
-import axios from 'axios';
-import styles from './StaffJobFit.module.css';
-import { TeamContext } from "../../../../../context/context";
+import { useState, useEffect, useContext, useCallback } from 'react'
+import axios from 'axios'
+import api from '../../../../../api/api'
+import styles from './StaffJobFit.module.css'
+import { TeamContext } from "../../../../../context/context"
 import { DB_URL } from '../../../../../utils/constants'
 
 function StaffJobFit() {
     const [isAllStaff, setAllStaff] = useState([]);
     const { isEmployeeId, setEmployeeId, setSelectedEmployeeName, isTeamId, setTeamTotal } = useContext(TeamContext);
 
-    const getAllStaff = useCallback(async () => {
-        const db_url = `${DB_URL.serverUrl}/api/v1/dashboard/suitability_position/?team=${isTeamId}`;
+    const getTeam = useCallback(async () => {
         try {
-            let { data } = await axios.get(`${db_url}`, {
-                headers: {
-                    'Accept': 'application/json',
-                },
-            });
+            let data = await api.getTeam(isTeamId)
+console.log(data)
             setAllStaff(data);
-            setTeamTotal(data.length);
+            setTeamTotal(data?.length);
         } catch (err) {
             console.error(err);
         }
     }, [isTeamId, setTeamTotal]);
 
     useEffect(() => {
-        getAllStaff();
-    }, [getAllStaff]);
+        getTeam();
+    }, [getTeam]);
 
     const handleRowClick = useCallback((clickedEmployeeId, clickedEmployeeName) => {
         if (clickedEmployeeId === isEmployeeId) {
@@ -50,7 +47,7 @@ function StaffJobFit() {
                 </thead>
 
                 <tbody>
-                {isAllStaff.length === 0 ? (
+                {isAllStaff?.length === 0 ? (
                     <tr className={styles.tableRow}>
                         <td colSpan="2" className={styles.tableColLeft}>В меню выберите Команду</td>
                     </tr>

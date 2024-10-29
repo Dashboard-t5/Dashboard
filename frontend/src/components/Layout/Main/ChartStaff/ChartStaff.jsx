@@ -18,6 +18,11 @@ function ChartStaff() {
                     onClick={() => setActiveTab('skillsLevel')}
                 >
                     <p>Соответствие должности</p>
+                    <p className={styles.tableSubtitle}>
+                        Сотрудник:
+                        <span className={styles.tableSubtitleSpan}>{selectedEmployeeName || '[ НЕ ВЫБРАН ]'}</span>
+                        • Уровень владения навыками
+                    </p>
                 </div>
 
                 <div
@@ -30,11 +35,6 @@ function ChartStaff() {
 
             <div className={styles.tabContentChart}>
 
-                <p className={styles.tableSubtitle}>
-                    Сотрудник:
-                      <span className={styles.tableSubtitleSpan}>{selectedEmployeeName || '[ НЕ ВЫБРАН ]'}</span>
-                      • Уровень владения навыками
-                </p>
 
                 <div className={styles.scrollableContent}>
                     {activeTab === 'skillsLevel' ? <StaffJobFit/> : <StaffSkilledNum/>}
