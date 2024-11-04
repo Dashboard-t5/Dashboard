@@ -12,16 +12,16 @@ function ChartSkills() {
     return (
         <section id='chartSkills' className={`${globalStyles.chart} ${styles.chartSkills}`}>
 
-            <div className={styles.tabsChart}>
+            <div className={globalStyles.tabsChart}>
                 <div
-                    className={`${styles.tabChart} ${activeTab === 'skillsLevel' ? styles.active : ''}`}
+                    className={`${globalStyles.tabChart} ${activeTab === 'skillsLevel' ? globalStyles.active : ''}`}
                     onClick={() => setActiveTab('skillsLevel')}
                 >
                   <p>Уровень владения навыками</p>
                 </div>
 
                 <div
-                    className={`${styles.tabChart} ${activeTab === 'staffNums' ? styles.active : ''}`}
+                    className={`${globalStyles.tabChart} ${activeTab === 'staffNums' ? globalStyles.active : ''}`}
                     onClick={() => setActiveTab('staffNums')}
                 >
                     <p>Баллы сотрудников по навыкам</p>
@@ -29,13 +29,13 @@ function ChartSkills() {
             </div>
 
             {/* sub-chart content */}
-            <div className={styles.tabContentChart}>
+            <div className={globalStyles.tabContentChart}>
 
                 {activeTab === 'skillsLevel'
-                    ? <p className={styles.chartSubtitle}>{isEmployeeId ? 'ШКАЛЫ УРОВНЕЙ НАВЫКОВ СОТРУДНИКА' : 'СРЕДНИЕ УРОВНИ НАВЫКОВ КОМАНДЫ'}</p>
+                    ? <p className={globalStyles.chartSubtitle}>{isEmployeeId ? 'ШКАЛЫ УРОВНЕЙ НАВЫКОВ СОТРУДНИКА' : 'СРЕДНИЕ УРОВНИ НАВЫКОВ КОМАНДЫ'}</p>
                     : ''}
 
-                <div className={styles.scrollableContent}>
+                <div className={globalStyles.scrollableContent}>
                     {activeTab === 'skillsLevel' ? <SkillsLevel/> : <SkillsPoints/>}
                 </div>
             </div>

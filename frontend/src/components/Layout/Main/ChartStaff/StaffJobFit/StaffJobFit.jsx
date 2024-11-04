@@ -1,5 +1,6 @@
 import { useState, useEffect, useContext, useCallback } from 'react'
 import api from '../../../../../api/api'
+import globalStyles from '../../../../../globals.module.css'
 import styles from './StaffJobFit.module.css'
 import { TeamContext } from "../../../../../context/context"
 
@@ -34,31 +35,22 @@ function StaffJobFit() {
 
     return (
         <>
-            <table className={styles.table}>
-                <thead className={styles.tableHeaders}>
-                <tr className={styles.tableRow}>
-                    <th className={`${styles.tableHeader} ${styles.tableHeaderLeft}`}>Сотрудник</th>
-                    <th className={`${styles.tableHeader} ${styles.tableHeaderRight}`}>
-                        Доля навыков с удовлетворительной оценкой
-                    </th>
-                </tr>
-                </thead>
-
+            <table className={globalStyles.table}>
                 <tbody>
                 {isAllStaff?.length === 0 ? (
-                    <tr className={styles.tableRow}>
-                        <td colSpan="2" className={styles.tableColLeft}>В меню выберите Команду</td>
+                    <tr className={globalStyles.tableRow}>
+                        <td colSpan="2" className={globalStyles.tableColLeft}>В меню выберите Команду</td>
                     </tr>
                 ) : (
                     isAllStaff.map((employee, i) => (
                         <tr
                             key={i}
                             onClick={() => handleRowClick(employee.employee_id, employee.employee)}
-                            className={`${styles.tableRow} ${isEmployeeId === employee.employee_id ? styles.tableRowSelected : ''}`}
+                            className={`${globalStyles.tableRow} ${isEmployeeId === employee.employee_id ? globalStyles.tableRowSelected : ''}`}
                             style={{ cursor: 'pointer' }}
                         >
-                            <td className={styles.tableColLeft}>{employee.employee}</td>
-                            <td className={styles.tableColRight}>{`${employee.percentage}%`}</td>
+                            <td className={globalStyles.tableColLeft}>{employee.employee}</td>
+                            <td className={globalStyles.tableColRight}>{`${employee.percentage}%`}</td>
                         </tr>
                     ))
                 )}
