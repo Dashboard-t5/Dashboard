@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext, useCallback } from 'react'
 import axios from 'axios'
-import styles from './SkillsLevel.module.css'
 import ChartLeftBars from '../../../../Charts/ChartLeftBars'
 import { TeamContext } from '../../../../../context/context'
 import { DB_URL } from "../../../../../utils/constants";

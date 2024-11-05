@@ -6,20 +6,37 @@ import SkillsPoints from "./SkillsPoints/SkillsPoints";
 import { TeamContext } from '../../../../context/context'
 
 function ChartSkills() {
-    const { isEmployeeId } = useContext(TeamContext);
     const [activeTab, setActiveTab] = useState('skillsLevel');
 
     return (
         <section id='chartSkills' className={`${globalStyles.chart} ${styles.chartSkills}`}>
 
             <div className={globalStyles.tabsChart}>
+
+                {/* 1-st tab */}
                 <div
                     className={`${globalStyles.tabChart} ${activeTab === 'skillsLevel' ? globalStyles.active : ''}`}
                     onClick={() => setActiveTab('skillsLevel')}
                 >
                   <p>Уровень владения навыками</p>
+                {activeTab === 'skillsLevel'
+                    ?
+                    <div className={globalStyles.chartSubtitles}>
+                        <p className={globalStyles.chartSubtitle}>
+                            [Воронка.img] •
+                        </p>
+                    </div>
+                    :
+                    <div className={globalStyles.chartSubtitles}>
+                        <p className={`${globalStyles.chartSubtitle} ${activeTab !== 'skillsLevel' ? globalStyles.active : ""}`}>
+                            Другое •
+                        </p>
+                    </div>
+                }
                 </div>
 
+
+                {/* 2-nd tab */}
                 <div
                     className={`${globalStyles.tabChart} ${activeTab === 'staffNums' ? globalStyles.active : ''}`}
                     onClick={() => setActiveTab('staffNums')}
@@ -30,11 +47,6 @@ function ChartSkills() {
 
             {/* sub-chart content */}
             <div className={globalStyles.tabContentChart}>
-
-                {activeTab === 'skillsLevel'
-                    ? <p className={globalStyles.chartSubtitle}>{isEmployeeId ? 'ШКАЛЫ УРОВНЕЙ НАВЫКОВ СОТРУДНИКА' : 'СРЕДНИЕ УРОВНИ НАВЫКОВ КОМАНДЫ'}</p>
-                    : ''}
-
                 <div className={globalStyles.scrollableContent}>
                     {activeTab === 'skillsLevel' ? <SkillsLevel/> : <SkillsPoints/>}
                 </div>

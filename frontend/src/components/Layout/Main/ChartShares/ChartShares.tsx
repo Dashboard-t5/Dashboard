@@ -1,22 +1,40 @@
 import {useContext, useState} from 'react';
 import globalStyles from '../../../../globals.module.css'
-import styles from './ChartShares.css';
+import styles from './ChartShares.module.css';
 import { TeamContext } from '../../../../context/context'
 
 function ChartShares() {
     const [activeTab, setActiveTab] = useState('staffPositions');
 
     return (
-        <section id='StaffPositions' className={`${globalStyles.chart}`}>
+        <section id='chartShares' className={`${globalStyles.chart} ${styles.chartShares}`}>
 
             <div className={globalStyles.tabsChart}>
+
+                {/* 1-st tab */}
                 <div
-                    className={`${globalStyles.tabChart} ${activeTab === 'staffPositions' ? globalStyles.active : ''}`}
+                    className={`${globalStyles.tabChart} ${activeTab === 'staffPositions' ? globalStyles.active : ""}`}
                     onClick={() => setActiveTab('staffPositions')}
                 >
                     <p>Должности сотрудников</p>
+                    {activeTab === 'staffPositions'
+                        ?
+                        <div className={globalStyles.chartSubtitles}>
+                            <p className={globalStyles.chartSubtitle}>
+                                Должность •
+                            </p>
+                        </div>
+                        :
+                        <div className={globalStyles.chartSubtitles}>
+                            <p className={`${globalStyles.chartSubtitle} ${activeTab !== 'staffPositions' ? globalStyles.active : ""}`}>
+                                Другое •
+                            </p>
+                        </div>
+                    }
                 </div>
 
+
+                {/* 2-nd tab */}
                 <div
                     className={`${globalStyles.tabChart} ${activeTab === 'staffGradesNum' ? globalStyles.active : ''}`}
                     onClick={() => setActiveTab('staffGradesNum')}
@@ -28,10 +46,10 @@ function ChartShares() {
             {/* sub-chart content */}
             <div className={globalStyles.tabContentChart}>
 
-                {activeTab === 'staffPositions'
-                    ? <p className={styles.chartSubtitle}>Должность • </p>
-                    : <p className={styles.chartSubtitle}>Грейд • </p>
-                }
+                {/*{activeTab === 'staffPositions'*/}
+                {/*    ? <p className={styles.chartSubtitle}>Должность • </p>*/}
+                {/*    : <p className={styles.chartSubtitle}>Грейд • </p>*/}
+                {/*}*/}
 
                 <div className={''}>
                     {/*{activeTab === 'staffPositions' ? <Shares/> : <StaffGradesNum/>}*/}

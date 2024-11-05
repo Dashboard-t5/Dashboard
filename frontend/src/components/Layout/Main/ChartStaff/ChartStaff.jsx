@@ -6,7 +6,7 @@ import StaffSkilledNum from './StaffSkilledNum/StaffSkilledNum';
 import { TeamContext } from '../../../../context/context'
 
 function ChartStaff() {
-    const { selectedEmployeeName } = useContext(TeamContext);
+    const { selectedEmployeeName, isTeamName } = useContext(TeamContext);
     const [activeTab, setActiveTab] = useState('staffJobFit');
 
     return (
@@ -20,12 +20,20 @@ function ChartStaff() {
                 >
                     <p>Соответствие должности</p>
                     {activeTab === 'staffJobFit'
-                        ? <p className={globalStyles.chartSubtitle}>
+                        ? <div className={globalStyles.chartSubtitles}>
+                            <p className={globalStyles.chartSubtitle}>
                                 Сотрудник •
                                 <span
                                     className={globalStyles.chartSubtitleSpan}>{selectedEmployeeName || '[ НЕ ВЫБРАН ]'}
-                                    </span>
-                          </p>
+                                </span>
+                            </p>
+                            <p className={globalStyles.chartSubtitle}>
+                                Команда •
+                                <span
+                                    className={globalStyles.chartSubtitleSpan}>{isTeamName || '[ НЕ ВЫБРАНА ]'}
+                                </span>
+                            </p>
+                        </div>
                         :
                         <p className={`${globalStyles.chartSubtitle} ${activeTab !== 'staffJobFit' ? globalStyles.active : ""}`}>
                             Другое •

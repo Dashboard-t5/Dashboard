@@ -10,11 +10,11 @@ function App() {
   const [selectedEmployeeName, setSelectedEmployeeName] = useState('')
   const [isTeamTotal, setTeamTotal] = useState(0)
   const [isBusFactor, setBusFactor] = useState(0)
+  const [isTeamName, setTeamName] = useState('')
 
   return (
       <>
-        <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, selectedEmployeeName, setSelectedEmployeeName, isTeamId, setTeamId, isTeamTotal, setTeamTotal, isBusFactor, setBusFactor }}>
-
+        <TeamContext.Provider value={{ isEmployeeId, setEmployeeId, selectedEmployeeName, setSelectedEmployeeName, isTeamId, setTeamId, isTeamTotal, setTeamTotal, isBusFactor, setBusFactor, isTeamName, setTeamName }}>
           <Routes>
             <Route exact path='/' index={true}
                    element={<Layout/>}>

@@ -4,7 +4,7 @@ import { DB_URL } from '../utils/constants';
 class Api {
 
     // data for MenuBar & 1-st ChartStaff/StaffJobFit (upper left)
-    async getTeam(teamId) {
+    async getTeamEmployees(teamId) {
         try {
             const response = await axios.get(`${DB_URL}/api/v1/dashboard/suitability_position/?team=${teamId}`, {
                 params: {team: teamId},

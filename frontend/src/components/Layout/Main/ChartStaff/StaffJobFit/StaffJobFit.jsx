@@ -6,13 +6,14 @@ import { TeamContext } from "../../../../../context/context"
 
 function StaffJobFit() {
     const [isAllStaff, setAllStaff] = useState([]);
-    const { isEmployeeId, setEmployeeId, setSelectedEmployeeName, isTeamId, setTeamTotal } = useContext(TeamContext);
+    const { isEmployeeId, setEmployeeId, setSelectedEmployeeName, isTeamId, setTeamTotal, setTeamName, isTeamName } = useContext(TeamContext);
 
-    const getTeam = useCallback(async () => {
+    const getTeamEmployees = useCallback(async () => {
         try {
-            let data = await api.getTeam(isTeamId)
+            let data = await api.getTeamEmployees(isTeamId)
 // console.log(data)
             setAllStaff(data);
+            // console.log(data)
             setTeamTotal(data?.length);
         } catch (err) {
             console.error(err);
@@ -20,8 +21,22 @@ function StaffJobFit() {
     }, [isTeamId, setTeamTotal]);
 
     useEffect(() => {
-        getTeam();
-    }, [getTeam]);
+        getTeamEmployees();
+    }, [getTeamEmployees]);
+
+    const getTeamName = useCallback(async () => {
+        try {
+            let data = await api.getTeamNames(isTeamId)
+            const teamName = data.find((team) => team.id === isTeamId)
+            setTeamName(teamName.name);
+        } catch (err) {
+            console.error(err);
+        }
+    }, [isTeamId]);
+
+    useEffect(() => {
+        getTeamName();
+    }, [getTeamName]);
 
     const handleRowClick = useCallback((clickedEmployeeId, clickedEmployeeName) => {
         if (clickedEmployeeId === isEmployeeId) {

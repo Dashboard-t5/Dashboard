@@ -90,9 +90,18 @@ a {
   box-shadow: 0 0 4px 0 rgba(0,0,0,0.2);
 }
 
+.chartSubtitles {
+  display: flex;
+  position: absolute;
+}
+
 .chartSubtitle {
   font-size: 10px;
-  position: absolute;
+  padding-top: 3px;
+}
+
+.chartSubtitle:nth-child(2) {
+  padding-left: 7px;
 }
 
 .chartSubtitle.active {
