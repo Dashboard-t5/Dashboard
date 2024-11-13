@@ -23,7 +23,7 @@ class Api {
     async getBusFactor(teamId) {
         try {
             const response = await axios.get(`${DB_URL}/api/v1/dashboard/bus_factor/?team=${teamId}`, {
-                params: {team: teamId}, // Используйте params для добавления query параметров
+                params: {team: teamId}, // @params для добавления query параметров
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -35,11 +35,11 @@ class Api {
         }
     }
 
-    // data for 3-rd Chart (upper right)
-    async getBusFactor(teamId) {
+    // data for Shares Chart (upper right)
+    async getEmployeePositions(teamId) {
         try {
-            const response = await axios.get(`${DB_URL}/api/v1/dashboard/bus_factor/?team=${teamId}`, {
-                params: {team: teamId}, // Используйте params для добавления query параметров
+            const response = await axios.get(`${DB_URL}/api/v1/dashboard/employee_positions/?team=${teamId}`, {
+                params: {team: teamId}, // @params для добавления query параметров
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

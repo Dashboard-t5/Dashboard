@@ -1,7 +1,8 @@
-import {useContext, useState} from 'react';
+import {useContext, useState} from 'react'
 import globalStyles from '../../../../globals.module.css'
-import styles from './ChartShares.module.css';
+import styles from './ChartShares.module.css'
 import { TeamContext } from '../../../../context/context'
+import SharesPositions from "./SharesPositions/SharesPositions"
 
 function ChartShares() {
     const [activeTab, setActiveTab] = useState('staffPositions');
@@ -46,14 +47,10 @@ function ChartShares() {
             {/* sub-chart content */}
             <div className={globalStyles.tabContentChart}>
 
-                {/*{activeTab === 'staffPositions'*/}
-                {/*    ? <p className={styles.chartSubtitle}>Должность • </p>*/}
-                {/*    : <p className={styles.chartSubtitle}>Грейд • </p>*/}
-                {/*}*/}
-
-                <div className={''}>
-                    {/*{activeTab === 'staffPositions' ? <Shares/> : <StaffGradesNum/>}*/}
+                <div>
+                    {activeTab === 'staffPositions' ? <SharesPositions/> : ""}
                 </div>
+
             </div>
 
         </section>

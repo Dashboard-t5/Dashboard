@@ -3,7 +3,6 @@ import globalStyles from '../../../../globals.module.css'
 import styles from './ChartSkills.module.css';
 import SkillsLevel from "./SkillsLevel/SkillsLevel";
 import SkillsPoints from "./SkillsPoints/SkillsPoints";
-import { TeamContext } from '../../../../context/context'
 
 function ChartSkills() {
     const [activeTab, setActiveTab] = useState('skillsLevel');
