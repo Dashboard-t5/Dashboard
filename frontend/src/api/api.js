@@ -3,6 +3,34 @@ import { DB_URL } from '../utils/constants';
 
 class Api {
 
+    async getTeamNames() {
+        try {
+            const response = await axios.get(`${DB_URL}/api/v1/teams`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Ошибка: ${error.response?.status} ${error.response?.statusText}`);
+        }
+    }
+
+    async getAllEmployees() {
+        try {
+            const response = await axios.get(`${DB_URL}/api/v1/dashboard/suitability_position`, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Ошибка: ${error.response?.status} ${error.response?.statusText}`);
+        }
+    }
+
     // data for MenuBar & 1-st ChartStaff/StaffJobFit (upper left)
     async getTeamEmployees(teamId) {
         try {
@@ -40,20 +68,6 @@ class Api {
         try {
             const response = await axios.get(`${DB_URL}/api/v1/dashboard/employee_positions/?team=${teamId}`, {
                 params: {team: teamId}, // @params для добавления query параметров
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                },
-            });
-            return response.data;
-        } catch (error) {
-            throw new Error(`Ошибка: ${error.response?.status} ${error.response?.statusText}`);
-        }
-    }
-
-    async getTeamNames() {
-        try {
-            const response = await axios.get(`${DB_URL}/api/v1/teams`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',

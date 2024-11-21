@@ -6,9 +6,10 @@ import StaffSkilledNum from './StaffSkilledNum/StaffSkilledNum';
 import { TeamContext } from '../../../../context/context'
 
 function ChartStaff() {
-    const { selectedEmployeeName, isTeamName } = useContext(TeamContext);
+    const { teamsIdAndName, isTeamName, selectedEmployeeName} = useContext(TeamContext);
     const [activeTab, setActiveTab] = useState('staffJobFit');
 
+ console.log('isTeamName, teamsIdAndName', isTeamName, teamsIdAndName)
     return (
         <section id='chartStaff' className={`${globalStyles.chart} ${styles.chartStaff}`}>
 

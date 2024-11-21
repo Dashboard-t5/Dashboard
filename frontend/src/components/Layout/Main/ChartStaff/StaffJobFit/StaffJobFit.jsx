@@ -53,7 +53,7 @@ function StaffJobFit() {
                 <tbody>
                 {isAllStaff?.length === 0 ? (
                     <tr className={globalStyles.tableRow}>
-                        <td colSpan="2" className={globalStyles.tableColLeft}>В меню выберите Команду</td>
+                        <td colSpan="2" className={globalStyles.tableColLeft}>В фильтре выберите Команду</td>
                     </tr>
                 ) : (
                     isAllStaff.map((employee, i) => (

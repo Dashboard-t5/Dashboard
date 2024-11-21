@@ -1,8 +1,11 @@
 import styles from './Filter.module.css'
 import PopupMainMenu from "../../../../components/Popup/PopupMainMenu/PopupMainMenu"
-import { useState } from "react"
+import { useState, useContext } from "react"
+import { TeamContext } from '../../../../context/context'
 
 function Filter() {
+    const { isTeamId, isTeamName } = useContext(TeamContext)
+
     const [isPopupOpen, setPopupOpen] = useState(false)
     const [isMainMenuPopupOpen, setMainMenuPopupOpen] = useState(false)
 
@@ -17,11 +20,15 @@ function Filter() {
     }
 
     function handleSubmitForm(e) {
-        e.peventDefault()
+        e.preventDefault()
 
         // api.getTeamNames({ isTeamId })
         // api. onChooseTeam({ isTeamId })
         // api. onChooseEmployee
+
+        // Здесь можно добавить дополнительную логику
+        // Например, отправка данных на сервер или другие действия
+        console.log('Selected team:', { id: isTeamId, name: isTeamName })
     }
 
     return (
