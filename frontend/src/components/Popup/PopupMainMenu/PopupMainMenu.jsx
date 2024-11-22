@@ -5,16 +5,16 @@ import { TeamContext } from "../../../context/context"
 import api from "../../../api/api"
 
 function PopupMainMenu({ onOpen, onClose, name, onSubmit, textBtn }) {
-    const { teamsIdAndName, setTeamsIdAndName, isTeamId, setTeamId, isTeamName, setTeamName,
-        allTeamsStaff, setAllTeamsStaff, isEmployeeId, setEmployeeId, selectedEmployeeName, setSelectedEmployeeName} = useContext(TeamContext);
-    // const [ teamsIdAndName, setTeamsIdAndName ] = useState([])
+    const { teams, setTeams, isTeamId, setTeamId, isTeamName, setTeamName,
+        allEmployees, setAllEmployees, isEmployeeId, setEmployeeId, selectedEmployeeName, setSelectedEmployeeName} = useContext(TeamContext);
+    // const [ teams, setTeams ] = useState([])
 
-    // Получаем список команд при монтировании компонента
+    // Получаем список Команд при монтировании компонента
     useEffect(() => {
         const fetchTeams = async () => {
             try {
                 const data = await api.getTeamNames();
-                setTeamsIdAndName(data);
+                setTeams(data);
             } catch (err) {
                 console.error('Error fetching teams',err)
             }
@@ -23,15 +23,15 @@ function PopupMainMenu({ onOpen, onClose, name, onSubmit, textBtn }) {
         fetchTeams()
     },[])
 
-    // Получаем список всех сотрудников при монтировании компонента
+    // Получаем список всех Сотрудников при монтировании компонента
     useEffect(() => {
         const fetchAllStaff = async () => {
             try {
                 const data = await api.getAllEmployees();
 
                 // В контекст устанавливаем список всех сотрудников
-                setAllTeamsStaff(data);
-          console.log(data)
+                setAllEmployees(data);
+          console.log("data", data)
             } catch (err) {
                 console.error('Error fetching teams',err)
             }
@@ -41,18 +41,28 @@ function PopupMainMenu({ onOpen, onClose, name, onSubmit, textBtn }) {
 
     // Обработчик изменения выбора команды через select
     const handleTeamChange = (teamId) => {
-        const numericTeamId = Number(teamId)
+        const numericTeamId = Number(teamId) || null
 
         // В контекст устанавливаем id выбранной команды (teamId)
-        setTeamId(numericTeamId)
+        setTeamId(numericTeamId || null)
 
         // В контекст устанавливаем имя выбранной команды
-        const selectedTeam = teamsIdAndName.find(team => team.id === numericTeamId)
-      console.log(teamsIdAndName)
+        const selectedTeam = teams.find(team => team.id === numericTeamId)
+
         if (selectedTeam) {
-            setTeamName(selectedTeam.name)
+            setTeamName(selectedTeam.name || '')
+        }
+
+     console.log(teamId)
+        // Filter employees based on selected team
+        if (teamId === "allTeams") {
+            // Show all employees when "All Teams" is selected
+            setEmployeeId(null);
+            setSelectedEmployeeName('');
         }
     }
+
+   console.log("isTeamId, isTeamName", isTeamId, isTeamName)
 
     // Обработчик изменения выбора сотрудника через select
     const handleEmployeeChange = (employeeId) => {
@@ -62,11 +72,11 @@ function PopupMainMenu({ onOpen, onClose, name, onSubmit, textBtn }) {
         setEmployeeId(numericEmployeeId)
 
         // В контекст устанавливаем имя выбранного сотрудника
-        const selectedEmployee = allTeamsStaff.find(employee => Number(employee.employee_id) === numericEmployeeId)
+        const selectedEmployee = allEmployees.find(employee => Number(employee.id) === numericEmployeeId)
 
       console.log(selectedEmployee)
         if (selectedEmployee) {
-            setSelectedEmployeeName(selectedEmployee.employee)
+            setSelectedEmployeeName(`${selectedEmployee.last_name} ${selectedEmployee.first_name}`)
             console.log(selectedEmployeeName)
         }
     }
@@ -89,8 +99,8 @@ function PopupMainMenu({ onOpen, onClose, name, onSubmit, textBtn }) {
                     onChange={(e) => handleTeamChange(e.target.value)}
                     className={styles.select}
                 >
-                    <option value="" className={styles.optionDefault}>--Команда--</option>
-                    {teamsIdAndName.map((team) => (
+                    <option value="allTeams" className={styles.optionDefault}>--Все Команды--</option>
+                    { teams.map((team) => (
                         <option key={team.id} value={team.id} className={styles.option}>
                             {team.name}
                         </option>
@@ -103,15 +113,19 @@ function PopupMainMenu({ onOpen, onClose, name, onSubmit, textBtn }) {
                     onChange={(e) => handleEmployeeChange(e.target.value)}
                     className={styles.select}
                 >
-                    <option value="" className={styles.optionDefault}>--Сотрудник--</option>
-                    {allTeamsStaff.map((allStaff) => (
-                        <option key={allStaff.employee_id} value={allStaff.employee_id} className={styles.option}>
-                            {allStaff.employee}
+                    <option value="allStaff" className={styles.optionDefault}>--Все Сотрудники--</option>
+                    {(isTeamId === null
+                            ? allEmployees
+                            : allEmployees.filter(employee => employee.team_id === isTeamId)
+                    ).map((employee) => (
+                        <option
+                            key={employee.id}
+                            value={employee.id}
+                            className={styles.option}
+                        >
+                            {`${employee.last_name} ${employee.first_name}`}
                         </option>
                     ))}
-                    {/*<option value='employee' className={styles.option}>{'Иванов'}</option>*/}
-                    {/*<option value='employee' className={styles.option}>{'Петров'}</option>*/}
-                    {/*<option value='employee' className={styles.option}>{'Другой сотрудник'}</option>*/}
                 </select>
 
             </div>

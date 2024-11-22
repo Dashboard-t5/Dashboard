@@ -2,14 +2,14 @@ import React, { Dispatch, SetStateAction } from 'react';
 
 
 interface TeamContextType {
-    teamsIdAndName: [],
-    setTeamsIdAndName: Dispatch<SetStateAction<any>>,
-    isTeamId: number | null,
+    teams: [],
+    setTeams: Dispatch<SetStateAction<any>>,
+    isTeamId: number | string | null,
     isTeamTotal: number,
     isTeamName: string,
     setTeamName: Dispatch<SetStateAction<string>>,
-    allTeamsStaff: [],
-    setAllTeamsStaff: Dispatch<SetStateAction<any>>,
+    allEmployees: [],
+    setAllEmployees: Dispatch<SetStateAction<any>>,
     isEmployeeId: number | null,
     selectedEmployeeName: string | '',
     isBusFactor: number,
@@ -18,14 +18,14 @@ interface TeamContextType {
 
 // Создаем контекст с дефолтным значением
 export const TeamContext = React.createContext<TeamContextType>({
-    teamsIdAndName: [],
-    setTeamsIdAndName: () => {},
+    teams: [],
+    setTeams: () => {},
     isTeamId: null,
     isTeamTotal: 0,
-    isTeamName: '- - -',
+    isTeamName: '',
     setTeamName: () => {},
-    allTeamsStaff: [],
-    setAllTeamsStaff: () => {},
+    allEmployees: [],
+    setAllEmployees: () => {},
     isEmployeeId: null,
     selectedEmployeeName: '',
     isBusFactor: 0,

@@ -5,11 +5,11 @@ import NotFound from './components/NotFound/NotFound'
 import { TeamContext } from './context/context';
 
 function App() {
-  const [teamsIdAndName, setTeamsIdAndName] = useState([])
-  const [isTeamId, setTeamId] = useState(5)
+  const [teams, setTeams] = useState([])
+  const [isTeamId, setTeamId] = useState(null)
   const [isTeamName, setTeamName] = useState('')
   const [isTeamTotal, setTeamTotal] = useState(0)
-  const [allTeamsStaff, setAllTeamsStaff] = useState([])
+  const [allEmployees, setAllEmployees] = useState([])
   const [isEmployeeId, setEmployeeId] = useState(null)
   const [selectedEmployeeName, setSelectedEmployeeName] = useState('')
   const [isBusFactor, setBusFactor] = useState(0)
@@ -17,16 +17,16 @@ function App() {
   return (
       <>
         <TeamContext.Provider value={{
-          teamsIdAndName,
-          setTeamsIdAndName,
+          teams,
+          setTeams,
           isTeamId,
           setTeamId,
           isTeamName,
           setTeamName,
           isTeamTotal,
           setTeamTotal,
-          allTeamsStaff,
-          setAllTeamsStaff,
+          allEmployees,
+          setAllEmployees,
           isEmployeeId,
           setEmployeeId,
           selectedEmployeeName,

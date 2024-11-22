@@ -19,7 +19,8 @@ class Api {
 
     async getAllEmployees() {
         try {
-            const response = await axios.get(`${DB_URL}/api/v1/dashboard/suitability_position`, {
+            // const response = await axios.get(`${DB_URL}/api/v1/dashboard/suitability_position`, {
+            const response = await axios.get(`${DB_URL}/api/v1/employees`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -32,10 +33,23 @@ class Api {
     }
 
     // data for MenuBar & 1-st ChartStaff/StaffJobFit (upper left)
-    async getTeamEmployees(teamId) {
+    async getTeamsIdSuitPosition(teamId) {
         try {
             const response = await axios.get(`${DB_URL}/api/v1/dashboard/suitability_position/?team=${teamId}`, {
                 params: {team: teamId},
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+            });
+            return response.data;
+        } catch (error) {
+            throw new Error(`Ошибка: ${error.response?.status} ${error.response?.statusText}`);
+        }
+    }
+    async getTeamsAllSuitPosition() {
+        try {
+            const response = await axios.get(`${DB_URL}/api/v1/dashboard/suitability_position`, {
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
