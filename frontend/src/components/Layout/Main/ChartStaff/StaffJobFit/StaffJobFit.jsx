@@ -27,6 +27,7 @@ function StaffJobFit() {
                 setTeamSuitStaff(data);
                 setTeamTotal(data?.length);
                 setCurrentView('teamStaff');
+          // console.log(data)
             } else if (isTeamId) {
                 let data = await api.getTeamsIdSuitPosition(isTeamId)
                 setTeamSuitStaff(data);
