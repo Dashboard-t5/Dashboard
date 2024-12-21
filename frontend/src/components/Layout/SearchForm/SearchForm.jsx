@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import globalStyles from '../../../globals.module.css'
 import styles from './SearchForm.module.css';
 import { useLocalStorageState as useStorage } from '../../../hooks/useLocalStorageState';
 
