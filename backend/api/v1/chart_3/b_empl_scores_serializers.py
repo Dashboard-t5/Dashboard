@@ -37,6 +37,7 @@ class EmployeeScoresSerializer(
             "competence_name",
             "skill_name",
             "rating_date",
+            "rating_value",
         )
         read_only_fields = (
             "__all__",

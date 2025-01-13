@@ -33,11 +33,12 @@ class EmployeeScoresViewSet(
             "skill__competence",
             "skill__competence__domain"
         ).values(
+            "employee__full_name",
             "skill__competence__domain__name",
             "skill__competence__name",
             "skill__name",
             "rating_date",
-            "employee__full_name",
+            "rating_value",
         ).order_by(
             "employee__full_name"
         )
