@@ -60,6 +60,17 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+if DEBUG:
+    MIDDLEWARE += [
+        "querycount.middleware.QueryCountMiddleware",
+    ]
+
+    QUERYCOUNT = {
+        "IGNORE_REQUEST_PATTERNS": [r"^/admin/"],
+        "IGNORE_SQL_PATTERNS": [r"silk_"],
+        "DISPLAY_DUPLICATES": 2,
+    }
+
 ROOT_URLCONF = 'dashboard_backend.urls'
 
 TEMPLATES = [
@@ -139,3 +150,8 @@ CORS_URLS_REGEX = r'^/api/.*$'
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:3000',
 # ]
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_PAGINATION_CLASS": None,
+}
