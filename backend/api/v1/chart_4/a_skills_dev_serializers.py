@@ -2,9 +2,8 @@ from rest_framework import serializers
 
 from ratings.models import Rating
 
-
 # --------------------------------------------
-#    Чарт 4 Вкладка a
+#    Чарт 4 Вкладка A
 # --------------------------------------------
 
 

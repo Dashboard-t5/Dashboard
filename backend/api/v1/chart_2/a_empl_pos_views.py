@@ -1,5 +1,6 @@
 from django.db.models import Count, IntegerField, Value
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema_view
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
 
@@ -7,19 +8,23 @@ from api.v1.filters import RatingFilter
 from api.v1.chart_2.a_empl_pos_serializers import (
     EmployeePositionsSerializer
 )
+from api.v1.chart_2.schemas import CHART_2_A_SCHEMA
 from ratings.models import Rating
 
-
 # --------------------------------------------
-#    Чарт 2 Вкладка a
+#    Чарт 2 Вкладка A
 # --------------------------------------------
 
 
+@extend_schema_view(**CHART_2_A_SCHEMA)
 class EmployeePositionsViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet
 ):
-    """Вьюсет для работы с чартом "Должности сотрудников"."""
+    """
+    Вьюсет для работы с чартом
+    "Должности сотрудников".
+    """
 
     serializer_class = EmployeePositionsSerializer
     permission_classes = (AllowAny,)

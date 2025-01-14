@@ -1,20 +1,22 @@
 from django.db.models import Avg, Q
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema_view
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
 
-from api.v1.filters import RatingFilter
 from api.v1.chart_4.a_skills_dev_serializers import (
     SkillsDevelopmentSerializer
 )
+from api.v1.chart_4.schemas import CHART_4_A_SCHEMA
+from api.v1.filters import RatingFilter
 from ratings.models import Rating
 
-
 # --------------------------------------------
-#    Чарт 4 Вкладка a
+#    Чарт 4 Вкладка A
 # --------------------------------------------
 
 
+@extend_schema_view(**CHART_4_A_SCHEMA)
 class SkillsDevelopmentViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet

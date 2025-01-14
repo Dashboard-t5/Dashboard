@@ -1,5 +1,6 @@
 from django.db.models import Count, IntegerField, Value
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema_view
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
 
@@ -8,14 +9,19 @@ from api.v1.chart_2.b_empl_grades_serializers import (
     EmployeeGradesWithPositionsSerializer,
     EmployeeGradesSerializer
 )
+from api.v1.chart_2.schemas import (
+    CHART_2_B1_SCHEMA,
+    CHART_2_B2_SCHEMA
+)
 from ratings.models import Rating
 
 
 # --------------------------------------------
-#    Чарт 2 Вкладка b
+#    Чарт 2 Вкладка B1
 # --------------------------------------------
 
 
+@extend_schema_view(**CHART_2_B1_SCHEMA)
 class EmployeeGradesViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet
@@ -58,11 +64,12 @@ class EmployeeGradesViewSet(
 
 
 # --------------------------------------------
-#    Чарт 2 Вкладка b после "проваливания"
+#    Чарт 2 Вкладка B2 после "проваливания"
+#           в выбранный грейд.
 # --------------------------------------------
 
 
-
+@extend_schema_view(**CHART_2_B2_SCHEMA)
 class EmployeeGradesWithPositionsViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet

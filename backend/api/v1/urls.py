@@ -51,7 +51,7 @@ router_v1.register("competences", CompetenceViewSet, basename="competences")
 router_v1.register("raitings", RatingViewSet, basename="raitings")
 
 # --------------------------------------------
-#    Чарт 1 Вкладка a
+#    Чарт 1 Вкладка A
 # --------------------------------------------
 router_v1.register(
     "dashboard/suitability_position",
@@ -65,7 +65,7 @@ router_v1.register(
 )
 
 # --------------------------------------------
-#    Чарт 1 Вкладка b
+#    Чарт 1 Вкладка B
 # --------------------------------------------
 router_v1.register(
     r"dashboard/employees_count_with_skills",
@@ -79,7 +79,7 @@ router_v1.register(
 )
 
 # --------------------------------------------
-#    Чарт 2 Вкладка a
+#    Чарт 2 Вкладка A
 # --------------------------------------------
 router_v1.register(
     r"dashboard/employee_positions",
@@ -88,7 +88,7 @@ router_v1.register(
 )
 
 # --------------------------------------------
-#    Чарт 2 Вкладка b
+#    Чарт 2 Вкладка B
 # --------------------------------------------
 router_v1.register(
     r"dashboard/employee_grades",
@@ -101,7 +101,7 @@ router_v1.register(
     basename="employee_grades_positions",
 )
 # --------------------------------------------
-#    Чарт 3 Вкладка a
+#    Чарт 3 Вкладка A
 # --------------------------------------------
 router_v1.register(
     r"dashboard/skill_level",
@@ -109,7 +109,7 @@ router_v1.register(
     basename="skill_level",
 )
 # --------------------------------------------
-#    Чарт 3 Вкладка b
+#    Чарт 3 Вкладка B
 # --------------------------------------------
 router_v1.register(
     r"dashboard/employee_scores",
@@ -117,7 +117,7 @@ router_v1.register(
     basename="employee_scores",
 )
 # --------------------------------------------
-#    Чарт 4 Вкладка a
+#    Чарт 4 Вкладка A
 # --------------------------------------------
 router_v1.register(
     r"dashboard/skills_development",
@@ -126,7 +126,7 @@ router_v1.register(
 )
 
 # --------------------------------------------
-#    Чарт 4 Вкладка b
+#    Чарт 4 Вкладка B
 # --------------------------------------------
 router_v1.register(
     r"dashboard/position_rating",
