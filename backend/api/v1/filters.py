@@ -5,32 +5,26 @@ from ratings.models import Rating
 
 class RatingFilter(django_filters.FilterSet):
 
-    team = django_filters.CharFilter(
-        field_name="employee__team__name",
-        lookup_expr="iexact",
+    team = django_filters.NumberFilter(
+        field_name="employee__team__id",
     )
-    grade = django_filters.CharFilter(
-        field_name="employee__grade",
-        lookup_expr="iexact",
+    grade = django_filters.NumberFilter(
+        field_name="employee__grade__id",
     )
-    position = django_filters.CharFilter(
-        field_name="employee__position__name",
-        lookup_expr="iexact",
+    position = django_filters.NumberFilter(
+        field_name="employee__position__id",
     )
-    skill = django_filters.CharFilter(
-        field_name="skill__name",
-        lookup_expr="iexact",
+    skill = django_filters.NumberFilter(
+        field_name="skill__id",
     )
     employee = django_filters.NumberFilter(
         field_name="employee__id",
     )
-    competence = django_filters.CharFilter(
-        field_name="skill__competence__name",
-        lookup_expr="iexact",
+    competence = django_filters.NumberFilter(
+        field_name="skill__competence__id",
     )
-    domain = django_filters.CharFilter(
-        field_name="skill__competence__domain__name",
-        lookup_expr="iexact",
+    domain = django_filters.NumberFilter(
+        field_name="skill__competence__domain__id",
     )
     start_date = django_filters.DateFilter(
         field_name="rating_date",
