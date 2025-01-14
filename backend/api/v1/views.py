@@ -1,6 +1,4 @@
-from django.db.models import Avg, Count, IntegerField, Q, Value
-from django.db.models.functions import Concat
-from django.shortcuts import get_object_or_404
+from django.db.models import Count
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
@@ -92,12 +90,15 @@ class RatingViewSet(viewsets.ReadOnlyModelViewSet):
 # --------------------------------------------
 #    Bus-фактор
 # --------------------------------------------
-class BusFactorViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
+class BusFactorViewSet(
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet
+):
     """Вьюсет для Bus-фактора."""
 
     serializer_class = BusFactorSerializer
     permission_classes = (AllowAny,)
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = (DjangoFilterBackend, )
     filterset_class = RatingFilter
 
     def get_queryset(self):
@@ -112,11 +113,13 @@ class BusFactorViewSet(mixins.ListModelMixin, viewsets.GenericViewSet):
                 "employee",
                 distinct=True,
             )
-        ).order_by('skill_employee_count')
+        ).order_by(
+            "skill_employee_count",
+        )
 
-    def list(self, request):
+    def list(self, request, *args, **kwargs):
         queryset = self.filter_queryset(self.get_queryset())
         serializer = self.get_serializer(
-            queryset[0], context={'request': request}
+            queryset[0]
         )
         return Response(serializer.data)

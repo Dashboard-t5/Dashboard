@@ -1,18 +1,21 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema_view
 from rest_framework import mixins, viewsets
 
 from api.v1.filters import RatingFilter
 from api.v1.chart_3.b_empl_scores_serializers import (
     EmployeeScoresSerializer
 )
+from api.v1.chart_3.schemas import CHART_3_B_SCHEMA
 from ratings.models import Rating
 
 
 # --------------------------------------------
-#    Чарт 3 Вкладка b
+#    Чарт 3 Вкладка B
 # --------------------------------------------
 
 
+@extend_schema_view(**CHART_3_B_SCHEMA)
 class EmployeeScoresViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet

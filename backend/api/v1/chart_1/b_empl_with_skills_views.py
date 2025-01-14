@@ -1,28 +1,35 @@
 from django.db.models import Count
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema_view
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import AllowAny
 
 from api.v1.filters import RatingFilter
-from ratings.models import Rating, Skill
 from api.v1.chart_1.b_empl_with_skills_serializers import (
     EmployeesCountWithSkillsSerializer,
     EmployeesWithSkillSerializer,
 )
+from api.v1.chart_1.schemas import (
+    CHART_1_B1_SCHEMA,
+    CHART_1_B2_SCHEMA
+)
+from ratings.models import Rating, Skill
 
 
 # --------------------------------------------
-#    Чарт 1 Вкладка b
+#    Чарт 1 Вкладка B1
 # --------------------------------------------
 
 
+@extend_schema_view(**CHART_1_B1_SCHEMA)
 class EmployeesCountWithSkillsViewSet(
     mixins.ListModelMixin,
     viewsets.GenericViewSet
 ):
     """
-    Вьюсет для чарта "Количество сотрудников, владеющих навыком"
+    Вьюсет для чарта
+    "Количество сотрудников, владеющих навыками"
      для ВСЕХ НАВЫКОВ.
     """
 
@@ -51,12 +58,15 @@ class EmployeesCountWithSkillsViewSet(
 
 
 # --------------------------------------------
-#    Чарт 1 Вкладка b после "проваливания"
+#    Чарт 1 Вкладка B2 после "проваливания"
+#           в выбранный навык.
 # --------------------------------------------
 
 
+@extend_schema_view(**CHART_1_B2_SCHEMA)
 class EmployeesWithSkillViewSet(
-    viewsets.ReadOnlyModelViewSet
+    mixins.ListModelMixin,
+    viewsets.GenericViewSet
 ):
     """
     Вьюсет для чарта
