@@ -9,7 +9,7 @@ function ChartStaff() {
     const { teams, isTeamName, selectedEmployee} = useContext(TeamContext);
     const [ activeTab, setActiveTab ] = useState('staffJobFit');
 
- console.log('isTeamName, teams', "selectedEmployee:", isTeamName, teams, selectedEmployee)
+ // console.log('isTeamName, teams', "selectedEmployee:", isTeamName, teams, selectedEmployee)
 
     return (
         <section id='chartStaff' className={`${globalStyles.chart} ${styles.chartStaff}`}>
