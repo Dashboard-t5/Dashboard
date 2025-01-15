@@ -59,7 +59,7 @@ class Employee(models.Model):
         (HEAD, "Руководитель"),
     )
     first_name = models.CharField(
-        max_length=MIN_LENGTH,
+        max_length=MAX_LENGTH,
         verbose_name="Имя сотрудника",
         blank=False,
         null=False,
@@ -73,7 +73,7 @@ class Employee(models.Model):
         ],
     )
     last_name = models.CharField(
-        max_length=MIN_LENGTH,
+        max_length=MAX_LENGTH,
         verbose_name="Фамилия сотрудника",
         blank=False,
         null=False,
@@ -85,6 +85,12 @@ class Employee(models.Model):
             ),
             MinLengthValidator(limit_value=2),
         ],
+    )
+    full_name = models.CharField(
+        max_length=MAX_LENGTH,
+        verbose_name="Полное имя сотрудника",
+        blank=True,
+        null=True,
     )
     position = models.ForeignKey(
         Position,
@@ -111,3 +117,7 @@ class Employee(models.Model):
 
     def __str__(self):
         return f"{self.last_name} {self.first_name}"
+
+    def save(self, *args, **kwargs):
+        self.full_name = f"{self.last_name} {self.first_name}"
+        super().save(*args, **kwargs)

@@ -41,10 +41,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'drf_yasg',
     'rest_framework',
+    "drf_spectacular",
+    "drf_spectacular_sidecar",
     'corsheaders',
     'django_filters',
+
     'employees.apps.EmployeesConfig',
     'ratings.apps.RatingsConfig',
 ]
@@ -59,6 +63,17 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE += [
+        "querycount.middleware.QueryCountMiddleware",
+    ]
+
+    QUERYCOUNT = {
+        "IGNORE_REQUEST_PATTERNS": [r"^/admin/"],
+        "IGNORE_SQL_PATTERNS": [r"silk_"],
+        "DISPLAY_DUPLICATES": 2,
+    }
 
 ROOT_URLCONF = 'dashboard_backend.urls'
 
@@ -139,3 +154,30 @@ CORS_URLS_REGEX = r'^/api/.*$'
 # CORS_ALLOWED_ORIGINS = [
 #     'http://localhost:3000',
 # ]
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "DEFAULT_PAGINATION_CLASS": None,
+}
+
+
+# ------------------------------------------------
+#    Настройка SPECTACULAR_SETTINGS для SWAGGERA
+# ------------------------------------------------
+SPECTACULAR_SETTINGS = {
+    "TITLE": "Dashboard",
+    "VERSION": "1.0.0",
+    "DESCRIPTION": "Dashboard",
+    "CONTACT": {
+        "name": "Dashboard",
+        "url": "https://github.com/Team-number-5-hackathon/Dashboard",
+        "email": "lasowskiwlodzimierz@gmail.com",
+    },
+    "COMPONENT_SPLIT_REQUEST": True,
+    "SORT_OPERATIONS": True,
+    "SCHEMA_PATH_PREFIX": r"/api/v1/",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "SCHEMA_COERCE_PATH_PK_SUFFIX": True,
+    "REDOC_DIST": "SIDECAR",
+}

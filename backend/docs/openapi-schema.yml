@@ -170,7 +170,7 @@ paths:
       tags:
         - dashboard
     parameters: []
-  /dashboard/employee_grades/{grade}/positions/:
+  /dashboard/employee_grades/{grade_name}/positions/:
     get:
       operationId: dashboard_employee_grades_positions_list
       description: |-
@@ -232,7 +232,7 @@ paths:
       tags:
         - dashboard
     parameters:
-      - name: grade
+      - name: grade_name
         in: path
         required: true
         type: string
@@ -633,7 +633,7 @@ paths:
         in: path
         required: true
         type: string
-  /dashboard/position_rating/{position_id}/grades/{grade}/:
+  /dashboard/position_rating/{position_id}/grades/{grade_name}/:
     get:
       operationId: dashboard_position_rating_grades_employee_list
       description: |-
@@ -699,7 +699,7 @@ paths:
         in: path
         required: true
         type: string
-      - name: grade
+      - name: grade_name
         in: path
         required: true
         type: string
