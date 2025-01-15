@@ -1,0 +1,1616 @@
+swagger: '2.0'
+info:
+  title: API для приложения Дашборд (Хакатон Росбанк)
+  description: Документация для приложения Дашборд
+  version: v1
+host: 127.0.0.1:8000
+schemes:
+  - http
+basePath: /api/v1
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /competences/:
+    get:
+      operationId: competences_list
+      description: Вьюсет для работы с компетенциями.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Competence'
+      tags:
+        - competences
+    parameters: []
+  /competences/{id}/:
+    get:
+      operationId: competences_read
+      description: Вьюсет для работы с компетенциями.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Competence'
+      tags:
+        - competences
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Компетенция.
+        required: true
+        type: integer
+  /dashboard/bus_factor/:
+    get:
+      operationId: dashboard_bus_factor_list
+      description: Вьюсет для Bus-фактора.
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/BusFactor'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/employee_grades/:
+    get:
+      operationId: dashboard_employee_grades_list
+      description: Вьюсет для работы с чартом "Количество сотрудников по грейдам".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeGrades'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/employee_grades/{grade}/positions/:
+    get:
+      operationId: dashboard_employee_grades_positions_list
+      description: |-
+        Вьюсет для работы с чартом "Количество сотрудников по грейдам".
+        для ВЫБРАННОГО ГРЕЙДА.
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeGradesWithPositions'
+      tags:
+        - dashboard
+    parameters:
+      - name: grade
+        in: path
+        required: true
+        type: string
+  /dashboard/employee_positions/:
+    get:
+      operationId: dashboard_employee_positions_list
+      description: Вьюсет для работы с чартом "Должности сотрудников".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeePositions'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/employee_scores/:
+    get:
+      operationId: dashboard_employee_scores_list
+      description: Вьюсет для работы с чартом "Балы сотрудников по навыкам и датам".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeScores'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/employees_count_with_skills/:
+    get:
+      operationId: dashboard_employees_count_with_skills_list
+      description: |-
+        Вьюсет для чарта "Количество сотрудников, владеющих навыком"
+         для ВСЕХ НАВЫКОВ.
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeesCountWithSkills'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/employees_with_skill/{skill_id}/employees/:
+    get:
+      operationId: dashboard_employees_with_skill_employees_list
+      description: |-
+        Вьюсет для чарта "Количество сотрудников, владеющих навыком"
+         для ВЫБРАННОГО НАВЫКА.
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeesWithSkill'
+      tags:
+        - dashboard
+    parameters:
+      - name: skill_id
+        in: path
+        required: true
+        type: string
+  /dashboard/employees_with_skill/{skill_id}/employees/{id}/:
+    get:
+      operationId: dashboard_employees_with_skill_employees_read
+      description: |-
+        Вьюсет для чарта "Количество сотрудников, владеющих навыком"
+         для ВЫБРАННОГО НАВЫКА.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/EmployeesWithSkill'
+      tags:
+        - dashboard
+    parameters:
+      - name: skill_id
+        in: path
+        required: true
+        type: string
+      - name: id
+        in: path
+        required: true
+        type: string
+  /dashboard/position_rating/:
+    get:
+      operationId: dashboard_position_rating_list
+      description: Вьюсет для работы с чартом "Оценки сотрудников по должностям".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/PositionRating'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/position_rating/{position_id}/grades/:
+    get:
+      operationId: dashboard_position_rating_grades_list
+      description: |-
+        Вьюсет для работы с чартом "Оценки сотрудников по должностям".
+         для ВЫБРАННОЙ ДОЛЖНОСТИ.
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/GradeRating'
+      tags:
+        - dashboard
+    parameters:
+      - name: position_id
+        in: path
+        required: true
+        type: string
+  /dashboard/position_rating/{position_id}/grades/{grade}/:
+    get:
+      operationId: dashboard_position_rating_grades_employee_list
+      description: |-
+        Вьюсет для работы с чартом "Оценки сотрудников по должностям".
+         для ВЫБРАННОЙ ДОЛЖНОСТИ И ГРЕЙДА.
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeRating'
+      tags:
+        - dashboard
+    parameters:
+      - name: position_id
+        in: path
+        required: true
+        type: string
+      - name: grade
+        in: path
+        required: true
+        type: string
+  /dashboard/skill_level/:
+    get:
+      operationId: dashboard_skill_level_list
+      description: Вьюсет для работы с чартом "Уровень владения навыками".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SkillsLevel'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/skills_development/:
+    get:
+      operationId: dashboard_skills_development_list
+      description: Вьюсет для работы с чартом "Динамика развития навыков".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SkillsDevelopment'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/suitability_position/:
+    get:
+      operationId: dashboard_suitability_position_list
+      description: Вьюсет для работы с чартом "Соответствие должности".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/SuitabilityPosition'
+      tags:
+        - dashboard
+    parameters: []
+  /dashboard/suitability_position/{employee_id}/skills/:
+    get:
+      operationId: dashboard_suitability_position_skills_list
+      description: Вьюсет для работы с чартом "Уровень владения навыками".
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/EmployeeSkillAverageRating'
+      tags:
+        - dashboard
+    parameters:
+      - name: employee_id
+        in: path
+        required: true
+        type: string
+  /domains/:
+    get:
+      operationId: domains_list
+      description: Вьюсет для работы с доменами.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Domain'
+      tags:
+        - domains
+    parameters: []
+  /domains/{id}/:
+    get:
+      operationId: domains_read
+      description: Вьюсет для работы с доменами.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Domain'
+      tags:
+        - domains
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Домен.
+        required: true
+        type: integer
+  /employees/:
+    get:
+      operationId: employees_list
+      description: Вьюсет для работы с сотрудниками.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Employee'
+      tags:
+        - employees
+    parameters: []
+  /employees/{id}/:
+    get:
+      operationId: employees_read
+      description: Вьюсет для работы с сотрудниками.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Employee'
+      tags:
+        - employees
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Сотрудник.
+        required: true
+        type: integer
+  /positions/:
+    get:
+      operationId: positions_list
+      description: Вьюсет для работы с должностями.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Position'
+      tags:
+        - positions
+    parameters: []
+  /positions/{id}/:
+    get:
+      operationId: positions_read
+      description: Вьюсет для работы с должностями.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Position'
+      tags:
+        - positions
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Должность.
+        required: true
+        type: integer
+  /raitings/:
+    get:
+      operationId: raitings_list
+      description: Вьюсет для работы с оценками сотрудников.
+      parameters:
+        - name: team
+          in: query
+          description: team
+          required: false
+          type: string
+        - name: grade
+          in: query
+          description: grade
+          required: false
+          type: string
+        - name: skill
+          in: query
+          description: skill
+          required: false
+          type: string
+        - name: position
+          in: query
+          description: position
+          required: false
+          type: string
+        - name: employee
+          in: query
+          description: employee
+          required: false
+          type: string
+        - name: competence
+          in: query
+          description: competence
+          required: false
+          type: string
+        - name: domain
+          in: query
+          description: domain
+          required: false
+          type: string
+        - name: start_date
+          in: query
+          description: start_date
+          required: false
+          type: string
+        - name: end_date
+          in: query
+          description: end_date
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Rating'
+      tags:
+        - raitings
+    parameters: []
+  /raitings/{id}/:
+    get:
+      operationId: raitings_read
+      description: Вьюсет для работы с оценками сотрудников.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Rating'
+      tags:
+        - raitings
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Оценка навыков сотрудника.
+        required: true
+        type: integer
+  /skills/:
+    get:
+      operationId: skills_list
+      description: Вьюсет для работы с навыками.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Skill'
+      tags:
+        - skills
+    parameters: []
+  /skills/{id}/:
+    get:
+      operationId: skills_read
+      description: Вьюсет для работы с навыками.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Skill'
+      tags:
+        - skills
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Навык.
+        required: true
+        type: integer
+  /teams/:
+    get:
+      operationId: teams_list
+      description: Вьюсет для работы с командами.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Team'
+      tags:
+        - teams
+    parameters: []
+  /teams/{id}/:
+    get:
+      operationId: teams_read
+      description: Вьюсет для работы с командами.
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Team'
+      tags:
+        - teams
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this Команда.
+        required: true
+        type: integer
+definitions:
+  Competence:
+    required:
+      - name
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: Название компетенции
+        type: string
+        maxLength: 150
+        minLength: 1
+  BusFactor:
+    type: object
+    properties:
+      skill:
+        title: Skill
+        type: string
+        readOnly: true
+        minLength: 1
+      bus_factor:
+        title: Bus factor
+        type: integer
+        readOnly: true
+  EmployeeGrades:
+    type: object
+    properties:
+      grade:
+        title: Grade
+        type: string
+        readOnly: true
+        minLength: 1
+      grade_employee_count:
+        title: Grade employee count
+        type: integer
+        readOnly: true
+      total_employee_count:
+        title: Total employee count
+        type: integer
+        readOnly: true
+      percentage:
+        title: Percentage
+        type: string
+        readOnly: true
+  EmployeeGradesWithPositions:
+    type: object
+    properties:
+      position:
+        title: Position
+        type: string
+        readOnly: true
+        minLength: 1
+      position_employee_count:
+        title: Position employee count
+        type: integer
+        readOnly: true
+      total_employee_count:
+        title: Total employee count
+        type: integer
+        readOnly: true
+      percentage:
+        title: Percentage
+        type: string
+        readOnly: true
+  EmployeePositions:
+    type: object
+    properties:
+      position:
+        title: Position
+        type: string
+        readOnly: true
+        minLength: 1
+      position_employee_count:
+        title: Position employee count
+        type: integer
+        readOnly: true
+      total_employee_count:
+        title: Total employee count
+        type: integer
+        readOnly: true
+      percentage:
+        title: Percentage
+        type: string
+        readOnly: true
+  EmployeeScores:
+    required:
+      - rating_date
+    type: object
+    properties:
+      employee:
+        title: Employee
+        type: string
+        readOnly: true
+        minLength: 1
+      domain:
+        title: Domain
+        type: string
+        readOnly: true
+        minLength: 1
+      competence_name:
+        title: Competence name
+        type: string
+        readOnly: true
+        minLength: 1
+      skill_name:
+        title: Skill name
+        type: string
+        readOnly: true
+        minLength: 1
+      rating_date:
+        title: Дата оценки
+        type: string
+        format: date
+  EmployeesCountWithSkills:
+    type: object
+    properties:
+      domain:
+        title: Domain
+        type: string
+        readOnly: true
+        minLength: 1
+      skill_id:
+        title: Skill id
+        type: string
+        readOnly: true
+        minLength: 1
+      skill_name:
+        title: Skill name
+        type: string
+        readOnly: true
+        minLength: 1
+      count_employees:
+        title: Count employees
+        type: integer
+        readOnly: true
+  EmployeesWithSkill:
+    type: object
+    properties:
+      domain:
+        title: Domain
+        type: string
+        readOnly: true
+        minLength: 1
+      employee:
+        title: Employee
+        type: string
+        readOnly: true
+        minLength: 1
+      count_employees:
+        title: Count employees
+        type: integer
+        readOnly: true
+  PositionRating:
+    required:
+      - position
+      - position_id
+      - average_rating
+    type: object
+    properties:
+      position:
+        title: Position
+        type: string
+        minLength: 1
+      position_id:
+        title: Position id
+        type: string
+        minLength: 1
+      average_rating:
+        title: Average rating
+        type: string
+        format: decimal
+  GradeRating:
+    required:
+      - grade
+      - average_rating
+    type: object
+    properties:
+      grade:
+        title: Grade
+        type: string
+        minLength: 1
+      average_rating:
+        title: Average rating
+        type: string
+        format: decimal
+  EmployeeRating:
+    required:
+      - average_rating
+    type: object
+    properties:
+      employee:
+        title: Employee
+        type: string
+        readOnly: true
+        minLength: 1
+      average_rating:
+        title: Average rating
+        type: string
+        format: decimal
+  SkillsLevel:
+    type: object
+    properties:
+      domain:
+        title: Domain
+        type: string
+        readOnly: true
+        minLength: 1
+      skill_name:
+        title: Skill name
+        type: string
+        readOnly: true
+        minLength: 1
+      skill_level:
+        title: Skill level
+        type: string
+        format: decimal
+        readOnly: true
+  SkillsDevelopment:
+    required:
+      - rating_date
+      - average_rating
+      - average_rating_hard
+      - average_rating_soft
+    type: object
+    properties:
+      rating_date:
+        title: Rating date
+        type: string
+        format: date
+      average_rating:
+        title: Average rating
+        type: string
+        format: decimal
+      average_rating_hard:
+        title: Average rating hard
+        type: string
+        format: decimal
+      average_rating_soft:
+        title: Average rating soft
+        type: string
+        format: decimal
+  SuitabilityPosition:
+    required:
+      - total_yes
+      - total
+      - percentage
+    type: object
+    properties:
+      employee_id:
+        title: Employee id
+        type: string
+        readOnly: true
+        minLength: 1
+      employee:
+        title: Employee
+        type: string
+        readOnly: true
+        minLength: 1
+      total_yes:
+        title: Total yes
+        type: integer
+      total:
+        title: Total
+        type: integer
+      percentage:
+        title: Percentage
+        type: number
+  EmployeeSkillAverageRating:
+    type: object
+    properties:
+      skill_name:
+        title: Skill name
+        type: string
+        readOnly: true
+        minLength: 1
+      average_rating:
+        title: Average rating
+        type: number
+        readOnly: true
+  Domain:
+    required:
+      - name
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: Название домена
+        type: string
+        maxLength: 50
+        minLength: 1
+  Employee:
+    required:
+      - first_name
+      - last_name
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      team:
+        title: Team
+        type: string
+        readOnly: true
+      position:
+        title: Position
+        type: string
+        readOnly: true
+      first_name:
+        title: Имя сотрудника
+        type: string
+        pattern: ^[а-яА-ЯёЁa-zA-Z]+(\s?\-?[а-яА-ЯёЁa-zA-Z]+){0,5}$
+        maxLength: 50
+        minLength: 2
+      last_name:
+        title: Фамилия сотрудника
+        type: string
+        pattern: ^[а-яА-ЯёЁa-zA-Z]+(\s?\-?[а-яА-ЯёЁa-zA-Z]+){0,5}$
+        maxLength: 50
+        minLength: 2
+      grade:
+        title: Грейд сотрудника
+        type: string
+        enum:
+          - Junior
+          - Middle
+          - Senior
+          - Intern
+          - Lead
+          - Head
+  Position:
+    required:
+      - name
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: Название должности
+        type: string
+        maxLength: 150
+        minLength: 1
+  Rating:
+    required:
+      - rating_date
+      - rating_value
+    type: object
+    properties:
+      employee:
+        title: Employee
+        type: string
+        readOnly: true
+      team:
+        title: Team
+        type: string
+        readOnly: true
+      grade:
+        title: Grade
+        type: string
+        readOnly: true
+      position:
+        title: Position
+        type: string
+        readOnly: true
+      skill:
+        title: Skill
+        type: string
+        readOnly: true
+      rating_date:
+        title: Дата оценки
+        type: string
+        format: date
+      rating_value:
+        title: Оценка сотрудника
+        type: integer
+        enum:
+          - 1
+          - 2
+          - 3
+          - 4
+          - 5
+      suitability:
+        title: Соответствие
+        type: string
+        enum:
+          - да
+          - нет
+          - не требуется
+  Skill:
+    required:
+      - name
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: Название навыка
+        type: string
+        maxLength: 150
+        minLength: 1
+  Team:
+    required:
+      - name
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      name:
+        title: Название команды
+        type: string
+        maxLength: 150
+        minLength: 1
