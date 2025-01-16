@@ -21,6 +21,7 @@ class EmployeeAdmin(admin.ModelAdmin):
     search_fields = ("first_name", "last_name")
     list_filter = ("team", "position", "grade")
     ordering = ("first_name", "last_name")
+    readonly_fields = ("full_name",)
 
 
 @admin.register(Team)
