@@ -1,6 +1,6 @@
 from django.db import models
 
-from config import MAX_LENGTH, MIN_LENGTH
+from config import NAME_MAX_LENGTH, MIN_LENGTH
 from employees.models import Employee
 
 
@@ -26,7 +26,7 @@ class Competence(models.Model):
     """Модель компетенции."""
 
     name = models.CharField(
-        max_length=MAX_LENGTH,
+        max_length=NAME_MAX_LENGTH,
         verbose_name="Название компетенции",
         unique=True
     )
@@ -50,7 +50,7 @@ class Skill(models.Model):
     """Модель навыка."""
 
     name = models.CharField(
-        max_length=MAX_LENGTH,
+        max_length=NAME_MAX_LENGTH,
         verbose_name="Название навыка",
         unique=True
     )
