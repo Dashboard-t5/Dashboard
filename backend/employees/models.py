@@ -1,14 +1,26 @@
 from django.db import models
 from django.core.validators import MinLengthValidator, RegexValidator
 
-from config import MIN_LENGTH, MAX_LENGTH
+from employees.constants import (
+    FIRST_NAME_MAX_LENGTH,
+    FIRST_NAME_MIN_LENGTH,
+    FULL_NAME_MAX_LENGTH,
+    GRADE_CHOICES,
+    GRADE_MAX_LENGTH,
+    JUNIOR,
+    LAST_NAME_MAX_LENGTH,
+    LAST_NAME_MIN_LENGTH,
+    POSITION_NAME_MAX_LENGTH,
+    TEAM_NAME_MAX_LENGTH,
+    VALID_NAME_REGEX
+)
 
 
 class Position(models.Model):
     """Модель должности."""
 
     name = models.CharField(
-        max_length=MAX_LENGTH,
+        max_length=POSITION_NAME_MAX_LENGTH,
         verbose_name="Название должности",
         unique=True,
     )
@@ -26,7 +38,7 @@ class Team(models.Model):
     """Модель команды."""
 
     name = models.CharField(
-        max_length=MAX_LENGTH,
+        max_length=TEAM_NAME_MAX_LENGTH,
         verbose_name="Название команды",
         unique=True
     )
@@ -43,51 +55,40 @@ class Team(models.Model):
 class Employee(models.Model):
     """Модель сотрудника."""
 
-    JUNIOR = "Junior"
-    MIDDLE = "Middle"
-    SENIOR = "Senior"
-    INTERN = "Intern"
-    LEAD = "Lead"
-    HEAD = "Head"
-
-    GRADE_CHOICES = (
-        (JUNIOR, "Джуниор"),
-        (MIDDLE, "Мидл"),
-        (SENIOR, "Сеньор"),
-        (INTERN, "Cтажер"),
-        (LEAD, "Ведущий специалист"),
-        (HEAD, "Руководитель"),
-    )
     first_name = models.CharField(
-        max_length=MAX_LENGTH,
+        max_length=FIRST_NAME_MAX_LENGTH,
         verbose_name="Имя сотрудника",
         blank=False,
         null=False,
         validators=[
             RegexValidator(
-                regex=r"^[а-яА-ЯёЁa-zA-Z]+(\s?\-?[а-яА-ЯёЁa-zA-Z]+){0,5}$",
+                regex=VALID_NAME_REGEX,
                 message="Введены недопустимые символы.",
                 code="invalid_employee_first_name",
             ),
-            MinLengthValidator(limit_value=2),
+            MinLengthValidator(
+                limit_value=FIRST_NAME_MIN_LENGTH
+            ),
         ],
     )
     last_name = models.CharField(
-        max_length=MAX_LENGTH,
+        max_length=LAST_NAME_MAX_LENGTH,
         verbose_name="Фамилия сотрудника",
         blank=False,
         null=False,
         validators=[
             RegexValidator(
-                regex=r"^[а-яА-ЯёЁa-zA-Z]+(\s?\-?[а-яА-ЯёЁa-zA-Z]+){0,5}$",
+                regex=VALID_NAME_REGEX,
                 message="Введены недопустимые символы.",
                 code="invalid_employee_last_name",
             ),
-            MinLengthValidator(limit_value=2),
+            MinLengthValidator(
+                limit_value=LAST_NAME_MIN_LENGTH
+            ),
         ],
     )
     full_name = models.CharField(
-        max_length=MAX_LENGTH,
+        max_length=FULL_NAME_MAX_LENGTH,
         verbose_name="Полное имя сотрудника",
         blank=True,
         null=True,
@@ -103,7 +104,7 @@ class Employee(models.Model):
         verbose_name="Команда",
     )
     grade = models.CharField(
-        max_length=max(len(grade) for grade, _ in GRADE_CHOICES),
+        max_length=GRADE_MAX_LENGTH,
         verbose_name="Грейд сотрудника",
         choices=GRADE_CHOICES,
         default=JUNIOR,
