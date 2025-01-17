@@ -1,9 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import {useState} from 'react'
-import {useState} from 'react'
 import Layout from './components/Layout/Layout'
 import NotFound from './components/NotFound/NotFound'
-import { TeamContext } from './context/context';
 import { TeamContext } from './context/context';
 
 function App() {
