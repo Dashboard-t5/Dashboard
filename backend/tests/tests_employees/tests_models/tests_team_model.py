@@ -4,10 +4,11 @@
 # 3) Проверка, что обязательные поля не могут быть пустыми
 # 4) Проверка, что текстовые поля не могут быть blank.
 # 5) Проверка, валидации поля name
-# 6) Проверка успешного создания объекта
-# 7) Проверка успешного удаления объекта
-# 8) Тестирование класса Meta
-# 9) Тесты строкового представления (__str__)
+# 6) Проверка уникальности поля name
+# 7) Проверка успешного создания объекта
+# 8) Проверка успешного удаления объекта
+# 9) Тестирование класса Meta
+# 10) Тесты строкового представления (__str__)
 
 from model_bakery import baker
 
@@ -104,6 +105,18 @@ class TestTeamModel(TestCase):
             else:
                 with self.assertRaises(ValidationError):
                     team.full_clean()
+
+    def test_unique_name(self):
+        """Проверка уникальности."""
+        team_2 = baker.prepare(
+            "employees.Team",
+            name=self.team.name,
+        )
+        with self.assertRaises(ValidationError):
+            team_2.full_clean()
+
+        with self.assertRaises(IntegrityError):
+            team_2.save()
 
     # Проверки функциональности
     def test_team_successful_creation(self):

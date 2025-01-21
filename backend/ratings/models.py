@@ -2,13 +2,18 @@ from django.db import models
 
 from config import NAME_MAX_LENGTH, MIN_LENGTH
 from employees.models import Employee
+from ratings.constants import (
+    COMPETENCE_NAME_MAX_LENGTH,
+    DOMAIN_NAME_MAX_LENGTH,
+    SKILL_NAME_MAX_LENGTH,
+)
 
 
 class Domain(models.Model):
     """Модель домена."""
 
     name = models.CharField(
-        max_length=MIN_LENGTH,
+        max_length=DOMAIN_NAME_MAX_LENGTH,
         verbose_name="Название домена",
         unique=True
     )
@@ -26,7 +31,7 @@ class Competence(models.Model):
     """Модель компетенции."""
 
     name = models.CharField(
-        max_length=NAME_MAX_LENGTH,
+        max_length=COMPETENCE_NAME_MAX_LENGTH,
         verbose_name="Название компетенции",
         unique=True
     )
@@ -50,7 +55,7 @@ class Skill(models.Model):
     """Модель навыка."""
 
     name = models.CharField(
-        max_length=NAME_MAX_LENGTH,
+        max_length=SKILL_NAME_MAX_LENGTH,
         verbose_name="Название навыка",
         unique=True
     )
