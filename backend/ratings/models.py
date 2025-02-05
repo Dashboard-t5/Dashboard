@@ -1,6 +1,5 @@
 from django.db import models
 
-from config import NAME_MAX_LENGTH, MIN_LENGTH
 from employees.models import Employee
 from ratings.constants import (
     COMPETENCE_NAME_MAX_LENGTH,
