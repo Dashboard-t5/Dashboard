@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     "drf_spectacular_sidecar",
     'corsheaders',
     'django_filters',
+    'django_extensions',
 
     'employees.apps.EmployeesConfig',
     'ratings.apps.RatingsConfig',
