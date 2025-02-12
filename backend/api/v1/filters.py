@@ -8,8 +8,8 @@ class RatingFilter(django_filters.FilterSet):
     team = django_filters.NumberFilter(
         field_name="employee__team__id",
     )
-    grade = django_filters.NumberFilter(
-        field_name="employee__grade__id",
+    grade = django_filters.CharFilter(
+        field_name="employee__grade",
     )
     position = django_filters.NumberFilter(
         field_name="employee__position__id",
