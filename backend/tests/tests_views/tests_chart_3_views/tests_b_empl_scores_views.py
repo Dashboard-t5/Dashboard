@@ -2,7 +2,8 @@
 #    1) Проверка корректного отображения балов сотрудников
 #    по навыкам и датам
 #    2) Проверка сортировки
-#    3) Проверка фильтров (см. модуль tests_filter_set.py)
+
+from datetime import date
 
 from model_bakery import baker
 
@@ -22,10 +23,6 @@ class TestEmployeeScoresViewSet(APITestCase):
             "ratings.Domain",
             name="Hard skills",
         )
-        # cls.domain_2 = baker.make(
-        #     "ratings.Domain",
-        #     name="Soft skills",
-        # )
 
         cls.competence_1 = baker.make(
             "ratings.Competence",
@@ -64,22 +61,26 @@ class TestEmployeeScoresViewSet(APITestCase):
             last_name="employee",
             first_name="3",
         )
+        cls.today_date = date(2024, 3, 25)
         cls.rating_1 = baker.make(
             "ratings.Rating",
             employee=cls.employee_1,
             skill=cls.skill_1,
+            rating_date=cls.today_date,
             rating_value=4,
         )
         cls.rating_2 = baker.make(
             "ratings.Rating",
             employee=cls.employee_2,
             skill=cls.skill_1,
+            rating_date=cls.today_date,
             rating_value=5,
         )
         cls.rating_3 = baker.make(
             "ratings.Rating",
             employee=cls.employee_3,
             skill=cls.skill_2,
+            rating_date=cls.today_date,
             rating_value=3,
         )
         cls.url = reverse(cls.view_name)
@@ -94,21 +95,23 @@ class TestEmployeeScoresViewSet(APITestCase):
                 'domain': 'Hard skills',
                 'competence_name': 'Competence_#1',
                 'skill_name': 'Skill_#1',
-                'rating_date': '2025-02-12',
+                'rating_date': '2024-03-25',
                 'rating_value': 4
-            }, {
+            },
+            {
                 'employee': 'employee 2',
                 'domain': 'Hard skills',
                 'competence_name': 'Competence_#1',
                 'skill_name': 'Skill_#1',
-                'rating_date': '2025-02-12',
+                'rating_date': '2024-03-25',
                 'rating_value': 5
-            }, {
+            },
+            {
                 'employee': 'employee 3',
                 'domain': 'Hard skills',
                 'competence_name': 'Competence_#1',
                 'skill_name': 'Skill_#2',
-                'rating_date': '2025-02-12',
+                'rating_date': '2024-03-25',
                 'rating_value': 3
             }
         ]
@@ -138,7 +141,7 @@ class TestEmployeeScoresViewSet(APITestCase):
                 'domain': 'Hard skills',
                 'competence_name': 'Competence_#1',
                 'skill_name': 'Skill_#2',
-                'rating_date': '2025-02-12',
+                'rating_date': '2024-03-25',
                 'rating_value': 3
             },
             {
@@ -146,14 +149,14 @@ class TestEmployeeScoresViewSet(APITestCase):
                 'domain': 'Hard skills',
                 'competence_name': 'Competence_#1',
                 'skill_name': 'Skill_#1',
-                'rating_date': '2025-02-12',
+                'rating_date': '2024-03-25',
                 'rating_value': 4
             }, {
                 'employee': 'employee 2',
                 'domain': 'Hard skills',
                 'competence_name': 'Competence_#1',
                 'skill_name': 'Skill_#1',
-                'rating_date': '2025-02-12',
+                'rating_date': '2024-03-25',
                 'rating_value': 5
             }
         ]

@@ -1,9 +1,7 @@
 #           План тестирования EmployeePositionsViewSet
 #    1) Проверка корректной калькуляции процента сотрудников по должностям
 #    2) Проверка сортировки
-#    3) Проверка фильтров (см. модуль tests_filter_set.py)
 
-from datetime import date, timedelta
 from model_bakery import baker
 
 from rest_framework import status

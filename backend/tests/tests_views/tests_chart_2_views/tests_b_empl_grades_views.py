@@ -2,15 +2,7 @@
 #    1) Проверка корректной калькуляции процента сотрудников
 #    по грейдам
 #    2) Проверка сортировки
-#    3) Проверка фильтров (см. модуль tests_filter_set.py)
 
-#           План тестирования EmployeeGradesWithPositionsViewSet
-#    1) Проверка корректной калькуляции процента сотрудников
-#    по должностям для выбранного грейда
-#    2) Проверка сортировки
-#    3) Проверка фильтров (см. модуль tests_filter_set.py)
-
-from datetime import date, timedelta
 from model_bakery import baker
 
 from rest_framework import status
@@ -140,6 +132,12 @@ class TestEmployeeGradesViewSet(APITestCase):
             response.data,
             expected_response_data,
         )
+
+
+#           План тестирования EmployeeGradesWithPositionsViewSet
+#    1) Проверка корректной калькуляции процента сотрудников
+#    по должностям для выбранного грейда
+#    2) Проверка сортировки
 
 
 class TestEmployeeGradesWithPositionsViewSet(APITestCase):
