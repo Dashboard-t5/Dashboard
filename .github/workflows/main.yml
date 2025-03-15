@@ -24,7 +24,7 @@ jobs:
         cd backend/
         python -m flake8
 
-  build_and_push_to_docker_hub:
+  build_backend_and_push_to_docker_hub:
     name: Push Docker image to DockerHub
     runs-on: ubuntu-latest
     steps:
@@ -67,7 +67,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs:
-      - build_and_push_to_docker_hub
+      - build_backend_and_push_to_docker_hub
       - build_frontend_and_push_to_docker_hub
     steps:
     - name: Checkout repo
@@ -79,8 +79,9 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "docker-compose.prod.yml"
-        target: "Dashboard/docker-compose.prod.yml"
+        source: "infra/prod/docker-compose.prod.yaml"
+        target: "Dashboard/"
+        strip_components: 2
     - name: Copy nginx config via ssh
       uses: appleboy/scp-action@master
       with:
@@ -88,8 +89,9 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "nginx.prod.conf"
-        target: "Dashboard/nginx.prod.conf"
+        source: "infra/prod/nginx.prod.conf"
+        target: "Dashboard/"
+        strip_components: 2
     - name: Executing remote ssh commands to deploy
       uses: appleboy/ssh-action@master
       with:
