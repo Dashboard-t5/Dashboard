@@ -2,14 +2,9 @@
 #    1) Проверка корректного отображения списка сотрудников, владеющих
 #       навыками
 #    2) Проверка сортировки
-#    3) Проверка фильтров (см. модуль tests_filter_set.py)
-
-#           План тестирования EmployeesWithSkillViewSet
-#    1) Проверка корректного отображения списка сотрудников, владеющих
-#       выбранным навыком
-#    2) Проверка фильтров (см. модуль tests_filter_set.py)
 
 from datetime import date, timedelta
+
 from model_bakery import baker
 
 from rest_framework import status
@@ -216,6 +211,11 @@ class TestEmployeesCountWithSkillsViewSet(APITestCase):
             response.data,
             expected_response_data,
         )
+
+
+#           План тестирования EmployeesWithSkillViewSet
+#    1) Проверка корректного отображения списка сотрудников, владеющих
+#       выбранным навыком
 
 
 class TestEmployeesWithSkillViewSet(APITestCase):
