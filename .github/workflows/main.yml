@@ -89,7 +89,7 @@ jobs:
         username: ${{ secrets.USER }}
         key: ${{ secrets.SSH_KEY }}
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
-        source: "infra/prod/nginx.prod.conf"
+        source: "infra/prod/nginx.conf"
         target: "Dashboard/"
         strip_components: 2
     - name: Executing remote ssh commands to deploy
