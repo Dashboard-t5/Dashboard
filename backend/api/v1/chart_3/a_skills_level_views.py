@@ -33,7 +33,6 @@ class SkillsLevelViewSet(
     def get_queryset(self):
         return Rating.objects.select_related(
             "skill",
-            "skill__competence",
             "skill__competence__domain",
         ).values(
             "skill__competence__domain__name",

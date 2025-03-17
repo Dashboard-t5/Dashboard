@@ -1,5 +1,5 @@
 from django.db.models import Avg, Count, F, IntegerField, Q
-from django.db.models.functions import Cast
+from django.db.models.functions import Cast, Round
 from django.shortcuts import get_object_or_404
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema_view
@@ -49,12 +49,12 @@ class SuitabilityPositionViewSet(
         ).annotate(
             total=Count(
                 "skill",
-                distinct=True,
+                # distinct=True,
                 filter=~Q(suitability="не требуется"),
             ),
             total_yes=Count(
                 "skill",
-                distinct=True,
+                # distinct=True,
                 filter=Q(suitability="да")
             ),
             percentage=Cast(
@@ -99,7 +99,7 @@ class EmployeeSkillsAverageRatingViewSet(
         ).values(
             "skill__name"
         ).annotate(
-            average_rating=Avg("rating_value")
+            average_rating=Round(Avg("rating_value"), precision=1)
         ).order_by(
             "average_rating"
         )
