@@ -54,7 +54,7 @@
 1. Клонировать репозиторий и перейти в директорию:
 
 ```
-git clone git@github.com:Team-number-5-hackathon/Dashboard.git
+git clone git@github.com:Dashboard-t5/Dashboard.git
 ```
 
 ```
