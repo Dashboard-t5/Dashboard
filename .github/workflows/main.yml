@@ -25,7 +25,7 @@ jobs:
         python -m flake8
 
   build_backend_and_push_to_docker_hub:
-    name: Push Docker image to DockerHub
+    name: Push backend Docker image to DockerHub
     runs-on: ubuntu-latest
     steps:
       - name: Check out the repo
@@ -101,6 +101,7 @@ jobs:
         passphrase: ${{ secrets.SSH_PASSPHRASE }}
         script: |
           cd Dashboard
+          sudo docker system prune -af
           sudo docker-compose -f docker-compose.prod.yaml pull
           sudo docker-compose -f docker-compose.prod.yaml down
           sudo docker-compose -f docker-compose.prod.yaml up -d
