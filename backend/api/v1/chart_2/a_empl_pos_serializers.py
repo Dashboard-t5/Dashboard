@@ -44,7 +44,6 @@ class EmployeePositionsSerializer(
         )
 
 
-
 class EmployeeGradesWithPositionsSerializer(serializers.ModelSerializer):
     """Сериализатор для чарта "Количество сотрудников по грейдам".
     для ВЫБРАННОГО ГРЕЙДА

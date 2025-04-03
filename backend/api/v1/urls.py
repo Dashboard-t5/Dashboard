@@ -139,7 +139,8 @@ router_v1.register(
     basename="grade_rating",
 )
 router_v1.register(
-    r"dashboard/position_rating/(?P<position_id>\d+)/grades/(?P<grade_name>\w+)",
+    r"dashboard/position_rating/"
+    r"(?P<position_id>\d+)/grades/(?P<grade_name>\w+)",
     EmployeeRatingViewSet,
     basename="employee_rating",
 )
